@@ -12,11 +12,7 @@ public class testcontroller {
 		System.out.println("??");
 		return "main";
 	}
-	@RequestMapping(value="/board",method=RequestMethod.GET)
-	public String board() {
-		System.out.println("??22");
-		return "board";
-	}
+
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home() {
 		System.out.println("??33");
