@@ -13,6 +13,7 @@
 </head>
 <body>
 <!-- Menu -->
+<nav class="navbar navbar-inverse">
  <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -30,7 +31,6 @@
      	  <ul class="dropdown-menu">
             <li><a href="#">메뉴 관리</a></li>
             <li><a href="#">원재료 관리</a></li>
-            <li><a href="#">레시피 관리</a></li> 
           </ul>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-credit-card"></span> 거래관리</a>
@@ -44,5 +44,6 @@
       </ul>
     </div>
   </div>
+ </nav> 
 </body>
 </html>
