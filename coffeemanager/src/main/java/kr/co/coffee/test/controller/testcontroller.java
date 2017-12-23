@@ -13,9 +13,9 @@ public class testcontroller {
 		return "main";
 	}
 
-	@RequestMapping(value="/",method=RequestMethod.GET)
+/*	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home() {
 		System.out.println("??33");
 		return "home";
-	}
+	}*/
 }
