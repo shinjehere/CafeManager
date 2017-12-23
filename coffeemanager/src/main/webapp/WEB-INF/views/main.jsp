@@ -14,7 +14,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
  <!-- high chart -->
-
   <script src="${pageContext.request.contextPath}/resources/js/main/main.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -22,14 +21,9 @@
 
 <body>
 <!-- Header -->
-<div class="jumbotron">
- <%@include file="./template/header.jsp" %>
-</div>
-
+<jsp:include page="./template/header.jsp" flush="false"/>
 <!-- Menu -->
-<nav class="navbar navbar-inverse">
- <%@include file="./template/menu.jsp" %>
-</nav>
+<jsp:include page="./template/menu.jsp" flush="false"/>
 
 <!-- Content -->
 <div class="container-fluid text-center">    
@@ -51,8 +45,7 @@
   </div>
 </div>
 <!-- Footer -->
-<footer class="container-fluid text-center">
-	<%@include file="./template/footer.jsp" %>
-</footer>  
+<jsp:include page="./template/footer.jsp" flush="false"/>
+
 </body>
 </html>

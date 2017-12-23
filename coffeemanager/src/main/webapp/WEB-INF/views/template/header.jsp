@@ -8,6 +8,9 @@
 </head>
 <body>
 <!-- Main Logo -->
- <div class="main_logo"></div>
+	<div class="jumbotron">
+	 <div class="main_logo"></div>
+	</div>
+	 
 </body>
 </html>
