@@ -1,0 +1,95 @@
+/* header */
+/* Remove the navbar's default rounded borders and increase the bottom margin */
+.navbar {
+	margin-bottom: 50px;
+	border-radius: 0;
+}
+.jumbotron {
+    height: 50px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    color: inherit;
+    background-color: #fff;
+}
+/* Main Logo */
+.main_logo {
+    float: left;
+    height: 49px;
+    width: 250px;
+    margin-left: -25px;
+    background-image: url(../../files/images/main/cafe_logo.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* menu */
+@media (min-width: 768px){
+	#myNavbar>.navbar-nav>li>a {	
+		padding: 15px 0 15px 0;	
+	    line-height: 20px;
+	    width: 160px;
+    	height: 50px;
+	    border-right: white;
+	    border-style: outset;
+	    border-bottom: none;
+	    border-top: none;
+	    border-left: none;
+	    border-left-color: initial;
+	    border-width: 0.2px;
+	    text-align: center; 	    
+} 
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus,
+	.navbar-inverse .navbar-nav>.active>a:hover {
+	color: #fff;
+	background-color: #FF0000;
+}  
+.navbar-inverse .navbar-nav>li>a {
+    color: #fdf7f7;
+}
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+
+}
+@media (min-width: 768px){
+	.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+	    margin-right: 0;
+	    margin-left: -30px;
+	}
+	
+}
+@media (min-width: 992px){
+	.col-md-2, .col-lg-2, .col-sm-2, .col-xs-2{
+	    width: 16.6666667%;
+}
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+    margin : 0 -30px 0 -30px;
+}
+.navbar-nav>li>a {
+    line-height: 20px;
+    width: 100%;
+    border-right: white;
+    border-style: outset;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;    
+    border-left-color: initial;
+    border-width: 0.2px;
+    text-align: center;
+}
+
+/* footer */
+/* Add a gray background color and some padding to the footer */
+footer {
+	background-color: #222222;
+	padding: 25px;
+}
