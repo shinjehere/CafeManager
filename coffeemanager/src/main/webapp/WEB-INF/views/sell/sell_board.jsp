@@ -18,6 +18,7 @@
     <!-- Bootstrap -->
 	<link rel="stylesheet" href="resources/dist/css/bootstrap.css">
 	 <link href="/resources/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed --> 
 	<script src="/resources/dist/js/bootstrap.js"></script>
@@ -140,10 +141,11 @@
 			</div>
 			
 			<div class="text-right">
+				<button type="button" class="btn btn-danger">엑셀 다운로드</button>
 				<button type="button" class="btn btn-info">신규등록</button>
 			</div>
 		</div>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+		<div></div>
   </body>
 </html>
 </body>
