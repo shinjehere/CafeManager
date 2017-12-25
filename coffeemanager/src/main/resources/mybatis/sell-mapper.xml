@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.coffee.sell.mapper">
+<!-- 
+	Sell DB Mapper
+	작성자 : 김영섭
+	내용 : SELL 데이터쿼리문 등록 및 저장
+ -->
+ <select id="getSellList" resultType="kr.co.coffee.sell.domain.SellList">
+ 	SELECT 
+ 	s.SELL_CD,
+ 	 s.SELL_DATE,
+ 	  m.MENU_CD,
+ 	   m.MENU_NAME,
+ 	    s.SELL_CNT,
+ 	     s.SELL_CNT*m.MENU_SP total_SP 
+ 	     FROM SELL s,
+ 	      MENU m WHERE s.MENU_CD=m.MENU_CD
+ 	      ORDER BY s.SELL_DATE DESC
+ </select>
+</mapper>
