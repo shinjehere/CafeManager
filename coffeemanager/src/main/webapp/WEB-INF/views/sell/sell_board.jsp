@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -92,38 +94,24 @@
 					</tr>
 				</thead>	
 				<tbody>
+				<c:forEach var="list" items="${sellList }">
 					<tr>
-						<td>se0000001</td>
-						<td>2017.12.21</td>
-						<td>mn0000001</td>
-						<td>아메리카노</td>
-						<td>1</td>
-						<td>1500</td>
+					<!-- 
+						private String sell_CD;
+						private Date sell_Date;
+						private String menu_CD;
+						private String menu_Name;
+						private int sell_CNT;
+						private int total_SP;
+					 -->
+						<td>${list.sell_CD }</td>
+						<td>${list.sell_Date }</td>
+						<td>${list.menu_CD }</td>
+						<td>${list.menu_Name }</td>
+						<td>${list.sell_CNT }</td>
+						<td>${list.total_SP }</td>
 					</tr>
-						<tr>
-						<td>se0000002</td>
-						<td>2017.12.21</td>
-						<td>mn0000002</td>
-						<td>라떼</td>
-						<td>1</td>
-						<td>2000</td>
-					</tr>
-						<tr>
-						<td>se0000003</td>
-						<td>2017.12.21</td>
-						<td>mn0000001</td>
-						<td>아메리카노</td>
-						<td>1</td>
-						<td>1500</td>
-					</tr>
-						<tr>
-						<td>se0000004</td>
-						<td>2017.12.21</td>
-						<td>mn0000001</td>
-						<td>아메리카노</td>
-						<td>3</td>
-						<td>4500</td>
-					</tr>
+					</c:forEach>	
 				</tbody>
 			</table>
 			</div>
