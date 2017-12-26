@@ -138,7 +138,7 @@
 				<button type="button" class="btn btn-info">신규등록</button>
 			</div>
 		</div>
-		<div></div>
+
   </body>
 </html>
 </body>
