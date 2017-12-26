@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.coffee.sell.dao.SellDAO;
+import kr.co.coffee.sell.dao.impl.SellDAOImpl;
 import kr.co.coffee.sell.domain.SellList;
 import kr.co.coffee.sell.service.SellService;
 
@@ -27,6 +29,7 @@ public class sellController {
 	
 	@Autowired
 	private SellService sellService;
+
 	/**
 	 * @author 김영섭
 	 * @param model
@@ -38,6 +41,7 @@ public class sellController {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String sellPage(Model model) throws Exception {
+	
 		model.addAttribute("sellList", sellService.getSellList());
 		model.addAttribute("content", "sell/sell_board.jsp");
 		return "main";

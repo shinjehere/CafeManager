@@ -2,6 +2,7 @@ package kr.co.coffee.sell.dao;
 
 import java.util.List;
 
+import kr.co.coffee.common.WorkDiv;
 import kr.co.coffee.sell.domain.SellList;
 /**
  * 
@@ -10,7 +11,7 @@ import kr.co.coffee.sell.domain.SellList;
  * sellDAO 등록
  *
  */
-public interface SellDAO {
+public interface SellDAO extends WorkDiv {
 
 	public List<SellList> getSellList() throws Exception;
 }

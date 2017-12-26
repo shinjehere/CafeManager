@@ -4,12 +4,11 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
- <head>
+</head> -->
+<head>
     <meta charset="utf-8">
 	<!--
 		Date: 2017-12-24
@@ -109,13 +108,19 @@
 						<td>${list.menu_CD }</td>
 						<td>${list.menu_Name }</td>
 						<td>${list.sell_CNT }</td>
-						<td>${list.total_SP }</td>
+						<td id="number" name="number">${list.total_SP }</td>
 					</tr>
-					</c:forEach>	
+					</c:forEach>
+					
 				</tbody>
 			</table>
 			</div>
-			
+			<script type="text/javascript">
+			$(function numberWithCommas(number) {
+				var sp= $('#number').val;
+			    return sp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			});
+			</script>
 			<div class="text-center">
 			  <ul class="pagination">
 				<li><a href="#">Prev</a></li>
