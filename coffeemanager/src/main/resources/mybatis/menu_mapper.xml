@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.coffee.menu.domain">
-	<select id="do_searchAll" resultType="kr.co.coffee.menu.domain.menuVO">
-		SELECT MENU_CD,
-					MENU_NAME,
-			        MENU_UP,
-			        MENU_SP
-		FROM MENU
-	    ORDER BY MN_REG_DT
-	    WHERE T1.RNUM BETWEEN (#{page_size}*(#{page_num}-1)+1)
-			                    AND (#{page_size}*(#{page_num}-1)+#{page_size});
+<mapper namespace="kr.co.coffee.menu.mapper">
+	<select id="do_searchAll" resultType="kr.co.coffee.menu.domain.MenuVO">
+		SELECT M.MENU_CD,
+					M.MENU_NAME,
+					M.MENU_UP,
+					M.MENU_SP,
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
+					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+			FROM MENU M
+			ORDER BY M.MN_REG_DT DESC
 	</select>
 </mapper>

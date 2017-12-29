@@ -2,7 +2,7 @@ package kr.co.coffee.menu.domain;
 
 import kr.co.coffee.common.DTO;
 
-public class menuVO extends DTO {
+public class MenuVO extends DTO {
 	private String menu_cd;
 	private String menu_name;
 	private String menu_up;
@@ -10,11 +10,11 @@ public class menuVO extends DTO {
 	private String mn_reg_dt;
 	private String mn_mod_dt;
 	
-	public menuVO() {
+	public MenuVO() {
 		
 	}
 	
-	public menuVO(String menu_cd, String menu_name, String menu_up, String menu_sp, String mn_reg_dt,
+	public MenuVO(String menu_cd, String menu_name, String menu_up, String menu_sp, String mn_reg_dt,
 			String mn_mod_dt) {
 		super();
 		this.menu_cd = menu_cd;
