@@ -50,6 +50,12 @@ public class SellList {
 	public void setTotal_SP(int total_SP) {
 		this.total_SP = total_SP;
 	}
+	@Override
+	public String toString() {
+		
+		return "SellList [sell_CD="+sell_CD+", sell_Date="+sell_Date+",menu_CD="+menu_CD+",menu_Name="+menu_Name+",sell_CNT="
+				+sell_CNT+",total_SP="+total_SP+"]";
+	}
 	
 	
 }
