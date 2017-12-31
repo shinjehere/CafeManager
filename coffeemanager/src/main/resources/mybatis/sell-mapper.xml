@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.coffee.sell.mapper">
+<mapper namespace="kr.co.coffee.mapper.CommonMapper">
 <!-- 
 	Sell DB Mapper
 	작성자 : 김영섭
 	내용 : SELL 데이터쿼리문 등록 및 저장
  -->
- <select id="getSellList" resultType="kr.co.coffee.sell.domain.SellList">
+ <select id="getSellList" parameterType="search" resultType="kr.co.coffee.sell.domain.SellList">
+ <![CDATA[
  	SELECT 
  	s.SELL_CD,
  	 s.SELL_DATE,
@@ -14,8 +15,61 @@
  	   m.MENU_NAME,
  	    s.SELL_CNT,
  	     s.SELL_CNT*m.MENU_SP total_SP 
- 	     FROM SELL s,
- 	      MENU m WHERE s.MENU_CD=m.MENU_CD
- 	      ORDER BY s.SELL_DATE DESC
+ 	     FROM SELL s LEFT JOIN MENU m
+ 	      ON s.MENU_CD=m.MENU_CD
+ 	       ]]>
+ 	      <where>
+ 	      <if test="searchDiv == 1">
+	 		 <if test='searchValue != null and searchValue != ""'>
+	 	 	<![CDATA[	AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
+	 	 	</if>
+	 	 	<!-- <if test='searchValue != null and searchValue != "" 
+	 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+	 	 		AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
+	 	 		#{startDate} AND #{endDate}
+	 	 	</if> -->
+	 	 </if>
+     	 <if test='searchDiv == 2'>
+	        <if test='searchValue != null and searchValue != ""'>
+		        	<![CDATA[	AND s.SELL_CD LIKE CONCAT('%',#{searchValue},'%')]]>
+		    </if>
+		   <!--  <if test='searchValue != null and searchValue != "" 
+	 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+	 	 		AND s.SELl_CD LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
+	 	 		#{startDate} AND #{endDate}
+	 	 	</if> -->
+	      </if>
+	      </where>
+ 	   <![CDATA[   ORDER BY s.SELL_DATE DESC
+ 	      LIMIT #{startCount} , 10 ]]>
+ 	     
+ </select>
+ 
+ <select id="getTotalCount" parameterType="search" resultType="int">
+  <![CDATA[	SELECT COUNT(*)
+ 	 FROM SELL s LEFT JOIN MENU m
+ 	 ON s.MENU_CD=m.MENU_CD ]]>
+ 	 <where>
+ 	 <if test="searchDiv == 1">
+ 		 <if test='searchValue != null and searchValue != ""'>
+ 	 	 <![CDATA[	AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') ]]>
+ 	 	</if>
+ 	 <!-- 	<if test='searchValue != null and searchValue != "" 
+ 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+ 	 		AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
+ 	 		#{startDate} AND #{endDate}
+ 	 	</if> -->
+ 	 </if>
+      <if test='searchDiv == 2'>
+        <if test='searchValue != null and searchValue != ""'>
+	        <![CDATA[ 	AND s.SELL_CD LIKE CONCAT('%',#{searchValue},'%') ]]>
+	    </if>
+	   <!--  <if test='searchValue != null and searchValue != "" 
+ 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+ 	 		AND s.SELl_CD LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
+ 	 		#{startDate} AND #{endDate}
+ 	 	</if> -->
+      </if> 
+     </where> 	 
  </select>
 </mapper>
