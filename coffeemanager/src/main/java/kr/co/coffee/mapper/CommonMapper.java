@@ -12,7 +12,7 @@ public interface CommonMapper {
 	public List<SellList> getSellList(Search search) throws Exception;
 	public List<StockList> selectStockList() throws Exception;
 	public int getTotalCount(Search search) throws Exception;
-	public List<MenuVO>do_searchAll() throws Exception;
+	public List<MenuVO> do_searchAll() throws Exception;
 	/*test*/
 	
 }
