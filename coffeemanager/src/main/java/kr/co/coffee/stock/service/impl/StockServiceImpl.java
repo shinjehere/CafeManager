@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.coffee.stock.dao.StockDAO;
+import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.service.StockService;
 
@@ -20,6 +21,17 @@ public class StockServiceImpl implements StockService{
 	@Override
 	public List<StockList> selectStockList() throws Exception {
 		return stockDAO.selectStockList();
+	}
+
+	@Override
+	public List<StockList> listCriteria(Criteria cri) throws Exception {
+		return stockDAO.listCriteria(cri);
+	}
+
+	@Override
+	public Integer totalCount() throws Exception {
+		// TODO Auto-generated method stub
+		return stockDAO.TotalCount();
 	}
 
 }

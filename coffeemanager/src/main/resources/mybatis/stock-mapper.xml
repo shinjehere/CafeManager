@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.coffee.stock.mapper">
-     <select id="selectStockList" resultType="kr.co.coffee.stock.domain.StockList">     
+      <select id="selectStockList" resultType="kr.co.coffee.stock.domain.StockList">     
      		SELECT
      			ST.STOCK_CD,
      			ST.ING_CD,
@@ -14,7 +14,28 @@
      		 	INGREDIENT AS ING
      		ON
      			ING.ING_CD = ST.ING_CD;
-    	
      </select>
-     
+      
+      <!-- 페이징 처리 -->
+        <select id="listCriteria" resultType="kr.co.coffee.stock.domain.StockList">     
+     		<![CDATA[
+     		SELECT x.*
+				FROM(SELECT @RNUM := @RNUM + 1 AS RNUM, a.*
+					FROM
+					  (SELECT ST.STOCK_CD, ST.ING_CD, ST.STOCK_CNT, ING.ING_NM, ING.ING_PRICE*STOCK_CNT st_total_Price
+						FROM STOCK AS ST
+						JOIN INGREDIENT AS ING
+						ON ING.ING_CD = ST.ING_CD
+						ORDER BY ST.STOCK_CD) AS a, (SELECT @RNUM := 0 ) AS b
+					WHERE @RNUM <= 10) x
+				WHERE x.RNUM>=1
+			LIMIT #{pageStart}, #{perPageNum}
+			]]>
+     	</select>
+  <!--    전체 게시글 수 구하는 sql문 -->
+     	<select id="getTotalCount" resultType="java.lang.Integer">
+     		SELECT COUNT(*)
+     		FROM
+     			STOCK
+     	</select> 
 </mapper>

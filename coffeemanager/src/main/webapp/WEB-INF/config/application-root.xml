@@ -17,6 +17,7 @@
 	</bean>
 		<context:property-placeholder location="classpath:jdbc.properties"/>
 		
+		
 	<!-- 
 	mybatis xml 설정
 	 작성자 : 김영섭
@@ -36,4 +37,6 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+
+
 </beans>

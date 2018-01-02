@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="resources/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stock/stock_board.css"> 
+ <%@include file="./stock_modal.jsp" %> 
 <title>Cafe Manager</title>
 </head>
 <body>
@@ -64,22 +64,29 @@
 			
 			<div class="text-center">
 			  <ul class="pagination">
-				<li><a href="#">Prev</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">Next</a></li>
+
+				<c:if test ="${pageMaker.prev }">
+					<li><a href="../coffee/stock${pageMaker.makeQuery(pageMaker.startPage - 1} }">Prev</a></li>
+				</c:if>
+				 <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="index">
+			        <li><a href="../coffee/stock${pageMaker.makeQuery(index) }">${index }</a></li>
+			     </c:forEach>
+				 <c:if test="${pageMaker.next }">
+			        <li>
+			            <a href="../coffee/stock${pageMaker.makeQuery(pageMaker.endPage + 1} }">Next</a>
+			        </li>
+			    </c:if>
+
 			  </ul>
 			</div>
 			
 			<div class="text-right">
-				<button type="button" class="btn btn-danger">엑셀 다운로드</button>
-				<button type="button" class="btn btn-info">신규등록</button>
+				<button type="button" class="btn btn-danger">엑셀 다운로드</button>			
+				<button type="button" class="btn btn-info btn" data-toggle="modal" data-target="#myModal">신규등록</button>
+		
 			</div>
+		
 		</div>
-	<script src="resources/dist/js/jquery-3.2.1.min.js"></script>
-	<script src="resources/dist/js/bootstrap.js"></script>
+
 </body>
 </html>
