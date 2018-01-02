@@ -1,4 +1,4 @@
-package kr.co.coffee.menu.dao;
+/*package kr.co.coffee.menu.dao;
 
 import java.util.List;
 
@@ -10,3 +10,4 @@ public interface MenuDAO extends WorkDiv {
 
 	public List<MenuVO> do_searchAll() throws Exception;
 }
+*/

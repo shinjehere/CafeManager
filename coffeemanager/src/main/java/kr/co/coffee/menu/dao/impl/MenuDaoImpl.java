@@ -1,4 +1,4 @@
-package kr.co.coffee.menu.dao.impl;
+/*package kr.co.coffee.menu.dao.impl;
 
 import java.util.List;
 
@@ -63,3 +63,4 @@ public class MenuDaoImpl implements MenuDAO {
 	}
 
 }
+*/
