@@ -13,5 +13,5 @@ public interface MenuSvc {
 	 * @return 전체 메뉴 리스트
 	 * @throws Exception 
 	 */
-	public List<MenuVO>do_searchAll() throws Exception;
+	public List<MenuVO> do_searchAll() throws Exception;
 }
