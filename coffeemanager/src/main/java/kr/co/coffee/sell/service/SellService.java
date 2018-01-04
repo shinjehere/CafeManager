@@ -16,5 +16,7 @@ public interface SellService {
 		public List<SellList> getSellList(Search search) throws Exception;
 		
 		public int getTotalCount(Search search) throws Exception;
+		
+		public List<SellList> detail_Sell(String togggle_value) throws Exception;
 
 }

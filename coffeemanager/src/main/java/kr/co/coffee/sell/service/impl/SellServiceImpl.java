@@ -38,6 +38,12 @@ public class SellServiceImpl implements SellService{
 		return CommonMapper.getTotalCount(search);
 	}
 
+	@Override
+	public List<SellList> detail_Sell(String togggle_value) throws Exception {
+		
+		return CommonMapper.detail_Sell(togggle_value);
+	}
+
 
 	
 	
