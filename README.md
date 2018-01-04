@@ -15,8 +15,8 @@
 -JDK 1.8, MYsql 6.3, tomcat 8.0, Spring framework 4.2.5
 
 ## 적용 라이브러리
--fileupload 1.3.1
--swagger2 2.7
+-[fileupload] 1.3.1
+-[swagger2] 2.7
 -mysql-connector-java 6.0.6
 -mybatis-spring 1.3.1
 -mybatis 3.4.5
@@ -27,3 +27,7 @@
 -jquery 3.2.1
 -bootstrap 3.3.7-1
 -jstl 1.2
+
+## 추후 추가 기능
+-로그인 기능
+-쿠폰 기능
