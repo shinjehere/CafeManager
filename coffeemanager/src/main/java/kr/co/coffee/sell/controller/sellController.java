@@ -53,37 +53,51 @@ public class sellController {
 	 * @throws Exception
 	 * sellService추가하여 초기 디비 생성
 	 * 아래 주석은 실험 처리
+	 * form 형식에서 ajax로 변경
 	 * 
 	 */
 	/*@ResponseBody */
+	/*
+	 * 기본 jsp 보여주기
+	 * 
+	 */
 	@RequestMapping
-	public @ResponseBody ModelAndView sellBoard(@RequestParam(defaultValue="1") int searchDiv,
-			@RequestParam(defaultValue="") String searchValue,
-			@RequestParam(defaultValue="1") int currentPage) throws Exception {
-		Search search=new Search();
-		search.setCurrentPage(currentPage);
-		search.setSearchDiv(searchDiv);
-		search.setSearchValue(searchValue);
+	public @ResponseBody ModelAndView sellBoard() throws Exception {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("main");
+		mav.addObject("content","sell/sell_board.jsp");
+		return mav;
+	}
+	/**
+	 * @author 김영섭
+	 * @param search
+	 * @return map
+	 * @throws Exception
+	 * ajax를 통한 Json 방식으로  변경
+	 * 주소창에 sell/sell이 나오지는 않음, 크롬 개발자도구를 통해 받는 것을 확인할 수 있음
+	 */
+	@RequestMapping(path="/sell", method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> sellList(Search search) throws Exception {
 		int totalcount=sellService.getTotalCount(search);
 		Paging paging=pagingUtil.getPaging(search, totalcount);
 		search.setStartCount(paging.getStartCount());
-		
 		List<SellList> list=sellService.getSellList(search);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("paging", paging);
-		map.put("search", search);
-		ModelAndView mav=new ModelAndView("jsonView");
-		mav.setViewName("main");
-		mav.addObject("content","sell/sell_board.jsp");
-		mav.addObject("map", map);
-		/*mav.addObject("content", "sell/sell_board.jsp");*/
-	/*	mav.addObject("list", list);
-		mav.addObject("paging", paging);*/
-		System.out.println(search.getCurrentPage()+":"+search.getSearchDiv()+":"
-				+search.getSearchValue()+":"+search.getStartCount());
-		System.out.println(list.size()+":"+list+":"+paging);	
-		return mav;
+		return map;
+	}
+	/**
+	 * @author 김영섭
+	 * 상세페이지 보여주기(토글에 뿌려주기)
+	 */
+	@RequestMapping(path="/{togggle_value}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> detail_Sell(@PathVariable String togggle_value) throws Exception{
+		List<SellList> list=sellService.detail_Sell(togggle_value);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
 	}
 
 }
