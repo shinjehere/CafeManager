@@ -141,7 +141,9 @@
 			var year=date.getFullYear().toString();
 			var month= date.getMonth() + 1;
 			var day= date.getDate();
-			var sell_Date=year+"-"+month+"-"+day;
+			var hours=date.getHours();
+			var minutes=date.getMinutes();
+			var sell_Date=year+"-"+month+"-"+day+" "+hours+":"+minutes;
 			var str = '<tr>';
 			 str+="<td><input type='checkbox' id=''/></td>";
 				str += '<td><a class="sell_CD" href="#" onclick="javascript:toggle(\''+data.sell_CD+'\')">'+data.sell_CD+'</a></td>';
