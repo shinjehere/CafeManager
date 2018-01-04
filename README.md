@@ -7,3 +7,23 @@
 - 배세은: [입고관리 Front-end and Back-end]
 - 정누리: [메인화면 / 원재료 Front-end and Back-end]
 - 편다혜: [메인화면 / 원재료 Front-end and Back-end] 
+
+## 개발툴
+-STS, GIT, GITHUB, MySQL WORKBENCH 6.3 EC
+
+## 개발환경
+-JDK 1.8, MYsql 6.3, tomcat 8.0, Spring framework 4.2.5
+
+## 적용 라이브러리
+-fileupload 1.3.1
+-swagger2 2.7
+-mysql-connector-java 6.0.6
+-mybatis-spring 1.3.1
+-mybatis 3.4.5
+-poi 3.11
+-jackson-core, jackson-annotations, jackson-databind 2.9.2
+-slf4j 1.7.7
+-logback-core 1.1.2
+-jquery 3.2.1
+-bootstrap 3.3.7-1
+-jstl 1.2
