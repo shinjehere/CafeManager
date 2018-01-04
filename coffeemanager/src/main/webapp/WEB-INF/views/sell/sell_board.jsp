@@ -36,9 +36,8 @@
 	$(function() {
 		 searchBoard(); //실행시 ajax list 불러오기 실행
 		$("#searchBtn").click(function() {//검색 찾기버튼
-			$('#currentPage').val(1);
-			//서치버튼 클릭시 ajax스 실행ㅇ
-		/* 	$('#searchForm').submit(); */ //기존의 서치 버튼을 없애고 ajax실행
+			$('#currentPage').val('1');
+			searchBoard();
 		});
 		$(function(){
 			   $("#allCheck").click(function() { 
@@ -88,14 +87,6 @@
 				
 			}
 		});
-	;
-	}
-	function paging(currentpage){
-		$('#currentPage').val(currentpage);
-		$('#searchForm').submit();
-		
-		searchBoard(); 
-		
 	}
 	 function searchBoard(){
 		 var dataform=$('#searchForm').serialize();
@@ -146,7 +137,7 @@
 			var sell_Date=year+"-"+month+"-"+day+" "+hours+":"+minutes;
 			var str = '<tr>';
 			 str+="<td><input type='checkbox' id=''/></td>";
-				str += '<td><a class="sell_CD" href="" onclick="javascript:toggle(\''+data.sell_CD+'\')">'+data.sell_CD+'</a></td>';
+				str += '<td><a class="sell_CD" href="#" onclick="javascript:toggle(\''+data.sell_CD+'\')">'+data.sell_CD+'</a></td>';
 				str += '<td>'+sell_Date+'</td>';
 				str += '<td>'+data.menu_CD+'</td>';
 				str += '<td>'+data.menu_Name+'</td>';
@@ -186,43 +177,8 @@
 		
 	 	$("#pagination li").removeClass("active"); 
 		
-	 	 var dataform=$('#searchForm').serialize();
-			$.ajax({
-					url : "sell/sell",
-					data:dataform,
-					type: "GET",
-				 	 dataType: "JSON", // 일단 지워봄 
-					//async:false, //일단 넣어봄
-				 	contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-					success : function(data) {
-						alert(JSON.stringify(data.list));
-						alert(data.paging);
-						
-					 var strs = "";
-						if(data.list.length>0){
-							var dataTable = $("#boardTable tbody");
-							$("#boardTable tbody tr").remove();
-							var strs = "";
-							for(var i=0; i<data.list.length; i++){
-								strs += trMake(data.list[i]);
-							}
-							$(dataTable).append(strs);
-						}else{
-							var dataTable = $("#boardTable tbody");
-							$("#boardTable tbody tr").remove();
-							strs += "<tr><td colspan=7>데이터가 없습니다.</td></tr>";
-							$(dataTable).append(strs);
-						}
-						makePaging(data.paging);
-					 
-					}, error:function(request,status,error){
-						alert(error);
-					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					   }
-			
-			});
-			
+	 	 searchBoard();
+		
 		
 	} 
 	</script>
@@ -236,7 +192,7 @@
 			</h3>
 		</div>
 		<div class="container">
-			<form class="form-inline" id="searchForm" action="sell">
+			<form class="form-inline" id="searchForm">
 				<input type="hidden" id="currentPage" name="currentPage" value="1"
 				 <%--ajax로 변경되어 삭제 되는 부분들 "${map.paging.currentPage }" --%>/>
 				<!-- ajax로 변경되어 삭제 되는 부분들
@@ -250,18 +206,17 @@
 						<select id="searchDiv" class="btn btn-default"
 							data-toggle="dropdown" name="searchDiv">
 							<option value="1"
-								<c:out value="${map.search.searchDiv==1?'selected':'' }" />
+								
 								selected>메뉴명</option>
 
-							<option value="2"
-								<c:out value="${map.search.searchDiv==2?'selected':'' }"/>>판매코드</option>
+							<option value="2">판매코드</option>
 						</select>
 
 					</div>
-					<input type="text" value="${map.search.searchValue }"
+					<input type="text"
 						class="form-control" id="searchValue" name="searchValue"
 						placeholder="Search">
-					<button id="searchBtn" class="btn btn-success" type="submit">Search</button>
+					<button id="searchBtn" class="btn btn-success" type="button">Search</button>
 					<!-- 	<div class="form-group">
 							<label for="seachCodeAndName">&nbsp검색 시작일 :</label>
 							<input type="date" class="date" id="startDate" name="startDate">
@@ -292,7 +247,7 @@
 				</thead>
 				<tbody>
 					<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
-					<c:forEach var="sl" items="${map.list }">
+				<%-- 	<c:forEach var="sl" items="${map.list }">
 						<tr>
 							<td><input type="checkbox" id="" /></td>
 							<td><a class="sell_CD" href="#"
@@ -306,9 +261,9 @@
 						</tr>
 						<tr>
 							<td colspan="6" id="toggle_div${sl.sell_CD }"
-								style="display: none;"><div></div></td>
+								style="display: none;"><div></div></td> 
 						</tr>
-					</c:forEach>
+					</c:forEach>--%>
 					<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 				</tbody>
 			</table>
@@ -317,7 +272,7 @@
 		<div class="pagination text-center">
 			<ul class="pagination" id="pagination">
 				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
-				<c:if test="${map.paging.currentPage > 1 }">
+			<%-- 	<c:if test="${map.paging.currentPage > 1 }">
 					<li><a href="javascript:paging('${map.paging.currentPage-1 }")">Prev</a></li>
 				</c:if>
 				<c:forEach begin="${map.paging.startPage }"
@@ -327,7 +282,7 @@
 				<c:if test="${map.paging.currentPage < map.paging.endPage}">
 					<li><a
 						href="javascript:paging('${map.paging.currentPage+1 }')">Next</a></li>
-				</c:if>
+				</c:if> --%>
 				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 			</ul>
 
