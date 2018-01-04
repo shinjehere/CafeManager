@@ -72,4 +72,13 @@
       </if> 
      </where> 	 
  </select>
+ <select id="detail_Sell" parameterType="String" resultType="kr.co.coffee.sell.domain.SellList">
+ 	<![CDATA[
+ 		SELECT s.SELL_CD, s.SELL_DATE, m.MENU_CD,
+ 	   m.MENU_NAME, s.sell_CNT, s.SELL_CNT*m.MENU_SP total_SP, r.ing_cd, i.ing_NM, r.menu_amount
+       FROM ERP_Schema.SELL s left Join ERP_Schema.MENU m on s.menu_cd=m.menu_cd left join ERP_Schema.RECIPIE r on
+m.menu_cd=r.menu_cd left join ERP_Schema.INGREDIENT i on r.ing_cd=i.ing_cd WHERE s.SELL_CD=#{togggle_value}
+ 	]]>
+ 	
+ </select>
 </mapper>
