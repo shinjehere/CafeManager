@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.coffee.mapper.CommonMapper">
+	<select id="do_searchAll" parameterType="search" resultType="kr.co.coffee.menu.domain.MenuVO">
+		<![CDATA[
+		SELECT M.MENU_CD,
+					M.MENU_NAME,
+					M.MENU_UP,
+					M.MENU_SP,
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
+					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+			FROM MENU M
+			]]>
+			<where>
+				<if test="searchDiv == 1">
+					<if test = 'searchValue != null and searchValue != "" ' >
+						<![CDATA[AND MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
+					</if>
+				</if>
+				<if test="searchDiv == 2">
+					<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
+					</if>
+				</if>
+			</where>
+			ORDER BY M.MN_REG_DT DESC
+	</select>
+</mapper>
