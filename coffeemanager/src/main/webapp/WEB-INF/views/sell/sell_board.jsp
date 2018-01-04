@@ -146,7 +146,7 @@
 			var sell_Date=year+"-"+month+"-"+day+" "+hours+":"+minutes;
 			var str = '<tr>';
 			 str+="<td><input type='checkbox' id=''/></td>";
-				str += '<td><a class="sell_CD" href="" onclick="javascript:toggle(\''+data.sell_CD+'\')">'+data.sell_CD+'</a></td>';
+				str += '<td><a class="sell_CD" href="#" onclick="javascript:toggle(\''+data.sell_CD+'\')">'+data.sell_CD+'</a></td>';
 				str += '<td>'+sell_Date+'</td>';
 				str += '<td>'+data.menu_CD+'</td>';
 				str += '<td>'+data.menu_Name+'</td>';
