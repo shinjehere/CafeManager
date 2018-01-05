@@ -17,6 +17,8 @@
 		내용 : bootstrap에 datetimepicker 설정
 		date: 2018-01-03
 		내용 : list방식을 JSTL에서 ajax로 변환
+		date : 2018-01-05
+		내용 : 검색수정 및 토글 부분 디자인
 	-->
 <title>sell</title>
 <!-- Bootstrap -->
@@ -58,6 +60,7 @@
 }
 	/* 토글 관련 javascript */
 	/*에이젝스로 값을 보내주고 JSON형식으로 값을 받아옴*/
+	/*토글 꾸며주기 완료*/
 	function toggle(toggle_value) {
 		alert(toggle_value);
 		$.ajax({
@@ -68,19 +71,32 @@
 			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 			success : function(data) {
 				$('#toggle_div'+toggle_value).html(function() {
+					var date=new Date(data.list[0].sell_Date);
+					var year=date.getFullYear().toString();
+					var month= date.getMonth() + 1;
+					var day= date.getDate();
+					var hours=date.getHours();
+					var minutes=date.getMinutes();
+					var sell_Date=year+"-"+month+"-"+day+" "+hours+":"+minutes;
 					var str="";
-					str+="<div>"+data.list[0].sell_CD+"</div>";
-					str+="<div>"+data.list[0].sell_Date+"</div>";
-					str+="<div>"+data.list[0].menu_CD+"</div>";
-					str+="<div>"+data.list[0].menu_Name+"</div>";
-					str+="<div>"+data.list[0].sell_CNT+"</div>";
-					str+="<div>"+data.list[0].total_SP+"</div>";
+					str+='<div class="container"><div class="row"><div class="col-xs-4 col-md-4"><label for="sell_Date">판매일자 :</label>';
+					str+='<div id="sell_Date">'+sell_Date+'</div></div>';
+					str+='<div class="col-xs-4 col-md-4"><label for="sell_Name">메뉴 코드 :</label>';
+					str+='<div id="sell_Name">'+data.list[0].menu_Name+'</div></div>';
+					str+='<div class="col-xs-4 col-md-4"><label for="sell_Code">메뉴 코드 :</label>';
+					str+='<div id="sell_Code">'+data.list[0].menu_CD+'</div></div></div>';
+					str+='<div class="container"><div class="col-xs-12 col-md-12"><table class="table"><caption>원재료 리스트</caption>';
+					str+='<thead><tr><th>순서</th><th>원재료 명</th><th>원재료 코드</th><th>사용 용량</th></tr></thead>'
+					str+='<tbody>';
 					for(var i=0;i<data.list.length;i++){
-					str+="<div>"+data.list[i].ing_NM+"</div>";
-					str+="<div>"+data.list[i].ing_CD+"</div>";
-					str+="<div>"+data.list[i].menu_Amount+"</div>";
+					str+='<tr>';
+					str+='<th scope="row">'+(i+1)+'</th>';
+					str+='<td>'+data.list[i].ing_NM+'</td>';
+					str+='<td>'+data.list[i].ing_CD+'</td>';
+					str+='<td>'+(data.list[i].menu_Amount*data.list[0].sell_CNT)+'</td>';
+					str+='</tr>';
 					}
-				
+					str+='</tbody>';
 					return str;
 				});
 				$('#toggle_div'+toggle_value).toggle('show')
