@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.coffee.stock.mapper">
-      <select id="selectStockList" resultType="kr.co.coffee.stock.domain.StockList">     
+<mapper namespace="kr.co.coffee.mapper.CommonMapper">
+     <select id="selectStockList" resultType="kr.co.coffee.stock.domain.StockList">        
+
      		SELECT
      			ST.STOCK_CD,
      			ST.ING_CD,

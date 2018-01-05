@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import kr.co.coffee.sell.dao.SellDAO;
+import kr.co.coffee.common.domain.Search;
+import kr.co.coffee.mapper.CommonMapper;
 import kr.co.coffee.sell.domain.SellList;
 import kr.co.coffee.sell.service.SellService;
 
@@ -24,15 +25,26 @@ import kr.co.coffee.sell.service.SellService;
 @Service("sellService")
 public class SellServiceImpl implements SellService{
 	
-	@Resource(name="sellDAO")
-	private SellDAO sellDAO;
+	@Autowired
+	private CommonMapper CommonMapper;
 
-	
 	@Override
-	public List<SellList> getSellList() throws Exception {
-
-		return sellDAO.getSellList();
+	public List<SellList> getSellList(Search search) throws Exception {
+		return CommonMapper.getSellList(search);
 	}
+
+	@Override
+	public int getTotalCount(Search search) throws Exception {
+		return CommonMapper.getTotalCount(search);
+	}
+
+	@Override
+	public List<SellList> detail_Sell(String togggle_value) throws Exception {
+		
+		return CommonMapper.detail_Sell(togggle_value);
+	}
+
+
 	
 	
 	

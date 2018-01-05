@@ -2,6 +2,7 @@ package kr.co.coffee.sell.service;
 
 import java.util.List;
 
+import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.sell.domain.SellList;
 /**
  * 
@@ -12,5 +13,10 @@ import kr.co.coffee.sell.domain.SellList;
  */
 public interface SellService {
 
-		public List<SellList> getSellList() throws Exception;
+		public List<SellList> getSellList(Search search) throws Exception;
+		
+		public int getTotalCount(Search search) throws Exception;
+		
+		public List<SellList> detail_Sell(String togggle_value) throws Exception;
+
 }

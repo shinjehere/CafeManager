@@ -1,4 +1,4 @@
-package kr.co.coffee.sell.dao.impl;
+/*package kr.co.coffee.menu.dao.impl;
 
 import java.util.List;
 
@@ -7,16 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.coffee.common.DTO;
-import kr.co.coffee.sell.dao.SellDAO;
-import kr.co.coffee.sell.domain.SellList;
-/**
- * 
- * @author 김영섭
- * @since 2017.12.26
- * SellDAOImpl create
- */
-@Repository("sellDAO")
-public class SellDAOImpl implements SellDAO{
+import kr.co.coffee.menu.dao.MenuDAO;
+import kr.co.coffee.menu.domain.MenuVO;
+
+@Repository("MenuDAO")
+public class MenuDaoImpl implements MenuDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -24,13 +19,13 @@ public class SellDAOImpl implements SellDAO{
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
-	@Override
-	public List<SellList> getSellList() throws Exception {
-		
-		return sqlSession.selectList("getSellList");
-	}
 
+	@Override
+	public List<MenuVO> do_searchAll() throws Exception {
+
+		return sqlSession.selectList("do_searchAll");
+	}
+	
 	@Override
 	public int do_save(DTO dto) {
 		// TODO Auto-generated method stub
@@ -66,6 +61,6 @@ public class SellDAOImpl implements SellDAO{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
 }
+*/

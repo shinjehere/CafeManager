@@ -6,8 +6,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
-	
 
+	<context:component-scan base-package="kr.co.coffee" scoped-proxy="targetClass">
+			<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+			<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+		
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" >
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -15,7 +20,8 @@
 		<property name="username" value="${jdbc.username}"/>
 		<property name="password" value="${jdbc.password}"/>
 	</bean>
-		<context:property-placeholder location="classpath:jdbc.properties"/>
+		
+	<context:property-placeholder location="classpath:jdbc.properties"/>
 		
 		
 	<!-- 
@@ -27,11 +33,14 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:mybatis/*.xml"></property>
+		<property name="typeAliasesPackage" value="kr.co.coffee"></property>
 	</bean>
 	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	</bean>
+	
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="kr.co.coffee.mapper" />
+    </bean>
+
 	
 	<!-- 트랜젝션 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

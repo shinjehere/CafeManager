@@ -14,24 +14,13 @@ import kr.co.coffee.stock.service.StockService;
 
 @Service("stockService")
 public class StockServiceImpl implements StockService{
-	//데이터 접근을 위한 DAO 객체 선언
-	@Resource(name="stockDAO")
-	private StockDAO stockDAO;
-	
+	//데이터 접근을 위한 Mapper 객체 선언
+@Autowired
+private CommonMapper CommonMapper;
+
 	@Override
 	public List<StockList> selectStockList() throws Exception {
-		return stockDAO.selectStockList();
-	}
-
-	@Override
-	public List<StockList> listCriteria(Criteria cri) throws Exception {
-		return stockDAO.listCriteria(cri);
-	}
-
-	@Override
-	public Integer totalCount() throws Exception {
-		// TODO Auto-generated method stub
-		return stockDAO.TotalCount();
+		return CommonMapper.selectStockList();
 	}
 
 }
