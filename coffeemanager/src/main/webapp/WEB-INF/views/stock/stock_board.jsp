@@ -27,8 +27,7 @@
 								<option>품목명</option>
 								<option>재고코드</option>
 							</select>
-						
-					</div>	
+						</div>	
 						<input type="text" class="form-control" id="sell_search">
 						<button class="btn btn-success" type="submit">Search</button>	
 					</div>
