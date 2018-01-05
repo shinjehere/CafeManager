@@ -35,22 +35,27 @@
 <script type="text/javascript">
 	$(function() {
 		 searchBoard(); //실행시 ajax list 불러오기 실행
-		$("#searchBtn").click(function() {//검색 찾기버튼
-			$('#currentPage').val('1');
-			searchBoard();
-		});
+		 $("#searchBtn").click(function() {//검색 찾기버튼
+			 btnEnter();
+		 });
 		$(function(){
-			   $("#allCheck").click(function() { 
-			 /*      $("#work_div").val("doSearch"); */
-			      if ($("#allCheck").prop("checked")) {// 전체선택 체크박스가 체크되어있으면 
-			         $("input[type=checkbox]").prop("checked", true); // 모든 checkbox 체크 
-			      } else { // 전체선택 체크박스가 체크되어있지 않으면 
-			         $("input[type=checkbox]").prop("checked", false); // 모든 checkbox 체크해제
-			      }
-			   }); // --전체선택Btn closed
+			  $("#allCheck").click(function() { 
+					 /*      $("#work_div").val("doSearch"); */
+					      if ($("#allCheck").prop("checked")) {// 전체선택 체크박스가 체크되어있으면 
+					         $("input[type=checkbox]").prop("checked", true); // 모든 checkbox 체크 
+					      } else { // 전체선택 체크박스가 체크되어있지 않으면 
+					         $("input[type=checkbox]").prop("checked", false); // 모든 checkbox 체크해제
+					      }
+					   }); // --전체선택Btn closed
 			});
-	 
+		
 	});
+	//search 관련 javascript
+	//검색 버튼 및 엔터시 실행된다.
+	function btnEnter() {
+				$('#currentPage').val('1');
+				searchBoard();
+}
 	/* 토글 관련 javascript */
 	/*에이젝스로 값을 보내주고 JSON형식으로 값을 받아옴*/
 	function toggle(toggle_value) {
@@ -103,7 +108,7 @@
 						if(data.list.length>0){
 							var dataTable = $("#boardTable tbody");
 							$("#boardTable tbody tr").remove();
-							var strs = "";
+							
 							for(var i=0; i<data.list.length; i++){
 								strs += trMake(data.list[i]);
 							}
@@ -151,12 +156,18 @@
 		
 		var currentPage = $("#currentPage").val();
 		$("#startPage").val(paging.startPage);
+		 console.log(paging.startPage);
 		$("#endPage").val(paging.endPage);
+		console.log(paging.endPage);
 		$("#pagination li").remove();
 		
 		var str = "";
-		
-			str += '<li><a href="#">&laquo;</a></li>';
+			if(currentPage<2){
+				str += '<li><a href="#">&laquo;</a></li>';
+			}else{
+				str += '<li><a href="#" onclick="clickPaging('+(currentPage-1)+')">&laquo;</a></li>';
+			}
+			
 			for(var i=paging.startPage; i<paging.endPage+1; i++){
 				if(currentPage == i){
 					str += '<li class="active"><a href="#" onclick="clickPaging('+i+')">'+i+'</a></li>';
@@ -164,9 +175,11 @@
 					str += '<li><a href="#" onclick="clickPaging('+i+')">'+i+'</a></li>';
 				}
 			}
-			
+			if(currentPage<paging.endPage){
+				str += '<li><a href="#" onclick="clickPaging('+(currentPage+1)+')">&raquo;</a></li>'
+			}else{
 			str += '<li><a href="#">&raquo;</a></li>'
-			
+			}
 		$("#pagination").append(str);
         
 	}
@@ -192,14 +205,14 @@
 			</h3>
 		</div>
 		<div class="container">
-			<form class="form-inline" id="searchForm">
+			<form class="form-inline" id="searchForm" >
 				<input type="hidden" id="currentPage" name="currentPage" value="1"
 				 <%--ajax로 변경되어 삭제 되는 부분들 "${map.paging.currentPage }" --%>/>
 				<!-- ajax로 변경되어 삭제 되는 부분들
 				 	<input type="hidden" id="pageSize" name="pageSize" value="10"/>
-					<input type="hidden" id="rowSize" name="rowSize" value="10"/>
-					<input type="hidden" id="startPage" name="startPage"/>
-					<input type="hidden" id="endPage" name="endPage"/>   -->
+					<input type="hidden" id="rowSize" name="rowSize" value="10"/>-->
+					<!-- <input type="hidden" id="startPage" name="startPage"/>
+					<input type="hidden" id="endPage" name="endPage"/>    -->
 				<div class="form-group">
 					<label for="seachCodeAndName">검색 : </label>
 					<div class="btn-group">
@@ -215,7 +228,11 @@
 					</div>
 					<input type="text"
 						class="form-control" id="searchValue" name="searchValue"
+						onkeypress="if(event.keyCode==13) {btnEnter(); return false;}"
 						placeholder="Search">
+						<!--
+						HTML onkeypress="if(event.keyCode==13) {btnEnter();return false;}"
+						 엔터키 시  btnEnter로 넘긴다. return false없으면 엔터시 주소값을 넘김 -->
 					<button id="searchBtn" class="btn btn-success" type="button">Search</button>
 					<!-- 	<div class="form-group">
 							<label for="seachCodeAndName">&nbsp검색 시작일 :</label>
