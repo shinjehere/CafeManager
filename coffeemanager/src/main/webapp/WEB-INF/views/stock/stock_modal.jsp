@@ -4,31 +4,6 @@
 <html>
 <script src="${pageContext.request.contextPath}/resources/js/stock/stock_board.js"></script>
 
-<script>
-
-  $(function() {
-    getTimeStamp();
-
- });
-
-function getTimeStamp() {
-	var date = new Date();
-	var year  = date.getFullYear();
-	var month = date.getMonth() + 1; // 0부터 시작하므로 1더함 더함
-	var day   = date.getDate();
-	if (("" + month).length == 1) { month = "0" + month; }
-	if (("" + day).length   == 1) { day   = "0" + day;   }
-	var today = year+'-'+month+'-'+day
-	$('#now_date').val(today);
-	date.setDate('2');
-
-
-}   
-
-
-
-</script>
-
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -49,20 +24,38 @@ function getTimeStamp() {
 					<br>
 					<!-- 검색 -->
 				     <form action="/action_page.php">
-					    <div class="input-group"> 
-					      <input type="text" class="form-control" placeholder="Search" name="search">
+					    <div class="input-group  col-xs-12"> 
+					   		<span class="input-group-addon">원재료 명</span>
+					      	<input type="text" class="form-control" placeholder="Search" name="search">
 					     	<div class="input-group-btn"> 
 					        <button class="btn btn-default btn-lg" type="submit" style="height:34px;"><i class="glyphicon glyphicon-search" style="margin-top:-2px;"></i></button>
 					      </div> 
 					     </div> 
 					  </form>
 					  <!-- 검색 결과 -->
-					
-					  <div class="list-group">
+					<table id="searchTable" class="table table-striped table-bordered table-hover">
+						<thead>
+					        <tr>
+					            <td>원재료 코드</td>
+					            <td>원재료명</td>
+					            <td>원재료 단가</td>
+					            <td>원재료 1단위 용량</td>
+					            <td>원재료 단위</td>
+					        </tr>
+					    </thead>
+					</table>
+					<!--  <div class="list-group">
 						   <a href="#" class="list-group-item">First item</a>
 						   <a href="#" class="list-group-item">Second item</a>
 						   <a href="#" class="list-group-item">Third item</a>
-					  </div>
+					  </div> --> 
+					   <select multiple class="form-control" id="sel2">
+				        <option>1</option>
+				        <option>2</option>
+				        <option>3</option>
+				        <option>4</option>
+				        <option>5</option>
+				      </select>
 					
 				    <br>
 				    
