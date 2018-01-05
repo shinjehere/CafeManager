@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stock/stock_board.css"> 
+<script src="${pageContext.request.contextPath}/resources/js/stock/stock_board.js"></script> 
  <%@include file="./stock_modal.jsp" %> 
 <title>Cafe Manager</title>
 </head>
@@ -26,8 +27,7 @@
 								<option>품목명</option>
 								<option>재고코드</option>
 							</select>
-						
-					</div>	
+						</div>	
 						<input type="text" class="form-control" id="sell_search">
 						<button class="btn btn-success" type="submit">Search</button>	
 					</div>

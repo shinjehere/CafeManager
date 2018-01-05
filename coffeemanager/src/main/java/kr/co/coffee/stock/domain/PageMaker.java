@@ -105,9 +105,5 @@ public class PageMaker {
         return uriComponents.toUriString();
     }
 
-
-	
-	
-	
 	
 }
