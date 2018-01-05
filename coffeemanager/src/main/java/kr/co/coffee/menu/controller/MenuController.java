@@ -1,14 +1,21 @@
 package kr.co.coffee.menu.controller;
 
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.coffee.common.pagingUtil;
+import kr.co.coffee.common.domain.Paging;
+import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.menu.service.MenuSvc;
 
@@ -24,26 +31,26 @@ public class MenuController {
 	@Autowired
 	private MenuSvc menuSvc;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String menuPage(Model model) throws Exception, NumberFormatException {
+	@RequestMapping
+	public @ResponseBody ModelAndView menuBoard() throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main");
+		mav.addObject("content", "items/menu.jsp");
 
-		List<MenuVO> list = menuSvc.do_searchAll();
+		return mav;
+	}
 
-		// 가격 세자리마다 , 처리
-		NumberFormat nf = NumberFormat.getInstance();
-		nf.setMinimumIntegerDigits(0);
-		// 최대 자리수
-		nf.setMaximumIntegerDigits(11);
+	@RequestMapping(path = "/menu", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> menuList(Search search) throws Exception {
+		int totalCount = menuSvc.menuTotalCount(search);
+		Paging paging = pagingUtil.getPaging(search, totalCount);
+		search.setStartCount(paging.getStartCount());
+		List<MenuVO> list = menuSvc.do_searchAll(search);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("paging", paging);
 
-		for(int i=0; i<list.size();i++) {
-			list.get(i).setMenu_up(nf.format(Integer.parseInt(list.get(i).getMenu_up())));
-			list.get(i).setMenu_sp(nf.format(Integer.parseInt(list.get(i).getMenu_sp())));
-		}
-		
-		model.addAttribute("MenuVO", list);
-		model.addAttribute("content", "items/menu.jsp");
-
-		return "main";
+		return map;
 	}
 
 }

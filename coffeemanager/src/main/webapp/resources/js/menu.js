@@ -1,4 +1,4 @@
-function wrapWindowByMask(){ 
+/*function wrapWindowByMask(){ 
 	//화면의 높이와 너비를 구한다. 
 	var maskHeight = $(document).height(); 
 	var maskWidth = $(window).width(); 
@@ -29,7 +29,7 @@ function btnexit(){
 	$('#mask').hide(); 
 }
 
-
+*/
 
 /*// 신규 등록 팝업 프레임
 
@@ -78,6 +78,7 @@ $(function() {
 	});
 });
 
+/*// datepicker
 $(document).ready(function() {
 	$("#start_date").datetimepicker({
 		format : 'YYYY/MM/DD'
@@ -86,49 +87,116 @@ $(document).ready(function() {
 	$("#end_date").datetimepicker({
 		format : 'YYYY/MM/DD'
 	});
+});*/
+
+//=========================================================
+// For Paging
+//=========================================================
+
+$(function() {
+	menuBoard(); 
+	$("#searchBtn").click(function() {
+		$('#currentPage').val('1');
+		menuBoard(); 
+	});
 });
 
-/*
- * // datepicker $(function(){ $("#start_date").datetimepicker({ format :
- * 'YYYY/MM/DD' });
- * 
- * $("#end_date").datetimepicker({ format : 'YYYY/MM/DD' }); });
- */
 
-/*
- * $(document).ready(function() { $('#start_date').datetimepicker({ format :
- * 'YYYY/MM/DD' });
- * 
- * $('#end_date').datetimepicker({ format : 'YYYY/MM/DD' });
- * 
- * var check = $("input[type='checkbox']"); check.click(function() {
- * $("p").toggle(); });
- * 
- * 
- * //**********************************************************************************
- * //***********버튼 Event
- * 모음*******************************************************
- * //**********************************************************************************
- * $("#allCheck").click(function() { $("#work_div").val("doSearch"); if
- * ($("#allCheck").prop("checked")) {// 전체선택 체크박스가 체크되어있으면
- * $("input[type=checkbox]").prop("checked", true); // 모든 checkbox 체크 } else { //
- * 전체선택 체크박스가 체크되어있지 않으면 $("input[type=checkbox]").prop("checked", false); // 모든
- * checkbox 체크해제 } }); // --전체선택Btn closed // 삭제Btn
- * $("input[name=doDelete]").click(function() {
- * $("#work_div").val("doDeleteDeal");
- * 
- * //colsole.log(" $(this) = "+ $(this).parent().val());
- * 
- * var d_deal_id = $(this).parent().children(0).val(); console.log(d_deal_id);
- * location.href =
- * '../GGMdeal/GGM_deal_control.jsp?work_div=doDeleteDeal&d_deal_id=' +
- * d_deal_id; });// --삭제Btn closed // 전체삭제Btn
- * $("#allDeleteBtn").click(function(){ // 전체삭제 버튼을 누르면 // 해당 페이지의
- * d_status(거래상태) 리스트를 받아옴 var dStList = []; $("input[name=
- * d_status_id]").each(function(i) { dStList.push($(this).val()); });
- *  // 기존페이지네이션 있을시 없애고 재생성 if ($('.pagination').data("twbs-pagination")) {
- * $('.pagination').twbsPagination('destroy'); } // 페이징
- * $('#pagination').twbsPagination({ totalPages : 35, visiblePages : 5,
- * onPageClick : function(event, page) { $('#page-content').text('Page ' +
- * page); } }); });
- */
+function makePaging(paging){
+	console.log("makePaging");
+	
+	var currentPage = $("#currentPage").val();
+	console.log("currentPage= "+currentPage);
+	
+	$("#startPage").val(paging.startPage);
+	console.log("startPage= "+paging.startPage);
+	
+	$("#endPage").val(paging.endPage);
+	console.log("endPage= "+paging.endPage);
+	
+	$("#pagination li").remove();
+	
+	var str = "";
+	
+		str += '<li><a href="#">&laquo;</a></li>';
+		for(var i=paging.startPage; i<paging.endPage+1; i++){
+			if(currentPage == i){
+				str += '<li class="active"><a href="#" onclick="clickPaging('+i+')">'+i+'</a></li>';
+			}else{
+				str += '<li><a href="#" onclick="clickPaging('+i+')">'+i+'</a></li>';
+			}
+		}
+		
+		str += '<li><a href="#">&raquo;</a></li>'
+		
+	$("#pagination").append(str);
+    
+}
+
+function clickPaging(currentPage){
+	$("#currentPage").val(currentPage);
+	$("#pagination li").removeClass("active");
+	menuBoard();
+}
+
+
+//=========================================================
+//For Paging closed
+//=========================================================
+
+
+// do_search 검색조회
+function menuBoard(){
+		var dataform = $("#searchForm").serialize();
+	
+			// 검색결과(일단 날짜 빼고)
+			$.ajax({
+				type: "GET",
+				url: "menu/menu",
+				dataType: "JSON",
+				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+				data: dataform,
+				success: function(data){
+					
+					var datahtml = "";
+					
+					if(data.list.length>0){
+						
+						$("#menu_table tbody tr").remove();
+						console.log("data size= "+data.list.length);
+						for(var i=0; i<data.list.length; i++){
+							datahtml += makeData(data.list[i]);
+						}
+						$('#menu_table tbody').append(datahtml);
+					}else{
+						$('#menu_table tbody tr').remove();
+						datahtml += "<tr><td colspan=7>데이터가 없습니다.</td></tr>"
+						$('#menu_table tbody').append(datahtml);
+					}
+					makePaging(data.paging);
+				},
+				error: function(xhr, status, error){
+					
+				}
+			}) // ajax closed
+
+};// do_search closed
+
+function makeData(data){
+	var datahtml = "";
+		datahtml += "<tr>";
+		datahtml += "<td><input type='checkbox' id='checkOne' /></td>";
+		datahtml += "<td>"+data.menu_cd+"</td>";
+		datahtml += "<td>"+data.menu_name+"</td>";
+		datahtml += "<td>"+data.menu_up+"</td>";
+		datahtml += "<td>"+data.menu_sp+"</td>";
+		datahtml += "<td>"+data.mn_reg_dt+"</td>";
+		datahtml += "<td>"+data.mn_mod_dt+"</td>";
+		datahtml += "</tr>";
+			
+		return datahtml;
+}
+
+
+
+
