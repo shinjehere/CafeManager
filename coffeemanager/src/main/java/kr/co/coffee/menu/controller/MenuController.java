@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.coffee.common.pagingUtil;
 import kr.co.coffee.common.domain.Paging;
 import kr.co.coffee.common.domain.Search;
+import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.menu.service.MenuSvc;
 
@@ -62,6 +63,14 @@ public class MenuController {
 		map.put("list", list);
 		
 		return map;
+	}
+	
+	@RequestMapping(path="/{searchIngredientName}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<IngredientVO> getIngredientList(@PathVariable String searchIngredientName) throws Exception{
+		List<IngredientVO> list = menuSvc.getIngredientList(searchIngredientName);
+		
+		return list;
 	}
 
 }

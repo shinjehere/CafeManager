@@ -243,7 +243,7 @@ li>ul>li {
 									<div class="input-group  col-xs-12">
 										<span class="input-group-addon">원재료 명</span> <input
 											type="text" class="form-control" placeholder="Search"
-											name="search">
+											name="search" id="searchIngredientName">
 										<div class="input-group-btn">
 											<button class="btn btn-default btn-lg" type="submit"
 												style="height: 34px;">

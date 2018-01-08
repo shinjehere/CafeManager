@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.coffee.common.DTO;
 import kr.co.coffee.common.domain.Search;
+import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 
 public interface MenuSvc {
@@ -19,4 +20,6 @@ public interface MenuSvc {
 	public int menuTotalCount(Search search) throws Exception;
 	
 	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception;
+	
+	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception;
 }

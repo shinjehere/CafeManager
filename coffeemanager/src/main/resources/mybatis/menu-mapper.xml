@@ -54,5 +54,18 @@
 					    	AND  M.MENU_CD = #{menuCodeOnClick}
 		]]>
 	</select>
+	
+	<select id="getIngredientList" parameterType="String" resultType="kr.co.coffee.ingredient.domain.IngredientVO">
+		<![CDATA[
+			SELECT I.ING_CD,
+						I.ING_NM,
+				        I.ING_PRICE,
+				        I.UNIT_AMOUNT,
+				        I.ING_UNIT
+					FROM ERP_Schema.INGREDIENT I
+				    WHERE I.ING_NM LIKE CONCAT('%',#{searchIngredientName},'%')
+				    ORDER BY I.ING_NM
+		]]>
+	</select>
 
 </mapper>
