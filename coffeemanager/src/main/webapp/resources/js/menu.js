@@ -29,18 +29,18 @@ function btnexit(){
 	$('#mask').hide(); 
 }
 
-*/
+ */
 
 /*// 신규 등록 팝업 프레임
 
  * window.open(url:String, name:String, properties:String)
  * open 함수는 반드시 3개의 매개변수가 있어야하고, 순서가 지켜져야 함.
  * 
-function createNewMenu() {
-	window
-			.open("new_menu.jsp", "",
-					"width=1300, height=900, left=100, top=50, scrollbars=yes, location=no");
-}*/
+ function createNewMenu() {
+ window
+ .open("new_menu.jsp", "",
+ "width=1300, height=900, left=100, top=50, scrollbars=yes, location=no");
+ }*/
 
 // 전체선택 체크박스
 $(function() {
@@ -56,147 +56,162 @@ $(function() {
 	});
 });// --전체선택 체크박스 closed
 
-// 메뉴 사용여부 토글
-$(function() {
-	var tog = $("input[id='tog']");
-	tog.click(function() {
-		$("p").toggle();
-	});
-});
+/*
+ * // 메뉴 사용여부 토글 $(function() { var tog = $("input[id='tog']");
+ * tog.click(function() { $("p").toggle(); }); });
+ *  // 아코디언 테이블 $(function() { var article = (".recruit .show"); $(".recruit
+ * .title td").click(function() { var myArticle = $(this).parents().next("tr");
+ * if ($(myArticle).hasClass('hide')) {
+ * $(article).removeClass('show').addClass('hide');
+ * $(myArticle).removeClass('hide').addClass('show'); } else {
+ * $(myArticle).addClass('hide').removeClass('show'); } }); });
+ */
 
-// 아코디언 테이블
-$(function() {
-	var article = (".recruit .show");
-	$(".recruit .title  td").click(function() {
-		var myArticle = $(this).parents().next("tr");
-		if ($(myArticle).hasClass('hide')) {
-			$(article).removeClass('show').addClass('hide');
-			$(myArticle).removeClass('hide').addClass('show');
-		} else {
-			$(myArticle).addClass('hide').removeClass('show');
-		}
-	});
-});
+/*
+ * // datepicker $(document).ready(function() {
+ * $("#start_date").datetimepicker({ format : 'YYYY/MM/DD' });
+ * 
+ * $("#end_date").datetimepicker({ format : 'YYYY/MM/DD' }); });
+ */
 
-/*// datepicker
-$(document).ready(function() {
-	$("#start_date").datetimepicker({
-		format : 'YYYY/MM/DD'
-	});
-
-	$("#end_date").datetimepicker({
-		format : 'YYYY/MM/DD'
-	});
-});*/
-
-//=========================================================
+// =========================================================
 // For Paging
-//=========================================================
-
+// =========================================================
 $(function() {
-	menuBoard(); 
+	menuBoard();
 	$("#searchBtn").click(function() {
 		$('#currentPage').val('1');
-		menuBoard(); 
+		menuBoard();
 	});
 });
 
+function makePaging(paging) {
 
-function makePaging(paging){
-	console.log("makePaging");
-	
 	var currentPage = $("#currentPage").val();
-	console.log("currentPage= "+currentPage);
-	
+
 	$("#startPage").val(paging.startPage);
-	console.log("startPage= "+paging.startPage);
-	
 	$("#endPage").val(paging.endPage);
-	console.log("endPage= "+paging.endPage);
-	
 	$("#pagination li").remove();
-	
+
 	var str = "";
-	
-		str += '<li><a href="#">&laquo;</a></li>';
-		for(var i=paging.startPage; i<paging.endPage+1; i++){
-			if(currentPage == i){
-				str += '<li class="active"><a href="#" onclick="clickPaging('+i+')">'+i+'</a></li>';
-			}else{
-				str += '<li><a href="#" onclick="clickPaging('+i+')">'+i+'</a></li>';
-			}
+
+	str += '<li><a href="#">&laquo;</a></li>';
+	for (var i = paging.startPage; i < paging.endPage + 1; i++) {
+		if (currentPage == i) {
+			str += '<li class="active"><a href="#" onclick="clickPaging(' + i
+					+ ')">' + i + '</a></li>';
+		} else {
+			str += '<li><a href="#" onclick="clickPaging(' + i + ')">' + i
+					+ '</a></li>';
 		}
-		
-		str += '<li><a href="#">&raquo;</a></li>'
-		
+	}
+
+	str += '<li><a href="#">&raquo;</a></li>'
+
 	$("#pagination").append(str);
-    
+
 }
 
-function clickPaging(currentPage){
+function clickPaging(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("#pagination li").removeClass("active");
 	menuBoard();
 }
 
-
-//=========================================================
-//For Paging closed
-//=========================================================
-
+// =========================================================
+// For Paging closed
+// =========================================================
 
 // do_search 검색조회
-function menuBoard(){
-		var dataform = $("#searchForm").serialize();
-	
-			// 검색결과(일단 날짜 빼고)
-			$.ajax({
-				type: "GET",
-				url: "menu/menu",
-				dataType: "JSON",
-				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-				data: dataform,
-				success: function(data){
-					
-					var datahtml = "";
-					
-					if(data.list.length>0){
-						
-						$("#menu_table tbody tr").remove();
-						console.log("data size= "+data.list.length);
-						for(var i=0; i<data.list.length; i++){
-							datahtml += makeData(data.list[i]);
-						}
-						$('#menu_table tbody').append(datahtml);
-					}else{
-						$('#menu_table tbody tr').remove();
-						datahtml += "<tr><td colspan=7>데이터가 없습니다.</td></tr>"
-						$('#menu_table tbody').append(datahtml);
-					}
-					makePaging(data.paging);
-				},
-				error: function(xhr, status, error){
-					
+function menuBoard() {
+	var dataform = $("#searchForm").serialize();
+
+	// 검색결과(일단 날짜 빼고)
+	$.ajax({
+		type : "GET",
+		url : "menu/menu",
+		dataType : "JSON",
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		data : dataform,
+		success : function(data) {
+
+			var datahtml = "";
+
+			if (data.list.length > 0) {
+
+				$("#menu_table tbody tr").remove();
+				console.log("data size= " + data.list.length);
+				for (var i = 0; i < data.list.length; i++) {
+					datahtml += makeData(data.list[i]);
 				}
-			}) // ajax closed
+				$('#menu_table tbody').append(datahtml);
+			} else {
+				$('#menu_table tbody tr').remove();
+				datahtml += "<tr><td colspan=7>데이터가 없습니다.</td></tr>"
+				$('#menu_table tbody').append(datahtml);
+			}
+			makePaging(data.paging);
+		},
+		error : function(xhr, status, error) {
+
+		}
+	}) // ajax closed
 
 };// do_search closed
 
-function makeData(data){
+function makeData(data) {
 	var datahtml = "";
-		datahtml += "<tr>";
-		datahtml += "<td><input type='checkbox' id='checkOne' /></td>";
-		datahtml += "<td>"+data.menu_cd+"</td>";
-		datahtml += "<td>"+data.menu_name+"</td>";
-		datahtml += "<td>"+data.menu_up+"</td>";
-		datahtml += "<td>"+data.menu_sp+"</td>";
-		datahtml += "<td>"+data.mn_reg_dt+"</td>";
-		datahtml += "<td>"+data.mn_mod_dt+"</td>";
-		datahtml += "</tr>";
-			
-		return datahtml;
+	datahtml += "<tr>";
+	datahtml += "<td><input type='checkbox' id='checkOne' /></td>";
+	datahtml += "<td><a class='menu_cd' href='#' onclick='javascript:toggle(\""
+			+ data.menu_cd + "\")'>" + data.menu_cd + "</a></td>";
+	datahtml += "<td>" + data.menu_name + "</td>";
+	datahtml += "<td>" + data.menu_up + "</td>";
+	datahtml += "<td>" + data.menu_sp + "</td>";
+	datahtml += "<td>" + data.mn_reg_dt + "</td>";
+	datahtml += "<td>" + data.mn_mod_dt + "</td>";
+	datahtml += "</tr>";
+	datahtml += "<tr><td colspan='6' id='toggle_div" + data.menu_cd
+			+ "' style='display: none;'><div></div></td></tr>";
+
+	return datahtml;
 }
 
+// 메뉴 토글
+function toggle(menuCodeOnClick) {
 
+	$.ajax({
+		url : "menu/" + menuCodeOnClick,
+		data : JSON.stringify(menuCodeOnClick),
+		type : "GET",
+		dataType : "JSON",
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		success : function(data) {
+			$('#toggle_div' + menuCodeOnClick).html(function() {
 
+				var str = "";
 
+				if (data.list.length > 0) {
+
+					for (var i = 0; i < data.list.length; i++) {
+						str += "<div class='container'>"
+						str += "<div>" + data.list[i].ing_nm + "</div>";
+						str += "<div>" + data.list[i].menu_amount + "</div>";
+						str += "<div>" + data.list[i].ing_unit + "</div>";
+						str += "</div>"
+					}
+				} else {
+					str += "<div><p>데이터가 없습니다.</p></div>";
+				}
+
+				return str;
+			});
+
+			$('#toggle_div' + menuCodeOnClick).toggle('show');
+
+			var list = JSON.stringify(data.list);
+
+		}
+	}); // --ajax closed
+
+}

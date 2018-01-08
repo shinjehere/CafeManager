@@ -17,4 +17,6 @@ public interface MenuSvc {
 	public List<MenuVO> do_searchAll(Search search) throws Exception;
 	
 	public int menuTotalCount(Search search) throws Exception;
+	
+	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception;
 }

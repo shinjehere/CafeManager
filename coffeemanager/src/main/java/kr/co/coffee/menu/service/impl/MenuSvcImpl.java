@@ -30,4 +30,10 @@ public class MenuSvcImpl implements MenuSvc {
 		return commonMapper.menuTotalCount(search);
 	}
 
+	@Override
+	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception {
+		
+		return commonMapper.menuDetail(menuCodeOnClick);
+	}
+
 }

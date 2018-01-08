@@ -27,7 +27,7 @@
 			<![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]>
 	</select>
 
-	<select id="menuTotalCount" parameterType = "search" resultType="int">
+	<select id="menuTotalCount" parameterType="search" resultType="int">
 	<![CDATA[ SELECT COUNT(*) FROM MENU M ]]>
 		<where>
 			<if test="searchDiv == 1">
@@ -41,6 +41,18 @@
 				</if>
 			</if>
 		</where>
+	</select>
+
+	<select id = "menuDetail" parameterType = "String" resultType = "kr.co.coffee.menu.domain.MenuVO">
+		<![CDATA[
+				SELECT I.ING_NM,
+					        R.MENU_AMOUNT,
+					        I.ING_UNIT
+							FROM ERP_Schema.RECIPIE R, ERP_Schema.MENU M, ERP_Schema.INGREDIENT I 
+					    WHERE  I.ING_CD = R.ING_CD
+					    	AND M.MENU_CD = R.MENU_CD
+					    	AND  M.MENU_CD = #{menuCodeOnClick}
+		]]>
 	</select>
 
 </mapper>

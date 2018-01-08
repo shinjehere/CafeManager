@@ -16,6 +16,7 @@ public interface CommonMapper {
 	public int menuTotalCount(Search search) throws Exception;
 	public List<MenuVO> do_searchAll() throws Exception;
 	public List<SellList> detail_Sell(String togggle_value) throws Exception;
+	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception;
 	/*test*/
 	
 }
