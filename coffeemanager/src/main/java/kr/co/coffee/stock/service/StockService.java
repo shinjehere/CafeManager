@@ -11,4 +11,7 @@ public interface StockService {
 	public List<StockList> listCriteria(Criteria cri) throws Exception;
 	//전체 게시글 수 구하기
 	public Integer totalCount() throws Exception;
+	
+	
+	
 }

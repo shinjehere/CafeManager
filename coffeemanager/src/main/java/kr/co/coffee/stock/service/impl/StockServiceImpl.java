@@ -2,6 +2,8 @@ package kr.co.coffee.stock.service.impl;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +25,46 @@ private CommonMapper CommonMapper;
 
 	@Override
 	public List<StockList> listCriteria(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return CommonMapper.listCriteria(cri);
 	}
 
 	@Override
 	public Integer totalCount() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return CommonMapper.TotalCount();
 	}
+	
+
+/*@Repository("stockDAO")
+public class StockDAOImpl implements StockDAO{
+
+	@Autowired
+	@Inject
+	private SqlSession sqlSession;
+	
+	final static String NAMESPACE = "kr.co.coffee.stock.domain";
+	
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+	@Override
+	public List<StockList> selectStockList() throws Exception {
+		return sqlSession.selectList("selectStockList");
+	}
+
+	@Override
+	public List<StockList> listCriteria(Criteria cri) throws Exception {
+		return sqlSession.selectList("listCriteria",cri);
+	}
+
+	@Override
+	public Integer TotalCount() throws Exception {
+		return sqlSession.selectOne("getTotalCount");
+	}
+
+}
+*/
+
 
 
 }

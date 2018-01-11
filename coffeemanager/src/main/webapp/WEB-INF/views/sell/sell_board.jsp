@@ -62,7 +62,6 @@
 	/*에이젝스로 값을 보내주고 JSON형식으로 값을 받아옴*/
 	/*토글 꾸며주기 완료*/
 	function toggle(toggle_value) {
-		alert(toggle_value);
 		$.ajax({
 			url:"sell/"+toggle_value,
 			data:JSON.stringify(toggle_value),

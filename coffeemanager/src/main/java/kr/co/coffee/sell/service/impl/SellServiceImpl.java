@@ -1,14 +1,8 @@
 package kr.co.coffee.sell.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import kr.co.coffee.common.domain.Search;
@@ -43,10 +37,5 @@ public class SellServiceImpl implements SellService{
 		
 		return CommonMapper.detail_Sell(togggle_value);
 	}
-
-
-	
-	
-	
 
 }

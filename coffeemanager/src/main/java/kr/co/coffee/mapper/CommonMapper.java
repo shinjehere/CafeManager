@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellList;
+import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
 
 public interface CommonMapper {
@@ -17,5 +18,7 @@ public interface CommonMapper {
 	public List<MenuVO> do_searchAll() throws Exception;
 	public List<SellList> detail_Sell(String togggle_value) throws Exception;
 	/*test*/
+	public List<StockList> listCriteria(Criteria cri) throws Exception; 
+	public Integer TotalCount() throws Exception;
 	
 }
