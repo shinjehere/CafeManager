@@ -62,7 +62,6 @@
 	/*에이젝스로 값을 보내주고 JSON형식으로 값을 받아옴*/
 	/*토글 꾸며주기 완료*/
 	function toggle(toggle_value) {
-		alert(toggle_value);
 		$.ajax({
 			url:"sell/"+toggle_value,
 			data:JSON.stringify(toggle_value),
@@ -101,8 +100,8 @@
 				});
 				$('#toggle_div'+toggle_value).toggle('show')
 				
+				
 				var list=JSON.stringify(data.list);
-				alert(JSON.stringify(data.list));
 				console.log("success"+JSON.stringify(data.list));
 				console.log("success"+data.list);
 				
@@ -138,8 +137,6 @@
 						makePaging(data.paging);
 					 
 					}, error:function(request,status,error){
-						alert(error);
-					    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					   }
 			
@@ -208,8 +205,25 @@
 		
 	 	 searchBoard();
 		
-		
 	} 
+	function todayTime() {
+		var date=new Date();
+		var year=date.getFullYear().toString();
+		var month= date.getMonth() + 1;
+		var day= date.getDate();
+		var hours=date.getHours();
+		var minutes=date.getMinutes();
+		var Time=year+"-"+month+"-"+day+" "+hours+":"+minutes;
+		console.log(Time);
+		return Time;
+	}
+	function new_sell() {
+		$('#myModal').modal();
+		serverTime.innerHTML=todayTime(); 
+	}
+	function menu_search() {
+		
+	}
 	</script>
 </head>
 <body>
@@ -219,6 +233,7 @@
 				<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
 				판매관리
 			</h3>
+			<div style="margin-bottom: 10px;"></div>
 		</div>
 		<div class="container">
 			<form class="form-inline" id="searchForm" >
@@ -250,22 +265,12 @@
 						HTML onkeypress="if(event.keyCode==13) {btnEnter();return false;}"
 						 엔터키 시  btnEnter로 넘긴다. return false없으면 엔터시 주소값을 넘김 -->
 					<button id="searchBtn" class="btn btn-success" type="button">Search</button>
-					<!-- 	<div class="form-group">
-							<label for="seachCodeAndName">&nbsp검색 시작일 :</label>
-							<input type="date" class="date" id="startDate" name="startDate">
-						       
-							&nbsp; ~ &nbsp; 
-							 <label for="seachCodeAndName">&nbsp 검색 종료일 :</label>
-							 <input type="date" class="date" id="endDate" name="endDate">
-						       			
-						</div> -->
-
 				</div>
 			</form>
 		</div>
-
+		<div style="margin-bottom: 30px;"></div>
 		<div class="col-lg-12 col-xs-12 col-md-12">
-			<table class="table table-striped" id="boardTable">
+			<table class="table table-hover" id="boardTable">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="allCheck" /></th>
@@ -320,13 +325,100 @@
 			</ul>
 
 		</div>
-
 		<div class="text-right">
-			<button type="button" class="btn btn-danger">엑셀 다운로드</button>
-			<button type="button" class="btn btn-info">신규등록</button>
+			<div class="btn-group">
+					<button type="button" class="btn btn-primary">삭제</button>
+					<button type="button" class="btn btn-danger">엑셀 다운로드</button>
+					<button id="new_sell" type="button" class="btn btn-info"
+					onclick="javascript:new_sell()">신규등록</button>
+			</div>
 		</div>
+			<!-- 모달창 2018-01-08 -->
+			<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">신규등록</h4>
+		      </div>
+		    <form>
+		    <div class="controller"> 
+		      <div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
+					   <div class="form-group"  style="margin: 10px;">
+						<div class="row input-group">
+							<span class="input-group-addon">
+									판매일자 :
+							</span>
+							<span id="serverTime" class="form-control"></span>
+							<span class="input-group-addon">
+									총 판매가격 : <!-- col-md-3 col-lg-3 col-xs-3 col-sm-3  -->
+							</span>
+								<input type="text" class="form-control">
+						</div>
+					  </div>
+					  <div class="form-group"  style="margin: 10px;">
+						<div class="row input-group">
+							<span class="input-group-addon">메뉴 명 : </span>
+							<input type="text" placeholder="메뉴명 입력" class="form-control">
+							<span class="input-group-btn">
+								<button class="btn btn-warning">검색</button>
+							</span>
+						</div>
+					 </div>	
+						<table class="table table-bordered" style="margin: 30px 0 30px 0;">
+								 <thead>
+									  <tr>
+									    <th>메뉴명</th>
+									    <th>메뉴코드</th>
+									    <th>가격</th>
+									  </tr>
+								 </thead>
+								 <tbody>
+								 </tbody>
+						</table>
+					 <div class="form-group">
+							<div class="row">
+								<div class="col-md-4"></div>
+							 	<div class="col-md-8">
+										<div class="input-group">
+											<span class="input-group-addon">
+											메뉴 명 : 
+											</span>
+											<span class="form-control">메뉴이름</span>
+											<span class="input-group-addon">
+											수 량 : 
+											</span>
+											<input class="form-control" type="number">
+											<span class="input-group-btn">
+												<button type="reset" class="btn btn-default">X</button>
+											</span>
+										</div>
+								</div>
+						</div>
+					 </div>	
+					 
+					 <div class="col-md-6"></div>
+					 <div class="col-md-6">
+						<div class="row input-group">
+								<span class="form-control"></span>
+								<span class="input-group-btn">
+									<button class="btn" type="button">총판매 계산</button>
+								</span>
+						</div>
+					</div>		   
+					 </div>
+			      </div>
+		      	</form>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary">저장</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>	
 	</div>
-
+	<div style="margin-bottom: 30px;"></div>
 </body>
 </html>
 </body>
