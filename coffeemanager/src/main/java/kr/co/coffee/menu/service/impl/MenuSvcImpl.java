@@ -1,11 +1,13 @@
 package kr.co.coffee.menu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
-
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mysql.cj.api.Session;
 
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
@@ -41,6 +43,18 @@ public class MenuSvcImpl implements MenuSvc {
 	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception {
 
 		return commonMapper.getIngredientList(searchIngredientName);
+	}
+
+	@Override
+	public void deleteChecked(ArrayList<Integer> deleteArray) throws Exception {
+		
+		for(int i=0; i<deleteArray.size();i++) {
+			int menu_cd = deleteArray.get(i);
+			
+		}
+		
+		
+		return;
 	}
 
 }

@@ -1,5 +1,6 @@
 package kr.co.coffee.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.coffee.common.domain.Search;
@@ -39,6 +40,9 @@ public interface CommonMapper {
 	
 	// 메뉴등록시 원재료 리스트 불러오기
 	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception;
+	
+	// 메뉴 선택 삭제
+	public void deleteChecked(ArrayList<Integer> deleteArray) throws Exception;
 	//*******************************************************************************************
 	
 	

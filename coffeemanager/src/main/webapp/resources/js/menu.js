@@ -56,6 +56,47 @@ $(function() {
 	});
 });// --전체선택 체크박스 closed
 
+// 삭제 버튼
+$(function(){
+	$("#deleteBtn").click(function(){
+		var checkArray = "";
+		var separator = "";
+		
+		$("input[name=checkOne]:checked").each(function(){
+			checkArray += separator+$(this).attr("value");
+			separator = ",";
+			});
+		
+		console.log("checkArray = "+checkArray);
+		
+		if(checkArray.length == 0){
+			alert("삭제할 메뉴를 선택해주세요.");
+		}else{
+		
+			if(confirm("정말 메뉴를 삭제하시겠습니까?") == true){
+			
+				$.ajax({
+					url:"menuDel",
+					type: "POST",
+					data: {"deleteMenuArray": checkArray},
+					success: function(data){
+						location.href = "/menu"
+					},
+					error: function(request, status, error){
+						alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+					}
+				}); // -- ajax closed
+			}else{
+				location.reload(true);
+			}
+			
+		}
+		return false;
+		
+	});// -- deleteBtn func closed
+});// -- func closed
+
+
 /*
  * // 메뉴 사용여부 토글 $(function() { var tog = $("input[id='tog']");
  * tog.click(function() { $("p").toggle(); }); });
@@ -162,7 +203,7 @@ function menuBoard() {
 function makeData(data) {
 	var datahtml = "";
 	datahtml += "<tr>";
-	datahtml += "<td><input type='checkbox' id='checkOne' /></td>";
+	datahtml += "<td><input type='checkbox' name='checkOne' value='"+data.menu_cd+"'/></td>";
 	datahtml += "<td><a class='menu_cd' href='#' onclick='javascript:toggle(\""
 			+ data.menu_cd + "\")'>" + data.menu_cd + "</a></td>";
 	datahtml += "<td>" + data.menu_name + "</td>";
@@ -182,7 +223,7 @@ function toggle(menuCodeOnClick) {
 
 	$.ajax({
 		url : "menu/" + menuCodeOnClick,
-		data : JSON.stringify(menuCodeOnClick),
+		data : JSON.stringify(menuCodeOnClick), 
 		type : "GET",
 		dataType : "JSON",
 		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
