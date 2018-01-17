@@ -217,14 +217,120 @@
 		console.log(Time);
 		return Time;
 	}
+	
 	function new_sell() {
 		$('#myModal').modal();
 		serverTime.innerHTML=todayTime(); 
 	}
-	function menu_search() {
-		
+	function menu_SH() {
+		var search_text=$('#menu_search').val();
+		console.log(search_text);
+		$.ajax({
+			url:"sell/menuSearch",
+			data:{"search_text":search_text},
+			type:'GET',
+			dataType:"JSON",
+			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+			success : function(data) {
+				console.log(data);
+				
+					/* console.log(data.list[i].menu_cd); */
+					$('#menu_table tbody').html(function() {
+						str="";
+						for(var i=0;i<data.list.length;i++){
+							str+="<tr>";
+							str+="<td>"+data.list[i].menu_name+"</td>";
+							str+="<td>"+data.list[i].menu_cd+"</td>";
+							str+="<td>"+data.list[i].menu_sp+"</td>";
+							str+="</tr>";
+						}
+					
+						return str;
+					
+						});
+						trClick()
+			},
+			error: function(xhr,status,error){
+		          //에러!
+		          alert("code:"+xhr.status);
+		     }
+		});
 	}
-	</script>
+	//테이블 row 클릭시 값 가져오기
+	function trClick() {
+		$("#menu_table tr").click(function() {
+			var tdArr = new Array();
+			var tr=$(this);
+			var td=tr.children();
+			console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+			
+			td.each(function(i) {
+				tdArr.push(td.eq(i).text());
+			});
+			console.log("배열에 담긴 값 : "+tdArr);
+			
+			var menu_name=td.eq(0).text();
+			var menu_cd=td.eq(1).text();
+			var menu_sp=td.eq(2).text();
+			$('#menu_click_name').text(menu_name);
+			$('#menu_click_SP').text(menu_sp);
+			$('#menu_click_code').text(menu_cd);
+			
+		});
+	}
+	function SP_multiply() {
+		var menuName=$('#menu_click_name').text();
+		if(menuName=="메뉴이름"){
+			alert("메뉴를 검색 후 클릭해 주세요!");
+		}else{
+			var click_sp=$('#menu_click_SP').text();
+			console.log(click_sp);
+			var menuCount=$('#menuCount').val();
+			if(menuCount==""){
+				alert("수량를 입력해주세요");
+			}else if(menuCount=="0"){
+				alert("0개 입니다");
+				$('#sp_click').text(null);
+				$('#total_SPay').text(null);
+		}else{
+				var sp_multiply=click_sp*menuCount;
+				console.log(sp_multiply);
+				$('#sp_click').text(sp_multiply);
+				$('#total_SPay').text(sp_multiply);
+				
+			}
+		}
+	}
+	function reset() {
+		$('#sp_click').text(null);
+		$('#total_SPay').text(null);
+		$('#menu_click_name').text(null);
+		$('#menu_click_SP').text(null);
+		$('#menu_click_code').text(null);
+	}
+	function save_sell() {
+		var click_sp=$('#menu_click_SP').text();
+		var click_code=$('#menu_click_code').text();
+		var click_count=$('#menuCount').val();
+		console.log(click_count+":"+click_code)
+		if(click_sp==""||click_code==""||click_count==""||click_count=="0"){
+			alert("메뉴를 설정해주세요");
+		}else{
+		$.ajax({
+			url:'sell/new',
+			data:{"click_code":click_code,"click_count":click_count},
+			type:'POST',
+			dataType:'JSON',
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success: function(data) {
+				location.href=data.url;
+				searchBoard();
+				console.log(data.url);
+			}
+		});
+		}
+	}
+</script>
 </head>
 <body>
 	<div class="container">
@@ -354,19 +460,23 @@
 							<span class="input-group-addon">
 									총 판매가격 : <!-- col-md-3 col-lg-3 col-xs-3 col-sm-3  -->
 							</span>
-								<input type="text" class="form-control">
+								<span class="form-control"  id="total_SPay"></span>
 						</div>
 					  </div>
 					  <div class="form-group"  style="margin: 10px;">
 						<div class="row input-group">
 							<span class="input-group-addon">메뉴 명 : </span>
-							<input type="text" placeholder="메뉴명 입력" class="form-control">
+							<input type="text" placeholder="메뉴명 입력" class="form-control" 
+							id="menu_search"
+							onkeypress="if(event.keyCode==13) {menu_SH(); return false;}">
 							<span class="input-group-btn">
-								<button class="btn btn-warning">검색</button>
+								<button class="btn btn-warning" type="button"
+								 id="menu_search_button" onclick="javascript:menu_SH()">검색</button>
+								<!--   -->
 							</span>
 						</div>
 					 </div>	
-						<table class="table table-bordered" style="margin: 30px 0 30px 0;">
+						<table id="menu_table" class="table table-bordered table-hover" style="margin: 30px 0 30px 0;">
 								 <thead>
 									  <tr>
 									    <th>메뉴명</th>
@@ -374,45 +484,52 @@
 									    <th>가격</th>
 									  </tr>
 								 </thead>
-								 <tbody>
+								 <tbody id="menu_tbody">
 								 </tbody>
 						</table>
 					 <div class="form-group">
 							<div class="row">
-								<div class="col-md-4"></div>
-							 	<div class="col-md-8">
+							 	<div class="col-md-12">
 										<div class="input-group">
 											<span class="input-group-addon">
 											메뉴 명 : 
 											</span>
-											<span class="form-control">메뉴이름</span>
+											<span class="form-control" id="menu_click_name">메뉴이름</span>
+											<span class="input-group-addon">
+											메뉴 코드 : 
+											</span>
+											<span class="form-control" id="menu_click_code">메뉴코드</span>
+											<span class="input-group-addon">
+											판매 가격 :
+											</span>
+											<span class="form-control" id="menu_click_SP"></span>
 											<span class="input-group-addon">
 											수 량 : 
 											</span>
-											<input class="form-control" type="number">
+											<input class="form-control" id="menuCount" type="number" min="0">
 											<span class="input-group-btn">
-												<button type="reset" class="btn btn-default">X</button>
+												<button type="reset" id="rest_x" onclick="javascript:reset();" class="btn btn-default">X</button>
 											</span>
 										</div>
 								</div>
 						</div>
 					 </div>	
 					 
-					 <div class="col-md-6"></div>
-					 <div class="col-md-6">
-						<div class="row input-group">
-								<span class="form-control"></span>
+					 <div class="col-md-8"></div>
+					 <div class="col-md-4 text-right">
+						 <div class="row input-group">
+								<span class="form-control" id="sp_click"></span>
 								<span class="input-group-btn">
-									<button class="btn" type="button">총판매 계산</button>
+									 <button class="btn" type="button" onclick="javascript:SP_multiply();">총판매 계산</button>
 								</span>
-						</div>
+						 </div> 
 					</div>		   
 					 </div>
 			      </div>
 		      	</form>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-		        <button type="button" class="btn btn-primary">저장</button>
+		        <button type="button" class="btn btn-primary" onclick="javascript:save_sell()">저장</button>
 		      </div>
 		    </div>
 		  </div>
