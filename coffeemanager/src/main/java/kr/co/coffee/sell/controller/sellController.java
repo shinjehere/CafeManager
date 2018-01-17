@@ -133,7 +133,7 @@ public class sellController {
 		if(getCode==null||getCode=="") {
 			codeSL+="001";
 			System.out.println("if null:"+codeSL);
-			sellInsVO.setCode_SL(codeSL);
+			sellInsVO.setCode_SL(codeSL.trim());
 			sellService.sell_insert(sellInsVO);
 		}else {
 			String backIntString=getCode.substring(getCode.length()-3, getCode.length());
@@ -147,7 +147,7 @@ public class sellController {
 			System.out.println("backCode:"+backCode);
 			codeSL+=backCode;
 			System.out.println("if else:"+codeSL);
-			sellInsVO.setCode_SL(codeSL);
+			sellInsVO.setCode_SL(codeSL.trim());
 			sellService.sell_insert(sellInsVO);
 		}
 		Map<String, Object> map=new HashMap<String, Object>();
