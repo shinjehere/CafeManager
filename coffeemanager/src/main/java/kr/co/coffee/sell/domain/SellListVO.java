@@ -6,7 +6,7 @@ import java.util.Date;
  *  김영섭
  * 
  **/
-public class SellList {
+public class SellListVO {
 	private String sell_CD;
 	private Date sell_Date;
 	private String menu_CD;
