@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.coffee.common.pagingUtil;
 import kr.co.coffee.common.domain.Paging;
 import kr.co.coffee.common.domain.Search;
+import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.menu.service.MenuSvc;
 
@@ -51,6 +53,24 @@ public class MenuController {
 		map.put("paging", paging);
 
 		return map;
+	}
+	
+	@RequestMapping(path="/{menuCodeOnClick}", method=RequestMethod.GET)
+	@ResponseBody
+	public  Map<String, Object> menuDetail(@PathVariable String menuCodeOnClick) throws Exception{
+		List<MenuVO> list = menuSvc.menuDetail(menuCodeOnClick);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+	
+	@RequestMapping(path="/{searchIngredientName}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<IngredientVO> getIngredientList(@PathVariable String searchIngredientName) throws Exception{
+		List<IngredientVO> list = menuSvc.getIngredientList(searchIngredientName);
+		
+		return list;
 	}
 
 }
