@@ -32,7 +32,7 @@ public class stockController {
 		nf.setMaximumIntegerDigits(10);
 		
 		for(int i=0; i<list.size(); i++) {
-			list.get(i).setSt_total_Price((nf.format(Integer.parseInt(list.get(i).getSt_total_Price()))));
+			list.get(i).setSt_total_Price((nf.format( Float.parseFloat(list.get(i).getSt_total_Price()))));
 			
 		}
 		

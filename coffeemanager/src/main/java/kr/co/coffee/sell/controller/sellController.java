@@ -1,6 +1,7 @@
 package kr.co.coffee.sell.controller;
 
 import java.sql.SQLDataException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +27,15 @@ import org.springframework.web.multipart.support.RequestPartServletServerHttpReq
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.common.util.concurrent.Service;
 
 import ch.qos.logback.classic.Logger;
 import kr.co.coffee.common.pagingUtil;
 import kr.co.coffee.common.domain.Paging;
 import kr.co.coffee.common.domain.Search;
-import kr.co.coffee.sell.domain.SellList;
+import kr.co.coffee.menu.domain.MenuVO;
+import kr.co.coffee.sell.domain.SellInsVO;
+import kr.co.coffee.sell.domain.SellListVO;
 import kr.co.coffee.sell.service.SellService;
 
 /**
@@ -81,7 +85,7 @@ public class sellController {
 		int totalcount=sellService.getTotalCount(search);
 		Paging paging=pagingUtil.getPaging(search, totalcount);
 		search.setStartCount(paging.getStartCount());
-		List<SellList> list=sellService.getSellList(search);
+		List<SellListVO> list=sellService.getSellList(search);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("paging", paging);
@@ -89,15 +93,66 @@ public class sellController {
 	}
 	/**
 	 * @author 김영섭
+	 * Json방식
 	 * 상세페이지 보여주기(토글에 뿌려주기)
 	 */
 	@RequestMapping(path="/{togggle_value}", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> detail_Sell(@PathVariable String togggle_value) throws Exception{
-		List<SellList> list=sellService.detail_Sell(togggle_value);
+		List<SellListVO> list=sellService.detail_Sell(togggle_value);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;
 	}
-
+	
+	@RequestMapping(path="/menuSearch",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> menuSearch(String search_text) throws Exception{
+		List<MenuVO> list=sellService.menu_search(search_text);
+	
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	@RequestMapping(path="/new",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> sellInsert(HttpServletRequest request) throws Exception{
+		String click_code=request.getParameter("click_code");
+		int click_count=Integer.parseInt(request.getParameter("click_count"));
+		System.out.println(click_code+":"+click_count);
+		SellInsVO sellInsVO=new SellInsVO();
+		sellInsVO.setClick_code(click_code);
+		sellInsVO.setClick_count(click_count);
+		Date today=new Date();
+		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMdd");
+		String todayString=dateFormat.format(today);
+		System.out.println(sellInsVO);
+		String codeSL="SL"+todayString;
+		String getCode=sellService.search_insert_code(codeSL).trim();
+		System.out.println("getCode:"+getCode);
+		if(getCode==null||getCode=="") {
+			codeSL+="001";
+			System.out.println("if null:"+codeSL);
+			sellInsVO.setCode_SL(codeSL.trim());
+			sellService.sell_insert(sellInsVO);
+		}else {
+			String backIntString=getCode.substring(getCode.length()-3, getCode.length());
+			System.out.println("backIntString:"+backIntString);
+			System.out.println("backIntString+1:"+backIntString+1);
+			int intString=Integer.parseInt(backIntString);
+			intString+=1;
+			System.out.println("intString:"+intString);
+			
+			String backCode=String.format("%03d%n", intString);
+			System.out.println("backCode:"+backCode);
+			codeSL+=backCode;
+			System.out.println("if else:"+codeSL);
+			sellInsVO.setCode_SL(codeSL.trim());
+			sellService.sell_insert(sellInsVO);
+		}
+		Map<String, Object> map=new HashMap<String, Object>();
+		String url="sell";
+		map.put("url", url);
+		return map;
+	}
 }

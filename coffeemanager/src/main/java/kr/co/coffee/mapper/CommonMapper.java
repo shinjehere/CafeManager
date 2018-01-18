@@ -6,7 +6,8 @@ import java.util.List;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
-import kr.co.coffee.sell.domain.SellList;
+import kr.co.coffee.sell.domain.SellInsVO;
+import kr.co.coffee.sell.domain.SellListVO;
 import kr.co.coffee.stock.domain.StockList;
 
 /**
@@ -20,11 +21,18 @@ public interface CommonMapper {
 
 	
 	// sell mapper *********************************************************************************	
-	public List<SellList> getSellList(Search search) throws Exception;
-
+	//판매 리스트 전체 조회
+	public List<SellListVO> getSellList(Search search) throws Exception;
+	// 페이징을 위한 전체 리스트 카운트
 	public int getTotalCount(Search search) throws Exception;
-
-	public List<SellList> detail_Sell(String togggle_value) throws Exception;
+	//코드 클릭시 토글로 상세 정보 보여주기
+	public List<SellListVO> detail_Sell(String togggle_value) throws Exception;
+	//메뉴 찾기
+	public List<MenuVO> menu_search(String menu_SH) throws Exception;
+	//인서트 전 코드 검색 후 확인
+	public String search_insert_code(String codeSL) throws Exception;
+	//판매 인서트 추가
+	public void sell_insert(SellInsVO sellInsVO) throws Exception;
 	//*************************************************************************************************
 
 	// menu mapper *********************************************************************************
