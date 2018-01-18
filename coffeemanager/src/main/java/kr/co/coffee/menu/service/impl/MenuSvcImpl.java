@@ -43,10 +43,10 @@ public class MenuSvcImpl implements MenuSvc {
 	}
 
 	@Override
-	public void deleteChecked(ArrayList<Integer> deleteArray) throws Exception {
+	public void deleteChecked(ArrayList<String> deleteArray) throws Exception {
 		
 	for(int i=0; i<deleteArray.size();i++) {
-			commonMapper.deleteChecked(deleteArray);
+			commonMapper.deleteChecked(deleteArray.get(i));
 		}
 
 	}

@@ -50,7 +50,7 @@ public interface CommonMapper {
 	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception;
 	
 	// 메뉴 선택 삭제
-	public void deleteChecked(ArrayList<Integer> deleteArray) throws Exception;
+	public void deleteChecked(String deleteArray) throws Exception;
 	//*******************************************************************************************
 	
 	
