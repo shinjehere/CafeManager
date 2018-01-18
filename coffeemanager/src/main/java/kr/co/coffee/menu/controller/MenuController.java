@@ -82,7 +82,7 @@ public class MenuController {
 	}
 
 	// 메뉴 선택 삭제
-	@RequestMapping(value = "menuDel", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/menuDel", method = { RequestMethod.GET, RequestMethod.POST })
 	public String deleteMenu(@RequestParam(value = "checkArray[]") List<Integer> deleteList,
 			@ModelAttribute("MenuVO") MenuVO menuVO, ModelMap model) throws Exception {
 
@@ -93,6 +93,8 @@ public class MenuController {
 		
 		menuSvc.deleteChecked(deleteArray);
 
+		System.out.println("deleteArray = "+deleteArray);
+		
 		return "redirect:/menu";
 	}
 }

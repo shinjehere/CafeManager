@@ -76,11 +76,11 @@ $(function(){
 			if(confirm("정말 메뉴를 삭제하시겠습니까?") == true){
 			
 				$.ajax({
-					url:"menuDel",
+					url:"menu/menuDel",
 					type: "POST",
 					data: {"deleteMenuArray": checkArray},
 					success: function(data){
-						location.href = "/menu"
+						location.href = "menu"
 					},
 					error: function(request, status, error){
 						alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -232,19 +232,24 @@ function toggle(menuCodeOnClick) {
 
 				var str = "";
 
+				str += "<div class='container'><div class='col-xs-4 col-md-4'><table class='table'><caption>메뉴 레시피</caption>";
+				str += "<thead><tr><th>원재료명</th><th>사용 용량</th><th>단위</th></tr></thead>";
+				str += "<tbody>";
+				
 				if (data.list.length > 0) {
 
 					for (var i = 0; i < data.list.length; i++) {
-						str += "<div class='container'>"
-						str += "<div>" + data.list[i].ing_nm + "</div>";
-						str += "<div>" + data.list[i].menu_amount + "</div>";
-						str += "<div>" + data.list[i].ing_unit + "</div>";
-						str += "</div>"
+						str += "<tr>";
+						str += "<th scope='row'>"+(i+1)+"</th>";
+						str += "<td>" + data.list[i].ing_nm + "</td>";
+						str += "<td>" + data.list[i].menu_amount + "</td>";
+						str += "<td>" + data.list[i].ing_unit + "</td>";
+						str += "</tr>";
 					}
 				} else {
-					str += "<div><p>데이터가 없습니다.</p></div>";
+					str += "<td>데이터가 없습니다.</td>";
 				}
-
+				str +="</tbody>";
 				return str;
 			});
 
