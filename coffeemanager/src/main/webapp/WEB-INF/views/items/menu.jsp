@@ -13,12 +13,12 @@
 <script type="text/javascript" src="/coffee/resources/js/menu.js"></script>
 
 <!-- 메뉴 사용 여부 토글을 위한 js -->
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<!-- <script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
 
 <!-- 아코디언을 위한 js -->
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.10.2.js"></script> -->
 
 <!-- 데이트피커를 위한 css와 js -->
 <!-- <link rel="stylesheet"
@@ -42,7 +42,7 @@
 /*=====사용여부 토글 css 시작=====*/
 /*=========================*/
 /* The switch - the box around the slider */
-.switch {
+/* .switch {
 	position: relative;
 	display: inline-block;
 	width: 60px;
@@ -108,7 +108,7 @@ p {
 	display: inline-block;
 	font-size: 15px;
 	font-weight: bold;
-}
+} */
 /*=========================*/
 /*=====사용여부 토글 css 끝=====*/
 /*=========================*/
@@ -116,7 +116,7 @@ p {
 /*=========================*/
 /*=====아코디언 css 시작=====*/
 /*=========================*/
-#accordian li {
+/* #accordian li {
 	list-style: none;
 }
 
@@ -130,19 +130,12 @@ li>ul {
 
 li>ul>li {
 	color: #00F;
-}
+} */
 
 /*=========================*/
 /*=====아코디언 css 끝=====*/
 /*=========================*/
-#mask {
-	position: absolute;
-	z-index: 9000;
-	background-color: #000;
-	display: none;
-	left: 0;
-	top: 0;
-}
+
 </style>
 </head>
 
@@ -202,7 +195,7 @@ li>ul>li {
 						<th>판매가(원)</th>
 						<th>등록일</th>
 						<th>수정일</th>
-						<th>메뉴 사용 여부</th>
+					<!--<th>메뉴 사용 여부</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -250,7 +243,7 @@ li>ul>li {
 									<div class="input-group  col-xs-12">
 										<span class="input-group-addon">원재료 명</span> <input
 											type="text" class="form-control" placeholder="Search"
-											name="search">
+											name="search" id="searchIngredientName">
 										<div class="input-group-btn">
 											<button class="btn btn-default btn-lg" type="submit"
 												style="height: 34px;">
