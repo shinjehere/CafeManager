@@ -88,10 +88,10 @@ public class MenuController {
 
 		ArrayList<String> deleteArray = new ArrayList<String>();
 		for (int i = 0; i < deleteList.size(); i++) {
-			//deleteArray.add(deleteList.get(i));
+			deleteArray.add(deleteList.get(i));
 		}
 		
-		//menuSvc.deleteChecked(deleteArray);
+		menuSvc.deleteChecked(deleteArray);
 
 		System.out.println("deleteArray = "+deleteArray);
 		
