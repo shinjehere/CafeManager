@@ -69,7 +69,7 @@
 	</select>
 
 
-	<delete id="deleteChecked" parameterType="int" >
+	<delete id="deleteChecked" parameterType="String" >
 		<![CDATA[
 			DELETE 
 				FROM MENU

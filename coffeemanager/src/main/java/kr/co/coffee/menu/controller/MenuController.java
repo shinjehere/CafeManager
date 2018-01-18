@@ -83,10 +83,10 @@ public class MenuController {
 
 	// 메뉴 선택 삭제
 	@RequestMapping(value = "/menuDel", method = { RequestMethod.GET, RequestMethod.POST })
-	public String deleteMenu(@RequestParam(value = "checkArray[]") List<Integer> deleteList,
+	public String deleteMenu(@RequestParam(value = "deleteMenuArray") List<String> deleteList,
 			@ModelAttribute("MenuVO") MenuVO menuVO, ModelMap model) throws Exception {
 
-		ArrayList<Integer> deleteArray = new ArrayList<Integer>();
+		ArrayList<String> deleteArray = new ArrayList<String>();
 		for (int i = 0; i < deleteList.size(); i++) {
 			deleteArray.add(deleteList.get(i));
 		}

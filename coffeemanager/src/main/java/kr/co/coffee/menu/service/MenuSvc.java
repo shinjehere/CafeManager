@@ -25,5 +25,5 @@ public interface MenuSvc {
 	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception;
 	
 	// 메뉴 선택 삭제
-	public void deleteChecked(ArrayList<Integer> deleteArray) throws Exception;
+	public void deleteChecked(ArrayList<String> deleteArray) throws Exception;
 }
