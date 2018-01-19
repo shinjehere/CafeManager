@@ -145,7 +145,7 @@ li>ul>li {
 		<div class="container">
 			<h3>
 				<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-				판매관리
+				메뉴관리
 			</h3>
 		</div>
 		<div class="container">
@@ -211,20 +211,134 @@ li>ul>li {
 		</div>
 		<div class="text-right">
 			<button type="button" class="btn btn-danger">엑셀 다운로드</button>
-			<button type="button" class="btn btn-info" data-toggle="modal"
-				data-target="#newMenu">신규등록</button>
+			<button id="new_sell" type="button" class="btn btn-info"
+					onclick="javascript:new_menu()">신규등록</button>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">신규메뉴등록</h4>
+		      </div>
+		    <form>
+		    <div class="controller"> 
+		      <div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
+					  <div class="form-group"  style="margin: 10px;">
+						<div class="row input-group">
+							<span class="input-group-addon">메뉴명 : </span>
+							<input type="text" placeholder="등록할 메뉴 이름을 입력하세요" class="form-control" 
+							id="checkMenu"
+							onkeypress="if(event.keyCode==25) {checkMenuName(); return false;}">
+							<span class="input-group-btn">
+								<button class="btn btn-warning" type="button"
+								 id="btnCheckMenu" onclick="javascript:checkMenuName()">중복확인</button>
+							</span>
+						</div>
+					 </div>	
+					 <div class="form-group"  style="margin: 10px;">
+						<div class="row input-group">
+							<span class="input-group-addon">
+									메뉴 단가 :
+							</span>
+							<span id="menuUnitPrice" class="form-control" disabled="disabled"></span>
+							<span class="input-group-addon">
+									메뉴 판매가 : 
+							</span>
+								<input type="text" placeholder="판매할 가격을 입력하세요" class="form-control">
+						</div>
+					  </div>
+					  <div class="form-group"  style="margin: 10px;">
+						<div class="row input-group">
+							<span class="input-group-addon">원재료명 : </span>
+							<input type="text" placeholder="검색할 원재료명을 입력하세요" class="form-control" 
+							id="searchIngdnt"
+							onkeypress="if(event.keyCode==25) {searchIngredient(); return false;}">
+							<span class="input-group-btn">
+								<button class="btn btn-warning" type="button"
+								 id="btnSearchIngdnt" onclick="javascript:searchIngredient()">검색</button>
+							</span>
+						</div>
+					 </div>	
+						<table id="menu_table" class="table table-bordered table-hover" style="margin: 30px 0 30px 0;">
+								 <thead>
+									  <tr>
+									    <th>원재료코드</th>
+									    <th>원재료명</th>
+									    <th>단가</th>
+										<th>1단위 용량</th>
+										<th>단위</th>
+									  </tr>
+								 </thead>
+								 <tbody id="menu_tbody">
+								 </tbody>
+						</table>
+					 <div class="form-group">
+							<div class="row">
+							 	<div class="col-md-12">
+										<div class="input-group">
+											<span class="input-group-addon">
+											원재료코드 : 
+											</span>
+											<span class="form-control" id="ing_click_code"></span>
+											<span class="input-group-addon">
+											원재료명 : 
+											</span>
+											<span class="form-control" id="ing_click_name"></span>
+											<span class="input-group-addon">
+											단가 :
+											</span>
+											<span class="form-control" id="ing_click_UP"></span>
+											<span class="input-group-addon">
+											1단위 용량 :
+											</span>
+											<span class="form-control" id="menu_click_amount"></span>
+											<span class="input-group-addon">
+											단위 :
+											</span>
+											<span class="form-control" id="menu_click_unit"></span>
+											<span class="input-group-addon">
+											사용할 용량 : 
+											</span>
+											<input class="form-control" id="menuUnitAmount" type="number" min="0">
+											<span class="input-group-btn">
+												<button type="reset" id="rest_x" onclick="javascript:reset();" class="btn btn-default">X</button>
+											</span>
+										</div>
+								</div>
+						</div>
+					 </div>	
+					 
+					 <div class="col-md-8"></div>
+					 <div class="col-md-4 text-right">
+						 <div class="row input-group">
+								<span class="form-control" id="sp_click"></span>
+								<span class="input-group-btn">
+									 <button class="btn" type="button" onclick="javascript:calMenuUP();">메뉴 단가 계산</button>
+								</span>
+						 </div> 
+					</div>		   
+					 </div>
+			      </div>
+		      	</form>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" onclick="javascript:save_sell()">저장</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>	
 			<!-- Modal -->
-			<div class="modal fade" id="newMenu" role="dialog">
+			<!-- <div class="modal fade" id="newMenu" role="dialog">
 				<div class="modal-dialog">
-					<!-- Modal Content -->
+					Modal Content
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h4 class="modal-title">신규 메뉴 등록</h4>
 						</div>
+						<form>
 						<div class="modal-body">
 							<div class="container  col-xs-12">
-								<form>
 									<div class="input-group">
 										<span class="input-group-addon">메뉴명</span> <input type="text"
 											placeholder="50자이내" class="form-control">
@@ -252,15 +366,15 @@ li>ul>li {
 											</button>
 										</div>
 									</div>
-								</form>
 							</div>
 						</div>
+						</form>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-default" id="createMenu">등록하기</button>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- Modal closed -->
 		</div>
 	</div>

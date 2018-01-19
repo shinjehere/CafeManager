@@ -1,46 +1,10 @@
-/*function wrapWindowByMask(){ 
-	//화면의 높이와 너비를 구한다. 
-	var maskHeight = $(document).height(); 
-	var maskWidth = $(window).width(); 
-	
-	//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다. 
-	$('#mask').css({'width':maskWidth,'height':maskHeight}); 
-	
-	//마스크의 투명도 처리 
-	$('#mask').fadeTo("slow",0.8); 
-} 
+function new_menu() {
+		$('#myModal').modal();
+	}
 
-$(document).ready(function(){ 
-	//wrapWindowByMask(); 
-	//불투명 배경 띄우기 
-	$('.openMask').click(function(e){ 
-		e.preventDefault(); 
-		wrapWindowByMask(); 
-	}); 
-});
 
-function createNewMenu(){
-	$('#newMenu').show();
-	wrapWindowByMask();
-}
 
-function btnexit(){ 
-	$('#newMenu').hide(); 
-	$('#mask').hide(); 
-}
 
- */
-
-/*// 신규 등록 팝업 프레임
-
- * window.open(url:String, name:String, properties:String)
- * open 함수는 반드시 3개의 매개변수가 있어야하고, 순서가 지켜져야 함.
- * 
- function createNewMenu() {
- window
- .open("new_menu.jsp", "",
- "width=1300, height=900, left=100, top=50, scrollbars=yes, location=no");
- }*/
 
 // 전체선택 체크박스
 $(function() {
