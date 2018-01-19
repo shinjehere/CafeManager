@@ -2,6 +2,44 @@ function new_menu() {
 		$('#myModal').modal();
 	}
 
+function searchIngredient(){
+	var searchIngredientName=$('#searchIngdnt').val();
+	console.log(searchIngredientName);
+	$.ajax({
+		url:"menu/searchIngdnt",
+		data:{"searchIngredientName":searchIngredientName},
+		type:'GET',
+		dataType:"JSON",
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		success : function(data) {
+			console.log(data);
+			
+				$('#menu_table tbody').html(function() {
+					str="";
+					for(var i=0;i<data.list.length;i++){
+						str+="<tr>";
+						str+="<td>"+data.list[i].ing_cd+"</td>";
+						str+="<td>"+data.list[i].ing_nm+"</td>";
+						str+="<td>"+data.list[i].ing_price+"</td>";
+						str+="<td>"+data.list[i].unit_amount+"</td>";
+						str+="<td>"+data.list[i].ing_unit+"</td>";
+						str+="</tr>";
+					}
+					return str;
+				
+					});
+					trClick()
+		},
+		error: function(xhr,status,error){
+	          //에러!
+	          alert("code:"+xhr.status);
+	     }
+	});
+}
+
+
+
+
 
 
 

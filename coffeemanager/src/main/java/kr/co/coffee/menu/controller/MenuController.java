@@ -73,12 +73,22 @@ public class MenuController {
 	}
 
 	// 원재료 리스트 불러오기
-	@RequestMapping(path = "/{searchIngredientName}", method = RequestMethod.GET)
+	/*@RequestMapping(path = "/{searchIngredientName}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<IngredientVO> getIngredientList(@PathVariable String searchIngredientName) throws Exception {
 		List<IngredientVO> list = menuSvc.getIngredientList(searchIngredientName);
 
 		return list;
+	}
+	*/
+	@RequestMapping(path="/searchIngdnt",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getIngredientList(String searchIngredientName) throws Exception{
+		List<IngredientVO> list=menuSvc.getIngredientList(searchIngredientName);
+	
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
 	}
 
 	// 메뉴 선택 삭제
@@ -97,4 +107,6 @@ public class MenuController {
 		
 		return "redirect:/menu";
 	}
+	
+	
 }
