@@ -37,6 +37,62 @@ function searchIngredient(){
 	});
 }
 
+//테이블 row 클릭시 값 가져오기
+function trClick() {
+	$("#menu_table tr").click(function() {
+		var tdArr = new Array();
+		var tr=$(this);
+		var td=tr.children();
+		console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+		
+		td.each(function(i) {
+			tdArr.push(td.eq(i).text());
+		});
+		console.log("배열에 담긴 값 : "+tdArr);
+		
+		var ing_code=td.eq(0).text();
+		var ing_name=td.eq(1).text();
+		var ing_up=td.eq(2).text();
+
+		$('#ing_click_code').text(ing_code);
+		$('#ing_click_name').text(ing_name);
+		$('#ing_unit_price').text(ing_up);
+		
+	});
+}
+
+// 메뉴 단가 계산
+function calMenuUP() {
+	var ing_code=$('#ing_click_code').text();
+	if(ing_code == ""){
+		alert("원재료를 검색 후 클릭해 주세요!");
+	}else{
+		var click_up=$('#ing_unit_price').text();
+		console.log(click_up);
+		var menuUnitAmount=$('#menuUnitAmount').val();
+		if(menuUnitAmount==""){
+			alert("사용할 용량을 입력해주세요");
+		}else if(menuUnitAmount=="0"){
+			alert("0은 입력 불가합니다");
+			$('#calMenuClick').text(null);
+			$('#ing_unit_price').text(null);
+	}else{
+			var calMenuUP=click_up*menuUnitAmount;
+			console.log(calMenuUP);
+			$('#calMenuClick').text(calMenuUP);
+			$('#menuUnitPrice').text(calMenuUP);
+		}
+	}
+}
+
+function reset() {
+	$('#calMenuClick').text(null);
+	$('#menuUnitPrice').text(null);
+	$('#ing_click_code').text(null);
+	$('#ing_click_name').text(null);
+	$('#ing_unit_price').text(null);
+}
+
 
 
 
