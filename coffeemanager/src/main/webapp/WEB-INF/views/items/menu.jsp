@@ -207,7 +207,7 @@ li>ul>li {
 		</div>
 
 		<div class="text-left">
-			<button type="button" class="btn btn-danger">선택삭제</button>
+			<button type="button" class="btn btn-danger" id="deleteBtn">선택삭제</button>
 		</div>
 		<div class="text-right">
 			<button type="button" class="btn btn-danger">엑셀 다운로드</button>

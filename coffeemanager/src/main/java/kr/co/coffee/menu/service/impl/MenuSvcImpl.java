@@ -1,8 +1,7 @@
 package kr.co.coffee.menu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +40,15 @@ public class MenuSvcImpl implements MenuSvc {
 	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception {
 
 		return commonMapper.getIngredientList(searchIngredientName);
+	}
+
+	@Override
+	public void deleteChecked(ArrayList<String> deleteArray) throws Exception {
+		
+	for(int i=0; i<deleteArray.size();i++) {
+			commonMapper.deleteChecked(deleteArray.get(i));
+		}
+
 	}
 
 }

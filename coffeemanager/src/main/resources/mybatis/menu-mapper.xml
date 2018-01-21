@@ -68,4 +68,12 @@
 		]]>
 	</select>
 
+
+	<delete id="deleteChecked" parameterType="String" >
+		<![CDATA[
+			DELETE 
+				FROM MENU
+			    WHERE MENU_CD = #{deleteChecked};
+		]]>
+	</delete> 
 </mapper>

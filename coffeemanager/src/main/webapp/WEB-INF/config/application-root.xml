@@ -3,12 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<context:component-scan base-package="kr.co.coffee" scoped-proxy="targetClass">
-			<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+			<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/> 
 			<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
@@ -22,7 +26,6 @@
 	</bean>
 		
 	<context:property-placeholder location="classpath:jdbc.properties"/>
-		
 		
 	<!-- 
 	mybatis xml 설정
@@ -42,10 +45,22 @@
     </bean>
 
 	
-	<!-- 트랜젝션 -->
+	<!-- 트랜젝션  매니저-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
+
+	<!-- name의 이름과 같은 메소드에서 Exception이 발생하면 롤백한다 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- kr.co.coffee.*.service이하 부분의 모든 파일과 메소드에서 txAdvice를 불러와 트랜잭션 설정-->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="txPointcut" expression="execution(* kr.co.coffee.*.service.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
 
 </beans>

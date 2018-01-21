@@ -13,7 +13,7 @@ public static Paging getPaging(Search search,int totalCount) {
 	int currentPage=search.getCurrentPage();
 	int pageSize=5; 
 	
-	int startCount = (currentPage -1)* rowSize+1;
+	int startCount = (currentPage -1)* rowSize;
 	int endCount = (currentPage * rowSize);
 	int startPage = 0;
 	int endPage = 0;
