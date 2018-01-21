@@ -8,7 +8,7 @@ import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellList;
 import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
-
+import kr.co.coffee.stock.domain.IngredientList;
 /**
  * 수정일: 2018-01-08 CommonMapper: 공동 매퍼
  * 
@@ -46,6 +46,8 @@ public interface CommonMapper {
 
 	// stock mapper *********************************************************************************
 	public List<StockList> selectStockList() throws Exception;
+	
+	public List<IngredientList> selectIngredientList() throws Exception;
 	//*************************************************************************************************
 	
 	
