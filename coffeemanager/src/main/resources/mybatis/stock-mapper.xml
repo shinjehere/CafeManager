@@ -39,4 +39,11 @@
      		FROM
      			STOCK
      	</select> 
+     	
+     	<!-- 원재료 select -->
+     	<select id="selectIngredientList" resultType="kr.co.coffee.stock.domain.IngredientList">
+     		SELECT *
+     		FROM
+     			INGREDIENT
+     	</select>
 </mapper>

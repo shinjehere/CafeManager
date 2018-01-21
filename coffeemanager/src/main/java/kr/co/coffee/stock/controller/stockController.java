@@ -6,7 +6,6 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.coffee.stock.domain.Criteria;
+import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.PageMaker;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.service.StockService;
@@ -44,8 +44,7 @@ public class stockController {
 		//최대 자리수
 		nf.setMaximumIntegerDigits(10);
 		for(int i=0; i<list.size(); i++) {
-		
-			list.get(i).setSt_total_Price((nf.format(Integer.parseInt(list.get(i).getSt_total_Price()))));
+			list.get(i).setSt_total_Price((nf.format(Float.parseFloat(list.get(i).getSt_total_Price()))));
 			
 		}
 		
@@ -56,10 +55,19 @@ public class stockController {
 		model.addAttribute("content", "stock/stock_board.jsp");
 
 		return "main";
-	
 	}
 	
-
+	@RequestMapping(value="/stockPopup", method=RequestMethod.GET)
+	public String ingredientList(Model model) throws Exception {
+		List<IngredientList> list = stockService.selectIngredientList();
+		System.out.println("원재료 리스트 :"+list.get(1).getIng_CD());
+		model.addAttribute("ingredientList", list);
+		model.addAttribute("content", "stock/stock_modal.jsp");
+		
+		return "main";
+	}
+	
+	
 	
 }
 

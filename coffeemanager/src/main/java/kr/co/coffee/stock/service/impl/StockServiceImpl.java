@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.coffee.mapper.CommonMapper;
 import kr.co.coffee.stock.domain.Criteria;
+import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.service.StockService;
 
@@ -31,6 +32,11 @@ private CommonMapper CommonMapper;
 	@Override
 	public Integer totalCount() throws Exception {
 		return CommonMapper.TotalCount();
+	}
+
+	@Override
+	public List<IngredientList> selectIngredientList() throws Exception {
+		return CommonMapper.selectIngredientList();
 	}
 	
 

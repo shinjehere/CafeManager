@@ -11,7 +11,7 @@ ON ING.ING_CD = ST.ING_CD;
 public class StockList {
 	private String stock_CD;
 	private String ing_CD;
-	private int stock_CNT;
+	private float stock_CNT;
 	private String ing_NM;
 	private String st_total_Price;
 	public String getStock_CD() {
@@ -26,10 +26,10 @@ public class StockList {
 	public void setIng_CD(String ing_CD) {
 		this.ing_CD = ing_CD;
 	}
-	public int getStock_CNT() {
+	public float getStock_CNT() {
 		return stock_CNT;
 	}
-	public void setStock_CNT(int stock_CNT) {
+	public void setStock_CNT(float stock_CNT) {
 		this.stock_CNT = stock_CNT;
 	}
 

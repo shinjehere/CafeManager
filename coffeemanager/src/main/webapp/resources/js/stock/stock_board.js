@@ -1,6 +1,7 @@
 $(function(){
 	closeModal();
 	getTimeStamp();
+	searchIngredient();
 });
 
 /*디폴트값으로 현재 날짜 설정*/
@@ -52,3 +53,22 @@ $(document).ready(function(){
 		]
 	});
 });
+
+function searchIngredient(){
+	$(".search_btn").click(function(){
+		alert($(".search_ingredient").val());
+		$.ajax({
+			url : "/stockPopup",
+			type: "POST",
+			data: {"searchIngredient" : $("#search_ingredient")},
+			success : function(data){
+				location.href = "stock"
+			}
+			
+			
+		}); //end ajax
+		
+	})//end click event
+};
+
+

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <script src="${pageContext.request.contextPath}/resources/js/stock/stock_board.js"></script>
@@ -26,9 +27,9 @@
 				     <form action="/action_page.php">
 					    <div class="input-group  col-xs-12"> 
 					   		<span class="input-group-addon">원재료 명</span>
-					      	<input type="text" class="form-control" placeholder="Search" name="search">
+					      	<input type="text" class="form-control search_ingredient" placeholder="Search" name="search">
 					     	<div class="input-group-btn"> 
-					        <button class="btn btn-default btn-lg" type="submit" style="height:34px;"><i class="glyphicon glyphicon-search" style="margin-top:-2px;"></i></button>
+					        <button class="btn btn-default btn-lg search_btn" button type="button" style="height:34px;"><i class="glyphicon glyphicon-search" style="margin-top:-2px;"></i></button>
 					      </div> 
 					     </div> 
 					  </form>
@@ -49,12 +50,12 @@
 						   <a href="#" class="list-group-item">Second item</a>
 						   <a href="#" class="list-group-item">Third item</a>
 					  </div> --> 
+					 
 					   <select multiple class="form-control" id="sel2">
-				        <option>1</option>
-				        <option>2</option>
-				        <option>3</option>
-				        <option>4</option>
-				        <option>5</option>
+				        <c:forEach  var = "iList" items = "${ingredientList }"> 
+					       <option>${iList.ing_CD }</option>
+					       <option>2</option>
+				        </c:forEach> 
 				      </select>
 					
 				    <br>
