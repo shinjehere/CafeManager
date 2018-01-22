@@ -214,8 +214,8 @@ p {
 										<div class="row input-group">
 											<span class="input-group-addon">메뉴명 : </span> <input
 												type="text" placeholder="등록할 메뉴 이름을 입력하세요"
-												class="form-control" id="checkMenu"
-												onkeypress="if(event.keyCode==25) {checkMenuName(); return false;}">
+												class="form-control" id="menuName"
+												onkeypress="if(event.keyCode==25) {checkMenuName(); return false;}" maxlength="25">
 											<span class="input-group-btn">
 												<button class="btn btn-warning" type="button"
 													id="btnCheckMenu" onclick="javascript:checkMenuName()">중복확인</button>
@@ -225,16 +225,16 @@ p {
 									<div class="form-group" style="margin: 10px;">
 										<div class="row input-group">
 											<span class="input-group-addon"> 메뉴 단가 : </span> <span
-												id="menuUnitPrice" class="form-control" disabled="disabled"></span>
+												id="menuUnitPrice" class="form-control" disabled="disabled" ></span>
 											<span class="input-group-addon"> 메뉴 판매가 : </span> <input
-												type="text" placeholder="판매할 가격을 입력하세요" class="form-control">
+												type="number" placeholder="판매할 가격을 입력하세요" class="form-control onlyNumber" maxlength="11">
 										</div>
 									</div>
 									<div class="form-group" style="margin: 10px;">
 										<div class="row input-group">
 											<span class="input-group-addon">원재료명 : </span> <input
 												type="text" placeholder="검색할 원재료명을 입력하세요"
-												class="form-control" id="searchIngdnt"
+												class="form-control" id="searchIngdnt" maxlength="25"
 												onkeypress="if(event.keyCode==25) {searchIngredient(); return false;}">
 											<span class="input-group-btn">
 												<button class="btn btn-warning" type="button"
@@ -281,7 +281,7 @@ p {
 									<div class="col-md-8"></div>
 									<div class="col-md-4 text-right">
 										<div class="row input-group">
-											<span class="form-control" id="calMenuClick"></span> <span
+											<span class="form-control" id="calMenuClick" disabled="disabled"></span> <span
 												class="input-group-btn">
 												<button class="btn" type="button"
 													onclick="javascript:calMenuUP();">메뉴 단가 계산</button>

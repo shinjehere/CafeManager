@@ -73,14 +73,6 @@ public class MenuController {
 	}
 
 	// 원재료 리스트 불러오기
-	/*@RequestMapping(path = "/{searchIngredientName}", method = RequestMethod.GET)
-	@ResponseBody
-	public List<IngredientVO> getIngredientList(@PathVariable String searchIngredientName) throws Exception {
-		List<IngredientVO> list = menuSvc.getIngredientList(searchIngredientName);
-
-		return list;
-	}
-	*/
 	@RequestMapping(path="/searchIngdnt",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> getIngredientList(String searchIngredientName) throws Exception{
@@ -108,5 +100,16 @@ public class MenuController {
 		return "redirect:/menu";
 	}
 	
-	
+	// 메뉴명 중복확인
+	@RequestMapping(value="/do_checkMenuName", method=RequestMethod.POST )
+	@ResponseBody
+	public Map<String,Object> do_checkMenuName(String menuName) throws Exception{
+		int flag = 0;
+		flag = menuSvc.do_checkMenuName(menuName);
+		
+		System.out.println("flag = "+flag);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("flag", flag);
+		return map;
+	}
 }

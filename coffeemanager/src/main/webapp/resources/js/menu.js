@@ -93,8 +93,42 @@ function reset() {
 	$('#ing_unit_price').text(null);
 }
 
-
-
+//메뉴명 중복확인
+function checkMenuName(){
+	$("#btnCheckMenu").on("click", function(){
+		
+		var menuFlag = 0;
+		
+		var checkMenuName = $("#menuName").val().trim();
+		
+		if(checkMenuName == ""){
+			alert("메뉴명을 입력해주세요.");
+			return;
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "menu/do_checkMenuName",
+			dataType: "JSON",
+			data: {
+				"menuName": checkMenuName
+			},
+			success: function(data){
+				var flag = ($.trim(data.flag));
+				if(flag == "1"){
+					alert("다른 메뉴명을 입력해 주십시오.");
+				}else{
+					alert("사용할 수 있는 메뉴명입니다.");
+					menuFlag = 1;
+				}
+			},
+			complete: function(data){
+			},
+			error: function(xhr, status, error){
+			}
+		}); // ajax closed
+	});// btnCheckMenu closed
+} // checkMenuName closed
 
 
 

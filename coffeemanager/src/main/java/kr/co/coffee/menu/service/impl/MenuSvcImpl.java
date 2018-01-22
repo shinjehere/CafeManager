@@ -51,4 +51,10 @@ public class MenuSvcImpl implements MenuSvc {
 
 	}
 
+	@Override
+	public int do_checkMenuName(String menuName) throws Exception {
+		
+		return commonMapper.do_checkMenuName(menuName);
+	}
+
 }

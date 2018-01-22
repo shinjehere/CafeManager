@@ -51,6 +51,9 @@ public interface CommonMapper {
 	
 	// 메뉴 선택 삭제
 	public void deleteChecked(String deleteArray) throws Exception;
+	
+	// 메뉴명 중복확인
+	public int do_checkMenuName(String menuName) throws Exception;
 	//*******************************************************************************************
 	
 	
