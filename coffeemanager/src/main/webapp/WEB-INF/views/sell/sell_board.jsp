@@ -28,7 +28,7 @@
 	rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="resources/dist/js/jquery-3.2.1.js"></script>
-<script src="resources/dist/js/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="resources/dist/js/bootstrap.js"></script>
 <script src="resources/dist/js/bootstrap.min.js"></script>
@@ -50,7 +50,6 @@
 					      }
 					   }); // --전체선택Btn closed
 			});
-		
 	});
 	//search 관련 javascript
 	//검색 버튼 및 엔터시 실행된다.
@@ -154,7 +153,7 @@
 			var minutes=date.getMinutes();
 			var sell_Date=year+"-"+month+"-"+day+" "+hours+":"+minutes;
 			var str = '<tr>';
-			 str+="<td><input type='checkbox' id=''/></td>";
+			 str+="<td><input type='checkbox' id='checkOne' name='checkOne' value='"+data.sell_CD+"'/></td>";
 				str += '<td><a class="sell_CD" href="#" onclick="javascript:toggle(\''+data.sell_CD+'\')">'+data.sell_CD+'</a></td>';
 				str += '<td>'+sell_Date+'</td>';
 				str += '<td>'+data.menu_CD+'</td>';
@@ -330,6 +329,79 @@
 		});
 		}
 	}
+/* 	$(function(){
+		$("#delete_Sell").click(function(){
+			var checkArray = "";
+			var separator = "";
+			
+			$("input[name=checkOne]:checked").each(function(){
+				checkArray += separator+$(this).attr("value");
+				separator = ",";
+				});
+			
+			console.log("checkArray = "+checkArray);
+			
+			if(checkArray.length == 0){
+				alert("삭제할 메뉴를 선택해주세요.");
+			}else{
+			
+				if(confirm("정말 메뉴를 삭제하시겠습니까?") == true){
+				
+					$.ajax({
+						url:"sell/sellDel",
+						method: "DELETE",
+						data: {"sellMenuArray": checkArray},
+						data:"JSON",
+						success: function(data){
+							location.href = "sell"
+						},
+						error: function(request, status, error){
+							alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						}
+					}); // -- ajax closed
+				}else{
+					location.reload(true);
+				}
+				
+			}
+			return false;
+			
+		});
+	}); */
+$(function() {
+	$("#delete_Sell").click(function() {
+		var sellCDArray=new Array();
+		$("input[name=checkOne]:checked").each(function() {
+			sellCDArray.push($(this).attr("value"));
+			console.log("포문내부확인:"+sellCDArray); 
+		});
+			console.log("배열확인="+sellCDArray);
+			if(sellCDArray.length == 0){
+				alert("삭제할 메뉴를 선택해주세요.");
+			}else{
+				if(confirm("정말 메뉴를 삭제하시겠습니까?") == true){
+			
+					$.ajax({
+						url:"sell/sellDel",
+						data: JSON.stringify(sellCDArray),
+						type:'DELETE',
+						dataType:'JSON',
+						contentType : "application/json; charset=UTF-8",
+						success: function(data){
+						  location.href=data.url; 
+						},
+						error: function(request, status, error){
+							alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						}
+					});
+				}else{
+					location.reload(true);
+				}
+			}
+			return false;
+		
+	}); 
+});
 </script>
 </head>
 <body>
@@ -433,7 +505,7 @@
 		</div>
 		<div class="text-right">
 			<div class="btn-group">
-					<button type="button" class="btn btn-primary">삭제</button>
+					<button type="button" class="btn btn-primary" id="delete_Sell">삭제</button>
 					<button type="button" class="btn btn-danger">엑셀 다운로드</button>
 					<button id="new_sell" type="button" class="btn btn-info"
 					onclick="javascript:new_sell()">신규등록</button>

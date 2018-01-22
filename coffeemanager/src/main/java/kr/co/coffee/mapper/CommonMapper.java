@@ -33,6 +33,8 @@ public interface CommonMapper {
 	public String search_insert_code(String codeSL) throws Exception;
 	//판매 인서트 추가
 	public void sell_insert(SellInsVO sellInsVO) throws Exception;
+	//판매 삭제
+	public void SLDeleteChecked(String deleteArray) throws Exception;
 	//*************************************************************************************************
 
 	// menu mapper *********************************************************************************
