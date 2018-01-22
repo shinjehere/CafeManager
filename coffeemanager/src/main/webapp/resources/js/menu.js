@@ -1,46 +1,138 @@
-/*function wrapWindowByMask(){ 
-	//화면의 높이와 너비를 구한다. 
-	var maskHeight = $(document).height(); 
-	var maskWidth = $(window).width(); 
-	
-	//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다. 
-	$('#mask').css({'width':maskWidth,'height':maskHeight}); 
-	
-	//마스크의 투명도 처리 
-	$('#mask').fadeTo("slow",0.8); 
-} 
+function new_menu() {
+		$('#myModal').modal();
+	}
 
-$(document).ready(function(){ 
-	//wrapWindowByMask(); 
-	//불투명 배경 띄우기 
-	$('.openMask').click(function(e){ 
-		e.preventDefault(); 
-		wrapWindowByMask(); 
-	}); 
-});
-
-function createNewMenu(){
-	$('#newMenu').show();
-	wrapWindowByMask();
+function searchIngredient(){
+	var searchIngredientName=$('#searchIngdnt').val();
+	console.log(searchIngredientName);
+	$.ajax({
+		url:"menu/searchIngdnt",
+		data:{"searchIngredientName":searchIngredientName},
+		type:'GET',
+		dataType:"JSON",
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		success : function(data) {
+			console.log(data);
+			
+				$('#menu_table tbody').html(function() {
+					str="";
+					for(var i=0;i<data.list.length;i++){
+						str+="<tr>";
+						str+="<td>"+data.list[i].ing_cd+"</td>";
+						str+="<td>"+data.list[i].ing_nm+"</td>";
+						str+="<td>"+data.list[i].ing_price+"</td>";
+						str+="<td>"+data.list[i].unit_amount+"</td>";
+						str+="<td>"+data.list[i].ing_unit+"</td>";
+						str+="</tr>";
+					}
+					return str;
+				
+					});
+					trClick()
+		},
+		error: function(xhr,status,error){
+	          //에러!
+	          alert("code:"+xhr.status);
+	     }
+	});
 }
 
-function btnexit(){ 
-	$('#newMenu').hide(); 
-	$('#mask').hide(); 
+//테이블 row 클릭시 값 가져오기
+function trClick() {
+	$("#menu_table tr").click(function() {
+		var tdArr = new Array();
+		var tr=$(this);
+		var td=tr.children();
+		console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+		
+		td.each(function(i) {
+			tdArr.push(td.eq(i).text());
+		});
+		console.log("배열에 담긴 값 : "+tdArr);
+		
+		var ing_code=td.eq(0).text();
+		var ing_name=td.eq(1).text();
+		var ing_up=td.eq(2).text();
+
+		$('#ing_click_code').text(ing_code);
+		$('#ing_click_name').text(ing_name);
+		$('#ing_unit_price').text(ing_up);
+		
+	});
 }
 
- */
+// 메뉴 단가 계산
+function calMenuUP() {
+	var ing_code=$('#ing_click_code').text();
+	if(ing_code == ""){
+		alert("원재료를 검색 후 클릭해 주세요!");
+	}else{
+		var click_up=$('#ing_unit_price').text();
+		console.log(click_up);
+		var menuUnitAmount=$('#menuUnitAmount').val();
+		if(menuUnitAmount==""){
+			alert("사용할 용량을 입력해주세요");
+		}else if(menuUnitAmount=="0"){
+			alert("0은 입력 불가합니다");
+			$('#calMenuClick').text(null);
+			$('#ing_unit_price').text(null);
+	}else{
+			var calMenuUP=click_up*menuUnitAmount;
+			console.log(calMenuUP);
+			$('#calMenuClick').text(calMenuUP);
+			$('#menuUnitPrice').text(calMenuUP);
+		}
+	}
+}
 
-/*// 신규 등록 팝업 프레임
+function reset() {
+	$('#calMenuClick').text(null);
+	$('#menuUnitPrice').text(null);
+	$('#ing_click_code').text(null);
+	$('#ing_click_name').text(null);
+	$('#ing_unit_price').text(null);
+}
 
- * window.open(url:String, name:String, properties:String)
- * open 함수는 반드시 3개의 매개변수가 있어야하고, 순서가 지켜져야 함.
- * 
- function createNewMenu() {
- window
- .open("new_menu.jsp", "",
- "width=1300, height=900, left=100, top=50, scrollbars=yes, location=no");
- }*/
+//메뉴명 중복확인
+function checkMenuName(){
+	$("#btnCheckMenu").on("click", function(){
+		
+		var menuFlag = 0;
+		
+		var checkMenuName = $("#menuName").val().trim();
+		
+		if(checkMenuName == ""){
+			alert("메뉴명을 입력해주세요.");
+			return;
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "menu/do_checkMenuName",
+			dataType: "JSON",
+			data: {
+				"menuName": checkMenuName
+			},
+			success: function(data){
+				var flag = ($.trim(data.flag));
+				if(flag == "1"){
+					alert("다른 메뉴명을 입력해 주십시오.");
+				}else{
+					alert("사용할 수 있는 메뉴명입니다.");
+					menuFlag = 1;
+				}
+			},
+			complete: function(data){
+			},
+			error: function(xhr, status, error){
+			}
+		}); // ajax closed
+	});// btnCheckMenu closed
+} // checkMenuName closed
+
+
+
+
 
 // 전체선택 체크박스
 $(function() {
@@ -55,6 +147,47 @@ $(function() {
 		}
 	});
 });// --전체선택 체크박스 closed
+
+// 삭제 버튼
+$(function(){
+	$("#deleteBtn").click(function(){
+		var checkArray = "";
+		var separator = "";
+		
+		$("input[name=checkOne]:checked").each(function(){
+			checkArray += separator+$(this).attr("value");
+			separator = ",";
+			});
+		
+		console.log("checkArray = "+checkArray);
+		
+		if(checkArray.length == 0){
+			alert("삭제할 메뉴를 선택해주세요.");
+		}else{
+		
+			if(confirm("정말 메뉴를 삭제하시겠습니까?") == true){
+			
+				$.ajax({
+					url:"menu/menuDel",
+					type: "POST",
+					data: {"deleteMenuArray": checkArray},
+					success: function(data){
+						location.href = "menu"
+					},
+					error: function(request, status, error){
+						alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+					}
+				}); // -- ajax closed
+			}else{
+				location.reload(true);
+			}
+			
+		}
+		return false;
+		
+	});// -- deleteBtn func closed
+});// -- func closed
+
 
 /*
  * // 메뉴 사용여부 토글 $(function() { var tog = $("input[id='tog']");
@@ -162,7 +295,7 @@ function menuBoard() {
 function makeData(data) {
 	var datahtml = "";
 	datahtml += "<tr>";
-	datahtml += "<td><input type='checkbox' id='checkOne' /></td>";
+	datahtml += "<td><input type='checkbox' name='checkOne' value='"+data.menu_cd+"'/></td>";
 	datahtml += "<td><a class='menu_cd' href='#' onclick='javascript:toggle(\""
 			+ data.menu_cd + "\")'>" + data.menu_cd + "</a></td>";
 	datahtml += "<td>" + data.menu_name + "</td>";
@@ -182,7 +315,7 @@ function toggle(menuCodeOnClick) {
 
 	$.ajax({
 		url : "menu/" + menuCodeOnClick,
-		data : JSON.stringify(menuCodeOnClick),
+		data : JSON.stringify(menuCodeOnClick), 
 		type : "GET",
 		dataType : "JSON",
 		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -191,19 +324,24 @@ function toggle(menuCodeOnClick) {
 
 				var str = "";
 
+				str += "<div class='container'><div class='col-xs-4 col-md-4'><table class='table'><caption>메뉴 레시피</caption>";
+				str += "<thead><tr><th>원재료명</th><th>사용 용량</th><th>단위</th></tr></thead>";
+				str += "<tbody>";
+				
 				if (data.list.length > 0) {
 
 					for (var i = 0; i < data.list.length; i++) {
-						str += "<div class='container'>"
-						str += "<div>" + data.list[i].ing_nm + "</div>";
-						str += "<div>" + data.list[i].menu_amount + "</div>";
-						str += "<div>" + data.list[i].ing_unit + "</div>";
-						str += "</div>"
+						str += "<tr>";
+						str += "<th scope='row'>"+(i+1)+"</th>";
+						str += "<td>" + data.list[i].ing_nm + "</td>";
+						str += "<td>" + data.list[i].menu_amount + "</td>";
+						str += "<td>" + data.list[i].ing_unit + "</td>";
+						str += "</tr>";
 					}
 				} else {
-					str += "<div><p>데이터가 없습니다.</p></div>";
+					str += "<td>데이터가 없습니다.</td>";
 				}
-
+				str +="</tbody>";
 				return str;
 			});
 

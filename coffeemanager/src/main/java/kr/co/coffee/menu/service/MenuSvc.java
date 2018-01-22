@@ -1,5 +1,6 @@
 package kr.co.coffee.menu.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.coffee.common.DTO;
@@ -22,4 +23,11 @@ public interface MenuSvc {
 	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception;
 	
 	public List<IngredientVO> getIngredientList(String searchIngredientName) throws Exception;
+	
+	// 메뉴 선택 삭제
+	public void deleteChecked(ArrayList<String> deleteArray) throws Exception;
+	
+	// 메뉴명 중복확인
+	public int do_checkMenuName(String menuName) throws Exception;
+	
 }

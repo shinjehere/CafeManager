@@ -54,18 +54,23 @@ public class SellServiceImpl implements SellService{
 
 	@Override
 	public String search_insert_code(String codeSL) throws Exception {
-		// TODO Auto-generated method stub
 		return CommonMapper.search_insert_code(codeSL);
 	}
 
 	@Override
 	public void sell_insert(SellInsVO sellInsVO) throws Exception {
-		// TODO Auto-generated method stub
 		 CommonMapper.sell_insert(sellInsVO);
 	}
 
+	@Override
+	public void SLDeleteChecked(List<String> deleteArray) throws Exception {
+		for(int i=0;i<deleteArray.size();i++) {
+			CommonMapper.SLDeleteChecked(deleteArray.get(i));
+		}
+	}
 
 	
+
 	
 	
 

@@ -29,4 +29,6 @@ public interface SellService {
 		public String search_insert_code(String codeSE) throws Exception;
 		
 		public void sell_insert(SellInsVO sellInsVO) throws Exception;
+		
+		public void SLDeleteChecked(List<String> deleteArray) throws Exception;
 }
