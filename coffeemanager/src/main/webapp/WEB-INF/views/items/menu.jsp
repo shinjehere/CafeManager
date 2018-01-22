@@ -225,7 +225,7 @@ p {
 									<div class="form-group" style="margin: 10px;">
 										<div class="row input-group">
 											<span class="input-group-addon"> 메뉴 단가 : </span> <span
-												id="menuUnitPrice" class="form-control" disabled="disabled" ></span>
+												id="menuUnitPrice" class="form-control " disabled="disabled" ></span>
 											<span class="input-group-addon"> 메뉴 판매가 : </span> <input
 												type="number" placeholder="판매할 가격을 입력하세요" class="form-control onlyNumber" maxlength="11">
 										</div>
