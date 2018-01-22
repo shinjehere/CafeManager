@@ -39,7 +39,7 @@ function searchIngredient(){
 
 //테이블 row 클릭시 값 가져오기
 function trClick() {
-	$("#menu_table tr").click(function() {
+	$("#menu_list_table tr").click(function() {
 		var tdArr = new Array();
 		var tr=$(this);
 		var td=tr.children();
@@ -190,17 +190,6 @@ $(function(){
 
 
 /*
- * // 메뉴 사용여부 토글 $(function() { var tog = $("input[id='tog']");
- * tog.click(function() { $("p").toggle(); }); });
- *  // 아코디언 테이블 $(function() { var article = (".recruit .show"); $(".recruit
- * .title td").click(function() { var myArticle = $(this).parents().next("tr");
- * if ($(myArticle).hasClass('hide')) {
- * $(article).removeClass('show').addClass('hide');
- * $(myArticle).removeClass('hide').addClass('show'); } else {
- * $(myArticle).addClass('hide').removeClass('show'); } }); });
- */
-
-/*
  * // datepicker $(document).ready(function() {
  * $("#start_date").datetimepicker({ format : 'YYYY/MM/DD' });
  * 
@@ -272,16 +261,16 @@ function menuBoard() {
 
 			if (data.list.length > 0) {
 
-				$("#menu_table tbody tr").remove();
+				$("#menu_list_table tbody tr").remove();
 				console.log("data size= " + data.list.length);
 				for (var i = 0; i < data.list.length; i++) {
 					datahtml += makeData(data.list[i]);
 				}
-				$('#menu_table tbody').append(datahtml);
+				$('#menu_list_table tbody').append(datahtml);
 			} else {
-				$('#menu_table tbody tr').remove();
+				$('#menu_list_table tbody tr').remove();
 				datahtml += "<tr><td colspan=7>데이터가 없습니다.</td></tr>"
-				$('#menu_table tbody').append(datahtml);
+				$('#menu_list_table tbody').append(datahtml);
 			}
 			makePaging(data.paging);
 		},
