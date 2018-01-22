@@ -96,4 +96,12 @@ m.menu_cd=r.menu_cd left join ERP_Schema.INGREDIENT i on r.ing_cd=i.ing_cd WHERE
    VALUES(#{code_SL},now(),#{click_code},#{click_count})
  	]]>	
  </insert>
+ 
+ 	<delete id="SLDeleteChecked" parameterType="String" >
+		<![CDATA[
+			DELETE 
+				FROM SELL
+			    WHERE SELL_CD = #{deleteChecked};
+		]]>
+	</delete> 
 </mapper>
