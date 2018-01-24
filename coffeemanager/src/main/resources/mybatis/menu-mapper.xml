@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.coffee.mapper.CommonMapper">
+	
+	<!-- 메뉴 리스트 전체조회 -->
+	<select id="do_searchAll" parameterType="search"
+		resultType="kr.co.coffee.menu.domain.MenuVO">
+		<![CDATA[
+		SELECT M.MENU_CD,
+					M.MENU_NAME,
+					M.MENU_UP,
+					M.MENU_SP,
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
+					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+			FROM MENU M
+			]]>
+		<where>
+			<if test="searchDiv == 1">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+			<if test="searchDiv == 2">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+		</where>
+			<![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]>
+	</select>
+
+<!-- 메뉴 페이징을 위한 전체 개수 카운트 -->
+	<select id="menuTotalCount" parameterType="search" resultType="int">
+	<![CDATA[ SELECT COUNT(*) FROM MENU M ]]>
+		<where>
+			<if test="searchDiv == 1">
+				<if test='searchValue != null and searchValue != ""'>
+ 	 	 			<![CDATA[ AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') ]]>
+				</if>
+			</if>
+			<if test="searchDiv == 2">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+		</where>
+	</select>
+
+<!-- 메뉴 세부 정보(=레시피) 보여주기 -->
+	<select id = "menuDetail" parameterType = "String" resultType = "kr.co.coffee.menu.domain.MenuVO">
+		<![CDATA[
+				SELECT I.ING_NM,
+					        R.MENU_AMOUNT,
+					        I.ING_UNIT
+							FROM ERP_Schema.RECIPIE R, ERP_Schema.MENU M, ERP_Schema.INGREDIENT I 
+					    WHERE  I.ING_CD = R.ING_CD
+					    	AND M.MENU_CD = R.MENU_CD
+					    	AND  M.MENU_CD = #{menuCodeOnClick}
+		]]>
+	</select>
+	
+	<!-- 메뉴 등록시 원재료 검색 -->
+	<select id="getIngredientList" parameterType="String" resultType="kr.co.coffee.ingredient.domain.IngredientVO">
+		<![CDATA[
+			SELECT I.ING_CD,
+						I.ING_NM,
+				        I.ING_PRICE,
+				        I.UNIT_AMOUNT,
+				        I.ING_UNIT
+					FROM ERP_Schema.INGREDIENT I
+				    WHERE I.ING_NM LIKE CONCAT('%',#{searchIngredientName},'%')
+				    ORDER BY I.ING_NM
+		]]>
+	</select>
+
+ <!-- 체크 선택 삭제 -->
+	<delete id="deleteChecked" parameterType="String" >
+		<![CDATA[
+			DELETE 
+				FROM MENU
+			    WHERE MENU_CD = #{deleteChecked}
+		]]>
+	</delete> 
+	
+	<!-- 메뉴명 중복확인 -->
+	<select id="do_checkMenuName" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+					FROM MENU
+				  WHERE MENU_NAME = #{menuName}
+		]]>
+	</select>
+	
+	<!-- 엑셀 다운 -->
+	<select id="do_searchExcel" parameterType="search"
+		resultType="kr.co.coffee.menu.domain.MenuVO">
+		<![CDATA[
+		SELECT M.MENU_CD,
+					M.MENU_NAME,
+					M.MENU_UP,
+					M.MENU_SP,
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
+					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+			FROM MENU M
+			]]>
+		<where>
+			<if test="searchDiv == 1">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+			<if test="searchDiv == 2">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+		</where>
+	</select>
+	
+</mapper>

@@ -20,7 +20,7 @@
 <jsp:include page="./template/header.jsp" flush="false"/>
 
 <!-- Menu -->
-<jsp:include page="./template/menu.jsp" flush="false"/> 
+<jsp:include page="./template/menu_bar.jsp" flush="false"/> 
 
 <!-- Content -->  
 <jsp:include page="${content }"></jsp:include>

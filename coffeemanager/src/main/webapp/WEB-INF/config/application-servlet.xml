@@ -8,17 +8,32 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
-		<context:annotation-config/>
+		<context:component-scan base-package="kr.co.coffee" scoped-proxy="targetClass">
+			<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+			<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+		</context:component-scan>
+
+
 		<mvc:annotation-driven/>
+		
 		<mvc:resources mapping="/resources/**" location="/resources/"/>
-			<context:component-scan base-package="kr.co.*"/>
-			<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1"
+		
+		<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1"
 			 p:viewClass="org.springframework.web.servlet.view.JstlView">
 			 <property name="prefix" value="/WEB-INF/views/"/>
 			 <property name="suffix" value=".jsp"/>
-			</bean>
+		</bean>
 			
-			<!-- service 등록 -->
+		<!-- service 등록 -->
+		<bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+			<property name="order" value="0"></property>
+		</bean>
+		<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		  <property name="contentType" value="application/json;charset=UTF-8"></property>
+		</bean>
 		
+		 <!-- FileDownload -->
+    	<bean id="downloadView" class="kr.co.coffee.common.DownloadView" ></bean>
 			
 </beans>
