@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.coffee.mapper.CommonMapper;
 import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.IngredientList;
+import kr.co.coffee.stock.domain.NewProductList;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.service.StockService;
 
@@ -35,8 +36,19 @@ private CommonMapper CommonMapper;
 	}
 
 	@Override
-	public List<IngredientList> selectIngredientList() throws Exception {
-		return CommonMapper.selectIngredientList();
+	public List<IngredientList> searchIngredient(String searchIngredient) throws Exception {
+		return CommonMapper.searchIngredient(searchIngredient);
+	}
+
+	@Override
+	public String searchNewCode(String codeNP) throws Exception {
+		return CommonMapper.searchNewCode(codeNP);
+	}
+
+	@Override
+	public void ingredientInsert(NewProductList newProduct) throws Exception {
+		CommonMapper.ingredientInsert(newProduct);
+		
 	}
 	
 

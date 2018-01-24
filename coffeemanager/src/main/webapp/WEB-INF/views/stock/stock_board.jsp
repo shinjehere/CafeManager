@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>   
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,13 +24,13 @@
 					
 					<label for="seachCodeAndName">검색 : </label>
 						<div class="btn-group">
-						      <select class="btn btn-default" data-toggle="dropdown" name="판매코드">
-								<option>품목명</option>
-								<option>재고코드</option>
+						    <select class="btn btn-default" id="search_condition" data-toggle="dropdown" name="판매코드" >
+								<option value="품목명">품목명</option>
+								<option value="재고코드">재고코드</option>
 							</select>
 						</div>	
 						<input type="text" class="form-control" id="sell_search">
-						<button class="btn btn-success" type="submit">Search</button>	
+						<button class="btn btn-success" id="search_stock">검색</button>	
 					</div>
 				</form>
 			</div>
@@ -46,7 +47,7 @@
 						<th>총단가</th>
 					</tr>
 				</thead>	
-				<tbody>
+				<tbody >
 				<c:forEach var="list" items="${stockList }">
 				  	<tr>
 				  		<td><input type="checkbox" name="chk_info" ></td>	

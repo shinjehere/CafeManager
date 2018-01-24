@@ -41,9 +41,30 @@
      	</select> 
      	
      	<!-- 원재료 select -->
-     	<select id="selectIngredientList" resultType="kr.co.coffee.stock.domain.IngredientList">
-     		SELECT *
-     		FROM
-     			INGREDIENT
+     	<select id="searchIngredient" parameterType="String" resultType="kr.co.coffee.stock.domain.IngredientList">
+     		<![CDATA[
+	     		SELECT ING_CD,ING_NM,ING_PRICE,UNIT_AMOUNT,ING_UNIT
+	     		FROM
+	     			INGREDIENT
+	     		WHERE
+	     			ING_NM LIKE CONCAT('%',#{searchIngredient},'%')
+     		]]>
      	</select>
+     	
+     	<!-- 최근 코드 검색 -->
+     	<select id="searchNewCode" parameterType="String" resultType="String">
+	     	SELECT NEWPD_CD 
+	     		FROM NEWPRODUCT
+				ORDER BY NEWPD_DATE DESC LIMIT 1
+     	</select>
+     	<!-- 원재료 입고 -->
+     	<!-- INSERT INTO NEWPRODUCT VALUES('NP20180123015', NOW(), 'IN20171215001', 3); -->
+     	<insert id="ingredientInsert" parameterType="NewProductList">
+     		<![CDATA[
+     		INSERT 
+     			INTO NEWPRODUCT
+     			VALUES(#{newpd_CD},now(),#{ing_CD},#{newpd_CNT}); 
+     		]]>
+     	</insert>
+     	
 </mapper>

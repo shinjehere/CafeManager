@@ -11,6 +11,7 @@ import kr.co.coffee.sell.domain.SellListVO;
 import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.domain.IngredientList;
+import kr.co.coffee.stock.domain.NewProductList;
 /**
  * 수정일: 2018-01-08 CommonMapper: 공동 매퍼
  * 
@@ -59,7 +60,11 @@ public interface CommonMapper {
 	// stock mapper *********************************************************************************
 	public List<StockList> selectStockList() throws Exception;
 	
-	public List<IngredientList> selectIngredientList() throws Exception;
+	public List<IngredientList> searchIngredient(String searchIngredient) throws Exception;
+	//가장 최근 코드 검색
+	public String searchNewCode(String codeNP) throws Exception;
+	//입고
+	public void ingredientInsert(NewProductList newProduct) throws Exception;
 	//*************************************************************************************************
 	
 	
