@@ -3,6 +3,7 @@ package kr.co.coffee.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.coffee.common.DTO;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
@@ -56,6 +57,12 @@ public interface CommonMapper {
 	
 	// 메뉴명 중복확인
 	public int do_checkMenuName(String menuName) throws Exception;
+	
+	// 엑셀 서치
+	public List<MenuVO> do_searchExcel(DTO dto) throws Exception;
+	
+	// 엑셀 다운
+	public String do_excelDown(List<MenuVO> list) throws Exception;
 	//*******************************************************************************************
 	
 	

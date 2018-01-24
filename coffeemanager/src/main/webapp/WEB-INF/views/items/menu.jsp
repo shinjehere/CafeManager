@@ -46,6 +46,7 @@
 		<input type="hidden" id="e_menu_sp" name="menu_sp">
 		<input type="hidden" id="e_mn_reg_dt" name=mn_reg_dt>
 		<input type="hidden" id="e_mn_mod_dt" name="mn_mod_dt">
+		<input type="hidden" id="e_searchDiv" name="searchDiv">
 	</form>
 	<div class="container">
 		<div class="container">
@@ -115,7 +116,7 @@
 			<button type="button" class="btn btn-danger" id="deleteBtn">선택삭제</button>
 		</div>
 		<div class="text-right">
-			<button type="button" class="btn btn-danger">엑셀 다운로드</button>
+			<button id="do_excelDown" type="button" class="btn btn-danger">엑셀 다운로드</button>
 			<button id="new_sell" type="button" class="btn btn-info"
 				onclick="javascript:new_menu()">신규등록</button>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

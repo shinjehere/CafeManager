@@ -91,4 +91,30 @@
 		]]>
 	</select>
 	
+	<!-- 엑셀 다운 -->
+	<select id="do_searchExcel" parameterType="search"
+		resultType="kr.co.coffee.menu.domain.MenuVO">
+		<![CDATA[
+		SELECT M.MENU_CD,
+					M.MENU_NAME,
+					M.MENU_UP,
+					M.MENU_SP,
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
+					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+			FROM MENU M
+			]]>
+		<where>
+			<if test="searchDiv == 1">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+			<if test="searchDiv == 2">
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+			</if>
+		</where>
+	</select>
+	
 </mapper>

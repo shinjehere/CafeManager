@@ -2,6 +2,7 @@ function new_menu() {
 		$('#myModal').modal();
 	}
 
+// 메뉴등록>원재료 검색
 function searchIngredient(){
 	var searchIngredientName=$('#searchIngdnt').val();
 	console.log(searchIngredientName);
@@ -31,7 +32,7 @@ function searchIngredient(){
 					trClick()
 		},
 		error: function(xhr,status,error){
-	          //에러!
+	          // 에러
 	          alert("code:"+xhr.status);
 	     }
 	});
@@ -196,6 +197,17 @@ $(function(){
  * $("#end_date").datetimepicker({ format : 'YYYY/MM/DD' }); });
  */
 
+// 엑셀 다운
+function do_excelDown(){
+	var excelFrm = document.excel_frm;
+	excelFrm.action = "menu/do_excelDown";
+	excelFrm.submit();
+}
+
+
+
+
+
 // =========================================================
 // For Paging
 // =========================================================
@@ -272,6 +284,13 @@ function menuBoard() {
 				datahtml += "<tr><td colspan=7>데이터가 없습니다.</td></tr>"
 				$('#menu_list_table tbody').append(datahtml);
 			}
+			
+			// 엑셀 다운
+			$('#do_excelDown').click(function(){
+				do_excelDown();
+			});
+			
+			// 페이징
 			makePaging(data.paging);
 		},
 		error : function(xhr, status, error) {
