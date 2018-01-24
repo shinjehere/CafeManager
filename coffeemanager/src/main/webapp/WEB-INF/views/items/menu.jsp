@@ -14,27 +14,57 @@
 <script type="text/javascript" src="/coffee/resources/js/menu.js"></script>
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="resources/dist/css/bootstrap.css"
-	rel="stylesheet">
-<link href="resources/dist/css/bootstrap-datetimepicker.min.css"
-	rel="stylesheet">
+<link href="resources/dist/css/bootstrap.css" rel="stylesheet"/>
+<link href="resources/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="resources/dist/js/jquery-3.2.1.js"></script>
 <script src="resources/dist/js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="resources/dist/js/bootstrap.js"></script>
 <script src="resources/dist/js/bootstrap.min.js"></script>
-<script src="resources/dist/js/moment-with-locales.min.js"></script>
-<script src="resources/dist/js/bootstrap-datetimepicker.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script type="text/javascript">
+//datepicker
+var old_jquery = jQuery.noConflict();
+old_jquery(function() {
+	old_jquery("#startDate").datepicker(
+			{
+				dateFormat : 'yy-mm-dd',
+				prevText : '이전 달',
+				nextText : '다음 달',
+				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+						'9월', '10월', '11월', '12월' ],
+				monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+						'8월', '9월', '10월', '11월', '12월' ],
+				dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+				showMonthAfterYear : true,
+				yearSuffix : '년'
+			});
+	old_jquery("#endDate").datepicker(
+			{
+				dateFormat : 'yy-mm-dd',
+				prevText : '이전 달',
+				nextText : '다음 달',
+				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+						'9월', '10월', '11월', '12월' ],
+				monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+						'8월', '9월', '10월', '11월', '12월' ],
+				dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+				showMonthAfterYear : true,
+				yearSuffix : '년'
+			});
+});
+</script>
 
-<!-- 데이트피커를 위한 css와 js -->
-<!-- <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> -->
 </head>
 
 <body>
@@ -67,26 +97,25 @@
 							<option value="2">메뉴코드</option>
 						</select>
 					</div>
-					<input type="text" class="form-control" id="searchValue"
-						name="searchValue" placeholder="Search">
-					<button class="btn btn-success" type="button" id="searchBtn">Search</button>
-					<!-- <div class="form-group">
-						<label for="seachCodeAndName">&nbsp검색 시작일 :</label>
-						<div class="input-group date">
-							<input type="text" id="start_date" name="start_date"
-								class="form-control" /> <span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
+					<input type="text"
+								class="form-control" id="searchValue" name="searchValue"
+								onkeypress="if(event.keyCode==13) {btnEnter(); return false;}"
+								placeholder="Search">
+								<!--
+								HTML onkeypress="if(event.keyCode==13) {btnEnter();return false;}"
+								 엔터키 시  btnEnter로 넘긴다. return false없으면 엔터시 주소값을 넘김 -->
+							<button id="searchBtn" class="btn btn-success" type="button">Search</button>
 						</div>
-						&nbsp; ~ &nbsp; <label for="seachCodeAndName">&nbsp 검색 종료일
-							:</label>
-						<div class="input-group date">
-							<input type="text" id="end_date" name="end_date"
-								class="form-control" /> <span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-						</div>
-					</div> -->
+					</div>
+				    <div class='col-md-6'>
+					    <div class="row">
+							<div class="form-group">
+								검색 기간 :
+					            <input type='text' class="form-control" name="startDate" id='startDate' />
+								~		
+								<input type='text' class="form-control" name="endDate" id='endDate' />
+							</div>
+					</div>		
 				</div>
 			</form>
 		</div>

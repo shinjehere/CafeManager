@@ -12,18 +12,32 @@
 					M.MENU_SP,
 					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
 					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
-			FROM MENU M
+			FROM SELL S LEFT JOIN MENU M
+ 	      	ON S.MENU_CD=M.MENU_CD
 			]]>
 		<where>
 			<if test="searchDiv == 1">
 				<if test='searchValue != null and searchValue != "" '>
 						<![CDATA[AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
 				</if>
+				<if test='searchValue != null and searchValue != "" 
+							and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+					AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')
+					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+				</if>
 			</if>
 			<if test="searchDiv == 2">
 				<if test='searchValue != null and searchValue != "" '>
 						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
 				</if>
+				<if test='searchValue != null and searchValue != "" 
+	 	 					and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+					AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')
+					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+				</if>
+			</if>
+			<if test='startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
 			<![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]>
@@ -31,17 +45,32 @@
 
 <!-- 메뉴 페이징을 위한 전체 개수 카운트 -->
 	<select id="menuTotalCount" parameterType="search" resultType="int">
-	<![CDATA[ SELECT COUNT(*) FROM MENU M ]]>
+	<![CDATA[ SELECT COUNT(*) 
+			FROM SELL S LEFT JOIN MENU M
+ 	      	ON S.MENU_CD=M.MENU_CD]]>
 		<where>
 			<if test="searchDiv == 1">
-				<if test='searchValue != null and searchValue != ""'>
- 	 	 			<![CDATA[ AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') ]]>
+				<if test='searchValue != null and searchValue != "" '>
+						<![CDATA[AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
+				</if>
+				<if test='searchValue != null and searchValue != "" 
+							and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+					AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')
+					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test="searchDiv == 2">
 				<if test='searchValue != null and searchValue != "" '>
 						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
 				</if>
+				<if test='searchValue != null and searchValue != "" 
+	 	 					and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+					AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')
+					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+				</if>
+			</if>
+			<if test='startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
 	</select>
@@ -101,18 +130,32 @@
 					M.MENU_SP,
 					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
 					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
-			FROM MENU M
+			FROM SELL S LEFT JOIN MENU M
+ 	      	ON S.MENU_CD=M.MENU_CD
 			]]>
 		<where>
 			<if test="searchDiv == 1">
 				<if test='searchValue != null and searchValue != "" '>
 						<![CDATA[AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
 				</if>
+				<if test='searchValue != null and searchValue != "" 
+							and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+					AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')
+					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+				</if>
 			</if>
 			<if test="searchDiv == 2">
 				<if test='searchValue != null and searchValue != "" '>
 						<![CDATA[AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')]]>
 				</if>
+				<if test='searchValue != null and searchValue != "" 
+	 	 					and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+					AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')
+					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+				</if>
+			</if>
+			<if test='startDate != null and startDate !="" and endDate !=null and endDate !="" '>
+			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
 	</select>
