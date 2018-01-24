@@ -28,12 +28,6 @@
 <script src="resources/dist/js/bootstrap-datetimepicker.min.js"></script>
 
 
-
-
-<!-- 메뉴 사용 여부 토글을 위한 js -->
-<!-- <script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
-
 <!-- 데이트피커를 위한 css와 js -->
 <!-- <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -41,89 +35,19 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> -->
-
-<style>
-/*=========================*/
-/*=====사용여부 토글 css 시작=====*/
-/*=========================*/
-/* The switch - the box around the slider */
-/* .switch {
-	position: relative;
-	display: inline-block;
-	width: 60px;
-	height: 34px;
-	vertical-align: middle;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-	display: none;
-}
-
-/* The slider */
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
-
-input:checked+.slider {
-	background-color: #2196F3;
-}
-
-input:focus+.slider {
-	box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked+.slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-	border-radius: 34px;
-}
-
-.slider.round:before {
-	border-radius: 50%;
-}
-
-p {
-	margin: 0px;
-	display: inline-block;
-	font-size: 15px;
-	font-weight: bold;
-}
-*
-/
-/*=========================*/
-/*=====사용여부 토글 css 끝=====*/
-/*=========================*/
-</style>
 </head>
 
 <body>
-
+	<!-- 엑셀 다운로드를 위한 form -->
+	<form name="excel_frm" action="do_excelDown" method="post">
+		<input type="hidden" id="e_menu_cd" name="menu_cd">
+		<input type="hidden" id="e_menu_name" name="menu_name">
+		<input type="hidden" id="e_menu_up" name="menu_up">
+		<input type="hidden" id="e_menu_sp" name="menu_sp">
+		<input type="hidden" id="e_mn_reg_dt" name=mn_reg_dt>
+		<input type="hidden" id="e_mn_mod_dt" name="mn_mod_dt">
+		<input type="hidden" id="e_searchDiv" name="searchDiv">
+	</form>
 	<div class="container">
 		<div class="container">
 			<h3>
@@ -168,8 +92,8 @@ p {
 		</div>
 
 		<div class="col-lg-12 col-xs-12 col-md-12">
-			<table id="menu_table" class="table table-striped recruit">
-				<thead id="menu_thead">
+			<table id="menu_list_table" class="table table-striped recruit">
+				<thead id="menu_list_thead">
 					<tr>
 						<th><input type="checkbox" id="allCheck" /></th>
 						<th>메뉴코드</th>
@@ -178,7 +102,6 @@ p {
 						<th>판매가(원)</th>
 						<th>등록일</th>
 						<th>수정일</th>
-						<!--<th>메뉴 사용 여부</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -193,7 +116,7 @@ p {
 			<button type="button" class="btn btn-danger" id="deleteBtn">선택삭제</button>
 		</div>
 		<div class="text-right">
-			<button type="button" class="btn btn-danger">엑셀 다운로드</button>
+			<button id="do_excelDown" type="button" class="btn btn-danger">엑셀 다운로드</button>
 			<button id="new_sell" type="button" class="btn btn-info"
 				onclick="javascript:new_menu()">신규등록</button>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

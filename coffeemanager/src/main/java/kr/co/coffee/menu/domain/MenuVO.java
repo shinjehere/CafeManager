@@ -14,13 +14,14 @@ public class MenuVO extends DTO {
 	private String ing_nm;
 	private String menu_amount;
 	private String ing_unit;
+	private String searchDiv;
 
 	public MenuVO() {
 
 	}
 
 	public MenuVO(String menu_cd, String menu_name, String menu_up, String menu_sp, String mn_reg_dt, String mn_mod_dt,
-			String start_date, String end_date, String ing_nm, String menu_amount, String ing_unit) {
+			String start_date, String end_date, String ing_nm, String menu_amount, String ing_unit, String searchDiv) {
 		super();
 		this.menu_cd = menu_cd;
 		this.menu_name = menu_name;
@@ -33,6 +34,7 @@ public class MenuVO extends DTO {
 		this.ing_nm = ing_nm;
 		this.menu_amount = menu_amount;
 		this.ing_unit = ing_unit;
+		this.searchDiv = searchDiv;
 	}
 
 	public String getMenu_cd() {
@@ -123,12 +125,20 @@ public class MenuVO extends DTO {
 		this.ing_unit = ing_unit;
 	}
 
+	public String getSearchDiv() {
+		return searchDiv;
+	}
+
+	public void setSearchDiv(String searchDiv) {
+		this.searchDiv = searchDiv;
+	}
+
 	@Override
 	public String toString() {
 		return "MenuVO [menu_cd=" + menu_cd + ", menu_name=" + menu_name + ", menu_up=" + menu_up + ", menu_sp="
 				+ menu_sp + ", mn_reg_dt=" + mn_reg_dt + ", mn_mod_dt=" + mn_mod_dt + ", start_date=" + start_date
 				+ ", end_date=" + end_date + ", ing_nm=" + ing_nm + ", menu_amount=" + menu_amount + ", ing_unit="
-				+ ing_unit + "]";
+				+ ing_unit + ", searchDiv=" + searchDiv + "]";
 	}
 
 }
