@@ -74,7 +74,60 @@
 		});
 	}
 	 function searchBoard(){
-		 var dataform=$('#searchForm').serialize();
+	
+		 var startdate=$('#startDate').val();
+		 var enddate=$('#endDate').val();
+		 var stdate=new Date(startdate);
+		 stdate.setDate(stdate.getDate()+1);
+			var year=stdate.getFullYear().toString();
+			var month= stdate.getMonth() + 1;
+			var day= stdate.getDate();
+			if(month<10){
+				month="0"+month;
+			}
+			if(day<10){
+				day="0"+day;
+			}
+			var Str_plus=year+"-"+month+"-"+day;
+		 console.log("startdate:"+startdate+",enddate:"+enddate+",stdate:"+Str_plus);
+		 if(startdate > enddate){
+			 alert("시작일자가 종료일자보다 클 수 없습니다.")
+			 $("#endDate").val(Str_plus);
+			 $("#endDate").text(Str_plus);
+			 var dataform=$('#searchForm').serialize();
+				$.ajax({
+					url : "sell/sell",
+					data:dataform,
+					type: "GET",
+				 	 dataType: "JSON", // 일단 지워봄 
+					//async:false, //일단 넣어봄
+				 	contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					success : function(data) {
+						console.log(JSON.stringify(data.list));
+					 var strs = "";
+						if(data.list.length>0){
+							var dataTable = $("#boardTable tbody");
+							$("#boardTable tbody tr").remove();
+							
+							for(var i=0; i<data.list.length; i++){
+								strs += trMake(data.list[i]);
+							}
+							$(dataTable).append(strs);
+						}else{
+							var dataTable = $("#boardTable tbody");
+							$("#boardTable tbody tr").remove();
+							strs += "<tr><td colspan=7>데이터가 없습니다.</td></tr>";
+							$(dataTable).append(strs);
+						}
+						makePaging(data.paging);
+					 
+					}, error:function(request,status,error){
+					    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					   }
+			
+			});
+		 }else{
+			 var dataform=$('#searchForm').serialize();
 			$.ajax({
 					url : "sell/sell",
 					data:dataform,
@@ -106,7 +159,7 @@
 					   }
 			
 			});
-			
+		 }
 				
 		
 	}

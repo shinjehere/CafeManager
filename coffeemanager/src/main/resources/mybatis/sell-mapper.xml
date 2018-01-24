@@ -23,22 +23,25 @@
 	 		 <if test='searchValue != null and searchValue != ""'>
 	 	 	<![CDATA[	AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')]]>
 	 	 	</if>
-	 	 	<!-- <if test='searchValue != null and searchValue != "" 
+	 	 	<if test='searchValue != null and searchValue != "" 
 	 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
 	 	 		AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
 	 	 		#{startDate} AND #{endDate}
-	 	 	</if> -->
+	 	 	</if>
 	 	 </if>
      	 <if test='searchDiv == 2'>
 	        <if test='searchValue != null and searchValue != ""'>
 		        	<![CDATA[	AND s.SELL_CD LIKE CONCAT('%',#{searchValue},'%')]]>
 		    </if>
-		   <!--  <if test='searchValue != null and searchValue != "" 
+		   <if test='searchValue != null and searchValue != "" 
 	 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
 	 	 		AND s.SELl_CD LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
 	 	 		#{startDate} AND #{endDate}
-	 	 	</if> -->
+	 	 	</if>
 	      </if>
+	 	 <if test='startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+	 	 <![CDATA[	AND s.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
+	 	 </if>
 	      </where>
  	   <![CDATA[   ORDER BY s.SELL_CD DESC
  	      LIMIT #{startCount} , 10 ]]>
@@ -53,22 +56,25 @@
  		 <if test='searchValue != null and searchValue != ""'>
  	 	 <![CDATA[	AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') ]]>
  	 	</if>
- 	 <!-- 	<if test='searchValue != null and searchValue != "" 
- 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
- 	 		AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
- 	 		#{startDate} AND #{endDate}
- 	 	</if> -->
+ 		 <if test='searchValue != null and searchValue != "" 
+	 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+	 	 		AND m.MENU_NAME LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
+	 	 		#{startDate} AND #{endDate}
+ 	 	</if>
  	 </if>
       <if test='searchDiv == 2'>
         <if test='searchValue != null and searchValue != ""'>
 	        <![CDATA[ 	AND s.SELL_CD LIKE CONCAT('%',#{searchValue},'%') ]]>
 	    </if>
-	   <!--  <if test='searchValue != null and searchValue != "" 
- 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
- 	 		AND s.SELl_CD LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
- 	 		#{startDate} AND #{endDate}
- 	 	</if> -->
-      </if> 
+		   <if test='searchValue != null and searchValue != "" 
+	 	 	and startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+	 	 		AND s.SELl_CD LIKE CONCAT('%',#{searchValue},'%') AND s.SELL_DATE BETWEEN 
+	 	 		#{startDate} AND #{endDate}
+	 	 	</if>
+      </if>
+       <if test='startDate != null and startDate !="" and endDate !=null and endDate !=""'>
+	 	 <![CDATA[	AND s.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
+	 	 </if> 
      </where> 	 
  </select>
  <select id="detail_Sell" parameterType="String" resultType="kr.co.coffee.sell.domain.SellListVO">

@@ -84,6 +84,7 @@ public class sellController {
 	@RequestMapping(path="/sell", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> sellList(Search search) throws Exception {
 		int totalcount=sellService.getTotalCount(search);
+		System.out.println("startdate:"+search.getStartDate()+"enddate"+search.getEndDate());
 		Paging paging=pagingUtil.getPaging(search, totalcount);
 		search.setStartCount(paging.getStartCount());
 		List<SellListVO> list=sellService.getSellList(search);
