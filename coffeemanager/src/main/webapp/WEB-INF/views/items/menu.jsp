@@ -173,7 +173,7 @@
 												<th>원재료코드</th>
 												<th>원재료명</th>
 												<th>단가</th>
-												<th>1단위 용량</th>
+												<th>제품용량</th>
 												<th>단위</th>
 											</tr>
 										</thead>
@@ -184,7 +184,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="input-group">
-													<span class="input-group-addon"> 원재료코드 : </span> <span
+													<!-- <span class="input-group-addon"> 원재료코드 : </span> <span
 														class="form-control" id="ing_click_code"></span> <span
 														class="input-group-addon"> 원재료명 : </span> <span
 														class="form-control" id="ing_click_name"></span><span
@@ -192,10 +192,21 @@
 														class="form-control" id="ing_unit_price"></span> <span
 														class="input-group-addon"> 사용할 용량 : </span> <input
 														class="form-control" id="menuUnitAmount" type="number"
-														min="0"> <span class="input-group-btn">
-														<button type="reset" id="rest_x"
-															onclick="javascript:reset();" class="btn btn-default">X</button>
-													</span>
+														min="0"> <span class="input-group-btn"> -->
+														
+														<span class="input-group-addon"> 원재료코드 : </span> 
+														<span class="input-group-addon"> 원재료명 : </span> 
+														<span class="input-group-addon"> 단가 : </span> 
+														<span class="input-group-addon"> 사용할 용량 : </span>
+														</div>
+														<div class="form-group">
+														<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code"></span> 
+														<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name"></span>
+														<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price"></span> 
+														<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" type="number" min="0"> 
+														<span style="display:inline-block; width:3%;" class="form-control-btn">
+														<button type="reset" id="reset_x" onclick="javascript:reset();" class="btn btn-default">X</button>
+														</span>
 												</div>
 											</div>
 										</div>

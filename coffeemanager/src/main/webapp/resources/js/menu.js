@@ -40,7 +40,7 @@ function searchIngredient(){
 
 //테이블 row 클릭시 값 가져오기
 function trClick() {
-	$("#menu_list_table tr").click(function() {
+	$("#menu_table tr").click(function() {
 		var tdArr = new Array();
 		var tr=$(this);
 		var td=tr.children();
@@ -203,9 +203,6 @@ function do_excelDown(){
 	excelFrm.action = "menu/do_excelDown";
 	excelFrm.submit();
 }
-
-
-
 
 
 // =========================================================
