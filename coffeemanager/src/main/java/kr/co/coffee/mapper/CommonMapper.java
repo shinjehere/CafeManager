@@ -3,6 +3,7 @@ package kr.co.coffee.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.coffee.common.DTO;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
@@ -35,6 +36,8 @@ public interface CommonMapper {
 	public String search_insert_code(String codeSL) throws Exception;
 	//판매 인서트 추가
 	public void sell_insert(SellInsVO sellInsVO) throws Exception;
+	//판매 삭제
+	public void SLDeleteChecked(String deleteArray) throws Exception;
 	//*************************************************************************************************
 
 	// menu mapper *********************************************************************************
@@ -53,6 +56,15 @@ public interface CommonMapper {
 	
 	// 메뉴 선택 삭제
 	public void deleteChecked(String deleteArray) throws Exception;
+	
+	// 메뉴명 중복확인
+	public int do_checkMenuName(String menuName) throws Exception;
+	
+	// 엑셀 서치
+	public List<MenuVO> do_searchExcel(DTO dto) throws Exception;
+	
+	// 엑셀 다운
+	public String do_excelDown(List<MenuVO> list) throws Exception;
 	//*******************************************************************************************
 	
 	

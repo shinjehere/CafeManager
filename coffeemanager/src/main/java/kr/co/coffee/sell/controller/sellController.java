@@ -2,6 +2,7 @@ package kr.co.coffee.sell.controller;
 
 import java.sql.SQLDataException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +84,7 @@ public class sellController {
 	@RequestMapping(path="/sell", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> sellList(Search search) throws Exception {
 		int totalcount=sellService.getTotalCount(search);
+		System.out.println("startdate:"+search.getStartDate()+"enddate"+search.getEndDate());
 		Paging paging=pagingUtil.getPaging(search, totalcount);
 		search.setStartCount(paging.getStartCount());
 		List<SellListVO> list=sellService.getSellList(search);
@@ -128,7 +130,7 @@ public class sellController {
 		String todayString=dateFormat.format(today);
 		System.out.println(sellInsVO);
 		String codeSL="SL"+todayString;
-		String getCode=sellService.search_insert_code(codeSL).trim();
+		String getCode=sellService.search_insert_code(codeSL);
 		System.out.println("getCode:"+getCode);
 		if(getCode==null||getCode=="") {
 			codeSL+="001";
@@ -153,6 +155,34 @@ public class sellController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		String url="sell";
 		map.put("url", url);
+		return map;
+	}
+	
+/*	@RequestMapping(value="/sell")
+	@ResponseBody
+	public void sellDelete(@RequestParam("deletesellCDArray") List<String> sellDelList) throws Exception {
+		System.out.println(sellDelList);
+		
+		
+	}*/
+	// 메뉴 선택 삭제
+	@RequestMapping(value = "/sellDel", method = RequestMethod.DELETE, consumes="application/json")
+	@ResponseBody
+	public Map<String, Object> deleteMenu(@RequestBody String[] sellCDArray) throws Exception {
+		
+		ArrayList<String> deleteArray = new ArrayList<String>();
+		
+		for (String data : sellCDArray) {
+			deleteArray.add(data);
+			System.out.println("deleteList:"+data);
+		}
+		System.out.println("deleteList:"+sellCDArray);
+		sellService.SLDeleteChecked(deleteArray);
+		
+
+		System.out.println("deleteArray = "+deleteArray);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("url", "sell");
 		return map;
 	}
 }

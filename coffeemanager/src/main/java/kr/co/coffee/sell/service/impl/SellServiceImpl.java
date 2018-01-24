@@ -63,6 +63,13 @@ public class SellServiceImpl implements SellService{
 		 CommonMapper.sell_insert(sellInsVO);
 	}
 
+	@Override
+	public void SLDeleteChecked(List<String> deleteArray) throws Exception {
+		for(int i=0;i<deleteArray.size();i++) {
+			CommonMapper.SLDeleteChecked(deleteArray.get(i));
+		}
+	}
+
 	
 
 	

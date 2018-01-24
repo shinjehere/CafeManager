@@ -1,46 +1,139 @@
-/*function wrapWindowByMask(){ 
-	//화면의 높이와 너비를 구한다. 
-	var maskHeight = $(document).height(); 
-	var maskWidth = $(window).width(); 
-	
-	//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다. 
-	$('#mask').css({'width':maskWidth,'height':maskHeight}); 
-	
-	//마스크의 투명도 처리 
-	$('#mask').fadeTo("slow",0.8); 
-} 
+function new_menu() {
+		$('#myModal').modal();
+	}
 
-$(document).ready(function(){ 
-	//wrapWindowByMask(); 
-	//불투명 배경 띄우기 
-	$('.openMask').click(function(e){ 
-		e.preventDefault(); 
-		wrapWindowByMask(); 
-	}); 
-});
-
-function createNewMenu(){
-	$('#newMenu').show();
-	wrapWindowByMask();
+// 메뉴등록>원재료 검색
+function searchIngredient(){
+	var searchIngredientName=$('#searchIngdnt').val();
+	console.log(searchIngredientName);
+	$.ajax({
+		url:"menu/searchIngdnt",
+		data:{"searchIngredientName":searchIngredientName},
+		type:'GET',
+		dataType:"JSON",
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		success : function(data) {
+			console.log(data);
+			
+				$('#menu_table tbody').html(function() {
+					str="";
+					for(var i=0;i<data.list.length;i++){
+						str+="<tr>";
+						str+="<td>"+data.list[i].ing_cd+"</td>";
+						str+="<td>"+data.list[i].ing_nm+"</td>";
+						str+="<td>"+data.list[i].ing_price+"</td>";
+						str+="<td>"+data.list[i].unit_amount+"</td>";
+						str+="<td>"+data.list[i].ing_unit+"</td>";
+						str+="</tr>";
+					}
+					return str;
+				
+					});
+					trClick()
+		},
+		error: function(xhr,status,error){
+	          // 에러
+	          alert("code:"+xhr.status);
+	     }
+	});
 }
 
-function btnexit(){ 
-	$('#newMenu').hide(); 
-	$('#mask').hide(); 
+//테이블 row 클릭시 값 가져오기
+function trClick() {
+	$("#menu_list_table tr").click(function() {
+		var tdArr = new Array();
+		var tr=$(this);
+		var td=tr.children();
+		console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+		
+		td.each(function(i) {
+			tdArr.push(td.eq(i).text());
+		});
+		console.log("배열에 담긴 값 : "+tdArr);
+		
+		var ing_code=td.eq(0).text();
+		var ing_name=td.eq(1).text();
+		var ing_up=td.eq(2).text();
+
+		$('#ing_click_code').text(ing_code);
+		$('#ing_click_name').text(ing_name);
+		$('#ing_unit_price').text(ing_up);
+		
+	});
 }
 
- */
+// 메뉴 단가 계산
+function calMenuUP() {
+	var ing_code=$('#ing_click_code').text();
+	if(ing_code == ""){
+		alert("원재료를 검색 후 클릭해 주세요!");
+	}else{
+		var click_up=$('#ing_unit_price').text();
+		console.log(click_up);
+		var menuUnitAmount=$('#menuUnitAmount').val();
+		if(menuUnitAmount==""){
+			alert("사용할 용량을 입력해주세요");
+		}else if(menuUnitAmount=="0"){
+			alert("0은 입력 불가합니다");
+			$('#calMenuClick').text(null);
+			$('#ing_unit_price').text(null);
+	}else{
+			var calMenuUP=click_up*menuUnitAmount;
+			console.log(calMenuUP);
+			$('#calMenuClick').text(calMenuUP);
+			$('#menuUnitPrice').text(calMenuUP);
+		}
+	}
+}
 
-/*// 신규 등록 팝업 프레임
+function reset() {
+	$('#calMenuClick').text(null);
+	$('#menuUnitPrice').text(null);
+	$('#ing_click_code').text(null);
+	$('#ing_click_name').text(null);
+	$('#ing_unit_price').text(null);
+}
 
- * window.open(url:String, name:String, properties:String)
- * open 함수는 반드시 3개의 매개변수가 있어야하고, 순서가 지켜져야 함.
- * 
- function createNewMenu() {
- window
- .open("new_menu.jsp", "",
- "width=1300, height=900, left=100, top=50, scrollbars=yes, location=no");
- }*/
+//메뉴명 중복확인
+function checkMenuName(){
+	$("#btnCheckMenu").on("click", function(){
+		
+		var menuFlag = 0;
+		
+		var checkMenuName = $("#menuName").val().trim();
+		
+		if(checkMenuName == ""){
+			alert("메뉴명을 입력해주세요.");
+			return;
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "menu/do_checkMenuName",
+			dataType: "JSON",
+			data: {
+				"menuName": checkMenuName
+			},
+			success: function(data){
+				var flag = ($.trim(data.flag));
+				if(flag == "1"){
+					alert("다른 메뉴명을 입력해 주십시오.");
+				}else{
+					alert("사용할 수 있는 메뉴명입니다.");
+					menuFlag = 1;
+				}
+			},
+			complete: function(data){
+			},
+			error: function(xhr, status, error){
+			}
+		}); // ajax closed
+	});// btnCheckMenu closed
+} // checkMenuName closed
+
+
+
+
 
 // 전체선택 체크박스
 $(function() {
@@ -98,22 +191,22 @@ $(function(){
 
 
 /*
- * // 메뉴 사용여부 토글 $(function() { var tog = $("input[id='tog']");
- * tog.click(function() { $("p").toggle(); }); });
- *  // 아코디언 테이블 $(function() { var article = (".recruit .show"); $(".recruit
- * .title td").click(function() { var myArticle = $(this).parents().next("tr");
- * if ($(myArticle).hasClass('hide')) {
- * $(article).removeClass('show').addClass('hide');
- * $(myArticle).removeClass('hide').addClass('show'); } else {
- * $(myArticle).addClass('hide').removeClass('show'); } }); });
- */
-
-/*
  * // datepicker $(document).ready(function() {
  * $("#start_date").datetimepicker({ format : 'YYYY/MM/DD' });
  * 
  * $("#end_date").datetimepicker({ format : 'YYYY/MM/DD' }); });
  */
+
+// 엑셀 다운
+function do_excelDown(){
+	var excelFrm = document.excel_frm;
+	excelFrm.action = "menu/do_excelDown";
+	excelFrm.submit();
+}
+
+
+
+
 
 // =========================================================
 // For Paging
@@ -180,17 +273,24 @@ function menuBoard() {
 
 			if (data.list.length > 0) {
 
-				$("#menu_table tbody tr").remove();
+				$("#menu_list_table tbody tr").remove();
 				console.log("data size= " + data.list.length);
 				for (var i = 0; i < data.list.length; i++) {
 					datahtml += makeData(data.list[i]);
 				}
-				$('#menu_table tbody').append(datahtml);
+				$('#menu_list_table tbody').append(datahtml);
 			} else {
-				$('#menu_table tbody tr').remove();
+				$('#menu_list_table tbody tr').remove();
 				datahtml += "<tr><td colspan=7>데이터가 없습니다.</td></tr>"
-				$('#menu_table tbody').append(datahtml);
+				$('#menu_list_table tbody').append(datahtml);
 			}
+			
+			// 엑셀 다운
+			$('#do_excelDown').click(function(){
+				do_excelDown();
+			});
+			
+			// 페이징
 			makePaging(data.paging);
 		},
 		error : function(xhr, status, error) {

@@ -26,4 +26,14 @@ public interface MenuSvc {
 	
 	// 메뉴 선택 삭제
 	public void deleteChecked(ArrayList<String> deleteArray) throws Exception;
+	
+	// 메뉴명 중복확인
+	public int do_checkMenuName(String menuName) throws Exception;
+	
+	// 엑셀 서치
+	public List<MenuVO> do_searchExcel(DTO dto) throws Exception;
+	
+	// 엑셀 다운
+	public String do_excelDown(List<MenuVO> list) throws Exception;
+	
 }
