@@ -1,5 +1,6 @@
 package kr.co.coffee.sell.controller;
 
+import java.io.File;
 import java.sql.SQLDataException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.xmlbeans.impl.jam.mutable.MMethod;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.support.RequestPartServletServerHttpRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.common.util.concurrent.Service;
@@ -51,6 +54,9 @@ public class sellController {
 	
 	@Autowired
 	private SellService sellService;
+	
+	@Resource(name="downloadView")
+	private View downloadView;
 	/**
 	 * @author 김영섭
 	 * @param model
@@ -184,5 +190,22 @@ public class sellController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("url", "sell");
 		return map;
+	}
+
+	@RequestMapping(path="/sell_excel_down", method=RequestMethod.POST)
+	public ModelAndView sell_excel_down(Search search) throws Exception{
+		int totalcount=sellService.getTotalCount(search);
+		System.out.println("startdate:"+search.getStartDate()+"enddate"+search.getEndDate());
+		Paging paging=pagingUtil.getPaging(search, totalcount);
+		search.setStartCount(paging.getStartCount());
+		List<SellListVO> list=sellService.getSellList(search);
+
+		System.out.println("excel_list"+list);
+		String  fileFullPath=sellService.se_excelDown(list);
+		ModelAndView mav=new ModelAndView();
+		mav.setView(downloadView);
+		File downloadFile= new File(fileFullPath);
+		mav.addObject("downloadFile", downloadFile);
+		return mav;
 	}
 }

@@ -10,7 +10,7 @@
  <![CDATA[
  	SELECT 
  	s.SELL_CD,
- 	 s.SELL_DATE,
+ 	DATE_FORMAT(s.SELL_DATE, '%Y-%m-%d %T') AS SELL_DATE,
  	  m.MENU_CD,
  	   m.MENU_NAME,
  	    s.SELL_CNT,

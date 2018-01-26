@@ -383,3 +383,11 @@ $(function() {
 		
 	}); 
 });
+
+function excel_down() {
+		var dataform=$('#searchForm').serialize();
+		document.searchForm.action="sell/sell_excel_down";
+		document.searchForm.method="POST";
+		document.searchForm.submit(dataform);
+	
+}
