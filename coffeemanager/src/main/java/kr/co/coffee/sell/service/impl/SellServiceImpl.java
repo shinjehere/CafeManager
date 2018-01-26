@@ -60,6 +60,7 @@ public class SellServiceImpl implements SellService{
 		return CommonMapper.search_insert_code(codeSL);
 	}
 
+
 	@Override
 	public void sell_insert(SellInsVO sellInsVO) throws Exception {
 		 CommonMapper.sell_insert(sellInsVO);
