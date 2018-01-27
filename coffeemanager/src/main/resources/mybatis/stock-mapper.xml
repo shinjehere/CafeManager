@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.coffee.mapper.CommonMapper">
-     <select id="selectStockList" resultType="kr.co.coffee.stock.domain.StockList">        
+     <select id="selectStockList"  resultType="kr.co.coffee.stock.domain.StockList">        
 
      		SELECT
      			ST.STOCK_CD,
@@ -14,7 +14,8 @@
      		JOIN
      		 	INGREDIENT AS ING
      		ON
-     			ING.ING_CD = ST.ING_CD;
+     			ING.ING_CD = ST.ING_CD
+     		
      </select>
       
       <!-- 페이징 처리 -->
@@ -37,7 +38,7 @@
      	<select id="TotalCount" resultType="java.lang.Integer">
      		SELECT COUNT(*)
      		FROM
-     			STOCK
+     			STOCK     
      	</select> 
      	
      	<!-- 원재료 select -->
@@ -66,5 +67,37 @@
      			VALUES(#{newpd_CD},now(),#{ing_CD},#{newpd_CNT}); 
      		]]>
      	</insert>
+     	
+     	<select id="listSearchCriteria" resultType="kr.co.coffee.stock.domain.StockList" parameterType="kr.co.coffee.stock.domain.searchCriteria">
+     	<![CDATA[
+     		SELECT x.*
+				FROM(SELECT @RNUM := @RNUM + 1 AS RNUM, a.*
+					FROM
+					  (SELECT ST.STOCK_CD, ST.ING_CD, ST.STOCK_CNT, ING.ING_NM, ING.ING_PRICE*STOCK_CNT st_total_Price
+						FROM STOCK AS ST
+						JOIN INGREDIENT AS ING
+						ON ING.ING_CD = ST.ING_CD
+						]]>
+						<include refid="dynamicSearchCondition"/>
+						<![CDATA[
+						ORDER BY ST.STOCK_CD) AS a, (SELECT @RNUM := 0 ) AS b
+					WHERE @RNUM <= 10) x
+				WHERE x.RNUM>=1
+				ORDER by ING_NM DESC
+			LIMIT #{pageStart}, #{perPageNum}
+     	]]>
+     	</select>
+
+     	<sql id="dynamicSearchCondition">
+     		<if test = "searchType !=null">
+				<if test="searchType == 'n'.toString()">
+				and ING_NM like concat('%',#{searchKeyword},'%')						
+				</if>
+				<if test="searchType == 'c'.toString()">
+				and STOCK_CD like concat('%',#{searchKeyword},'%')						
+				</if>
+			</if>
+     	</sql>
+   
      	
 </mapper>

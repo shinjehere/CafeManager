@@ -1,5 +1,7 @@
 package kr.co.coffee.stock.domain;
 
+import java.net.URLDecoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -104,6 +106,18 @@ public class PageMaker {
  
         return uriComponents.toUriString();
     }
+	
+	public String makeSearch(Integer page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchType", ((searchCriteria)cri).getSearchType())
+				.queryParam("searchKeyword",((searchCriteria)cri).getSearchKeyword())
+				.build();
+		
+		//System.out.println("test"+uriComponents);
+		return uriComponents.toUriString();
+	}
 
 	
 }
