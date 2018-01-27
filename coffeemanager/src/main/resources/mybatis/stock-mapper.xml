@@ -83,7 +83,10 @@
 						ORDER BY ST.STOCK_CD) AS a, (SELECT @RNUM := 0 ) AS b
 					WHERE @RNUM <= 10) x
 				WHERE x.RNUM>=1
-				ORDER by ING_NM DESC
+				]]>
+				<!-- ORDER by ING_NM  -->
+				<include refid="sortSearchCondition"/>
+				<![CDATA[
 			LIMIT #{pageStart}, #{perPageNum}
      	]]>
      	</select>
@@ -97,6 +100,20 @@
 				and STOCK_CD like concat('%',#{searchKeyword},'%')						
 				</if>
 			</if>
+     	</sql>
+     	
+     	<sql id="sortSearchCondition">
+     		<if test = "searchSort != null">
+     			<if test = "searchSort == 'd'.toString()">
+				ORDER by STOCK_CD
+				</if> 
+				<if test = "searchSort == 's'.toString()">
+				ORDER by ING_NM
+				</if>     	
+				<if test = "searchSort == 'p'.toString()">
+				ORDER by st_total_price
+				</if>  	
+     		</if>
      	</sql>
    
      	

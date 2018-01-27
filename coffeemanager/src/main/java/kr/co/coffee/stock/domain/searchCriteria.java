@@ -4,8 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 public class searchCriteria extends Criteria{
-	private String searchType;
-	private String searchKeyword;
+	private String searchType; //검색조건
+	private String searchKeyword; //검색 키워드
+	private String searchSort; //정렬
+	
 	public String getSearchType() {
 		return searchType;
 	}
@@ -17,14 +19,14 @@ public class searchCriteria extends Criteria{
 		return searchKeyword;
 	}
 	public void setSearchKeyword(String searchKeyword) {
-		/*try {
-			this.searchKeyword = URLDecoder.decode(searchKeyword, "UTF-8");
-			System.out.println("test"+searchKeyword);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			System.out.println("에러");
-		}*/
 		this.searchKeyword = searchKeyword;
 	}
+	public String getSearchSort() {
+		return searchSort;
+	}
+	public void setSearchSort(String searchSort) {
+		this.searchSort = searchSort;
+	}
+	
 
 }

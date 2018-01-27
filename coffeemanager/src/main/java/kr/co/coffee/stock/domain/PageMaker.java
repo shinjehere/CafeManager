@@ -111,6 +111,7 @@ public class PageMaker {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchSort",((searchCriteria)cri).getSearchSort())
 				.queryParam("searchType", ((searchCriteria)cri).getSearchType())
 				.queryParam("searchKeyword",((searchCriteria)cri).getSearchKeyword())
 				.build();

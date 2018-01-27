@@ -5,6 +5,7 @@ $(function(){
 	addIngredient(); //체크박스 다중선택 방지
 	totalPrice();//
 	searchStock();
+	searchSort();
 });
 
 /*디폴트값으로 현재 날짜 설정*/
@@ -65,7 +66,17 @@ $(document).ready(function(){
 		
 	});
 
-
+//재고 리스트 정렬
+function searchSort(){
+	/*$("#search_sort").change(function(){*/
+	/*	var searchType = $("select[name=searchType]").val();
+		var searchKeyword = $("input[name=searchKeyword]").val();*/
+		var searchSort = $("#search_sort option:selected").val();
+		alert(stockSort)
+		self.location = "../coffee/stock${pageMaker.makeQuery(1)}&searchSort="+searchSort;
+		
+	/*});*/
+}
 //원재료 검색
 function searchIngredient(){
 	$(".search_btn").click(function(){
