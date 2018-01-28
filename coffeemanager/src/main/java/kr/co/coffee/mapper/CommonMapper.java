@@ -11,6 +11,7 @@ import kr.co.coffee.sell.domain.SellInsVO;
 import kr.co.coffee.sell.domain.SellListVO;
 import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
+import kr.co.coffee.stock.domain.searchCriteria;
 import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.NewProductList;
 /**
@@ -77,6 +78,11 @@ public interface CommonMapper {
 	public String searchNewCode(String codeNP) throws Exception;
 	//입고
 	public void ingredientInsert(NewProductList newProduct) throws Exception;
+	//검색
+	public List<StockList> listSearchCriteria(searchCriteria cri) throws Exception;
+		
+	public Integer searchBoardTotalCount(searchCriteria cri) throws Exception;
+	
 	//*************************************************************************************************
 	
 	
@@ -84,7 +90,7 @@ public interface CommonMapper {
 	
 	//**********************************************************************************************
 	
-	public List<StockList> listCriteria(Criteria cri) throws Exception; 
+	public List<StockList> listCriteria(Criteria cri) throws Exception;
 	public Integer TotalCount() throws Exception;
 	
 	// test mapper

@@ -1,5 +1,6 @@
 package kr.co.coffee.stock.domain;
 
+import java.text.NumberFormat;
 
 /*
  * 
@@ -43,7 +44,12 @@ public class StockList {
 		return st_total_Price;
 	}
 	public void setSt_total_Price(String st_total_Price) {
-		this.st_total_Price = st_total_Price;
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumIntegerDigits(0);
+		//최대 자리수
+		nf.setMaximumIntegerDigits(10);
+		
+		this.st_total_Price = nf.format((int)(Float.parseFloat(st_total_Price)));
 	}
 	
 	

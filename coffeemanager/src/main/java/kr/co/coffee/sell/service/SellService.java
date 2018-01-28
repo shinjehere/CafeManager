@@ -31,4 +31,6 @@ public interface SellService {
 		public void sell_insert(SellInsVO sellInsVO) throws Exception;
 		
 		public void SLDeleteChecked(List<String> deleteArray) throws Exception;
+		
+		public String se_excelDown(List<SellListVO> list) throws Exception;
 }

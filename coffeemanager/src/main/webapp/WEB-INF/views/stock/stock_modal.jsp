@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<script src="${pageContext.request.contextPath}/resources/js/stock/stock_board.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/stock/stock_board.js"></script> --%>
 
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-lg">
