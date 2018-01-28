@@ -16,13 +16,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.NewProductList;
 import kr.co.coffee.stock.domain.PageMaker;
 import kr.co.coffee.stock.domain.StockList;
+import kr.co.coffee.stock.domain.searchCriteria;
 import kr.co.coffee.stock.service.StockService;
 
 @Controller
@@ -30,8 +33,9 @@ public class stockController {
 	//Service 영역의 접근을 위한 선언
 	@Resource(name="stockService")
 	private StockService stockService;
-	@RequestMapping(value="/stock",method=RequestMethod.GET)
-	public String stockList(@ModelAttribute("cri") Criteria cri,Model model) throws Exception,NumberFormatException	{
+
+	/*@RequestMapping(value="/stock",method=RequestMethod.GET)
+	public String stockList(@ModelAttribute("cri") searchCriteria cri,Model model) throws Exception,NumberFormatException	{
 		//커맨드 객체로 Criteria를 매개변수로 넣어주고, 넘어오는 page와 perPageNum 정보를 받는다.
 		//해당 cri를 이용해서 service->dao->mapper.xml 순으로 접근하면서 DB처리
 		//cri 전달된 현재 페이지 정보를 기준으로 VO 객체를 담은 ArrayList 반환
@@ -55,21 +59,47 @@ public class stockController {
 		}
 		
 		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("stockList", list);
-		model.addAttribute("cri",cri);
+		model.addAttribute("stockList", stockService.listSearchCriteria(cri));
+	//	model.addAttribute("cri",cri);
+
+		model.addAttribute("content", "stock/stock_board.jsp");
+
+		return "main";
+	}*/
+	
+	@RequestMapping(value="/stock",method=RequestMethod.GET)
+	public String stockList(@ModelAttribute("cri") searchCriteria cri,Model model) throws Exception,NumberFormatException	{
+		//커맨드 객체로 Criteria를 매개변수로 넣어주고, 넘어오는 page와 perPageNum 정보를 받는다.
+		//해당 cri를 이용해서 service->dao->mapper.xml 순으로 접근하면서 DB처리
+		//cri 전달된 현재 페이지 정보를 기준으로 VO 객체를 담은 ArrayList 반환
+		
+		List<StockList> list = stockService.listCriteria(cri);
+
+		PageMaker pageMaker = new PageMaker();
+		
+		pageMaker.setCri(cri);
+		Integer totalNum = stockService.totalCount();
+		pageMaker.setTotalCount(totalNum);
+		
+		//가격 세자리마다 , 처리
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumIntegerDigits(0);
+		//최대 자리수
+		nf.setMaximumIntegerDigits(10);
+		/*for(int i=0; i<list.size(); i++) {
+			list.get(i).setSt_total_Price((nf.format((int)(Float.parseFloat(list.get(i).getSt_total_Price())))));
+			
+		}*/
+		
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stockList", stockService.listSearchCriteria(cri));
+	//	model.addAttribute("cri",cri);
 
 		model.addAttribute("content", "stock/stock_board.jsp");
 
 		return "main";
 	}
-	//재고 검색
-	@RequestMapping(path="stock/stockSearch",method=RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> stockSearch(String searchCondition) throws Exception{
-		
-		
-		return null;
-	}
+
 	
 	@RequestMapping(path="stock/stockPopup", method=RequestMethod.POST)
 	@ResponseBody
