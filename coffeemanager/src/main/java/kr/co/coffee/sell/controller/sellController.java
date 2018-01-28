@@ -1,7 +1,6 @@
 package kr.co.coffee.sell.controller;
 
 import java.io.File;
-import java.sql.SQLDataException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,28 +11,18 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.xmlbeans.impl.jam.mutable.MMethod;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.support.RequestPartServletServerHttpRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.common.util.concurrent.Service;
 
-import ch.qos.logback.classic.Logger;
 import kr.co.coffee.common.pagingUtil;
 import kr.co.coffee.common.domain.Paging;
 import kr.co.coffee.common.domain.Search;
@@ -164,13 +153,6 @@ public class sellController {
 		return map;
 	}
 	
-/*	@RequestMapping(value="/sell")
-	@ResponseBody
-	public void sellDelete(@RequestParam("deletesellCDArray") List<String> sellDelList) throws Exception {
-		System.out.println(sellDelList);
-		
-		
-	}*/
 	// 메뉴 선택 삭제
 	@RequestMapping(value = "/sellDel", method = RequestMethod.DELETE, consumes="application/json")
 	@ResponseBody

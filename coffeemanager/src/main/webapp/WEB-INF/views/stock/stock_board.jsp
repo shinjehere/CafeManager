@@ -67,14 +67,14 @@
 			  <ul class="pagination">
 
 				<c:if test ="${pageMaker.prev }">
-					<li><a href="../coffee/stock${pageMaker.makeQuery(pageMaker.startPage - 1} }">Prev</a></li>
+					<li><a href="../coffee/stock${pageMaker.makeQuery(pageMaker.startPage - 1) }">Prev</a></li>
 				</c:if>
 				 <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="index">
 			        <li><a href="../coffee/stock${pageMaker.makeQuery(index) }">${index }</a></li>
 			     </c:forEach>
 				 <c:if test="${pageMaker.next }">
 			        <li>
-			            <a href="../coffee/stock${pageMaker.makeQuery(pageMaker.endPage + 1} }">Next</a>
+			            <a href="../coffee/stock${pageMaker.makeQuery(pageMaker.endPage + 1) }">Next</a>
 			        </li>
 			    </c:if>
 
