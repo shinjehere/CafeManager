@@ -157,8 +157,9 @@ old_jquery(function() {
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">신규메뉴등록</h4>
+							<h4 class="modal-title" id="myModalLabel" >신규메뉴등록</h4>
 						</div>
+						<p align="left">가격 단위: 원</p>
 						<form>
 							<div class="controller">
 								<div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
@@ -212,7 +213,7 @@ old_jquery(function() {
 									<div class="form-group">
 										<div class="row">
 											<div class="col-md-12">
-												<div class="input-group">
+												<div class="input-group" >
 													<!-- <span class="input-group-addon"> 원재료코드 : </span> <span
 														class="form-control" id="ing_click_code"></span> <span
 														class="input-group-addon"> 원재료명 : </span> <span
@@ -225,18 +226,21 @@ old_jquery(function() {
 														
 														<span class="input-group-addon"> 원재료코드 : </span> 
 														<span class="input-group-addon"> 원재료명 : </span> 
-														<span class="input-group-addon"> 단가 : </span> 
+														<span class="input-group-addon"> 1단위 가격 : </span> 
 														<span class="input-group-addon"> 사용할 용량 : </span>
 														</div>
-														<div class="form-group">
-														<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code"></span> 
-														<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name"></span>
-														<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price"></span> 
-														<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" type="number" min="0"> 
-														<span style="display:inline-block; width:3%;" class="form-control-btn">
-														<button type="reset" id="reset_x" onclick="javascript:reset();" class="btn btn-default">X</button>
-														</span>
-												</div>
+														<div id="add_ingredient" class="form-group">
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code"></span> 
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name"></span>
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price"></span> 
+															<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" type="number" min="0"> 
+															<!-- <span style="display:inline-block; width:3%;" class="form-control-btn">
+															<button type="reset" id="reset_x" onclick="javascript:reset();" class="btn btn-default">X</button>
+															</span> -->			
+															 <input type="button" value="삭제" onclick="remove_ingredient(this)">
+													</div>
+													<div id="added_field"></div>	
+												<input type="button" value=" 추가 " onclick="add_ingredient()"><br>
 											</div>
 										</div>
 									</div>

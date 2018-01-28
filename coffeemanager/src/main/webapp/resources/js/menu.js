@@ -1,3 +1,40 @@
+// 원재료 추가하기
+function add_ingredient(){
+	 // add_ingdnt 에 있는 내용을 읽어와서 처리
+    var div = document.createElement("div");
+    div.innerHTML = document.getElementById("add_ingredient").innerHTML;
+    
+    // document.getElementById('added_field').appendChild(div);
+    var added_field = document.getElementById("added_field");
+    added_field.appendChild(div);
+    added_field.reset();
+   
+}
+
+function remove_ingredient(obj){
+	// obj.parentNode 를 이용하여 삭제
+    document.getElementById("added_field").removeChild(obj.parentNode);
+}
+
+
+/*function remove_ingredient(){
+    var added_field = document.getElementById("added_field");
+    if(count >1){ // 현재 폼이 두개 이상이면
+               var addedDiv = document.getElementById("added_"+(--count));
+               // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
+               addedFormDiv.removeChild(addedDiv); // 폼 삭제 
+    }else{ // 마지막 폼만 남아있다면
+               document.baseForm.reset(); // 폼 내용 삭제
+    }
+}*/
+
+/*function reset() {
+$('#calMenuClick').text(null);
+$('#menuUnitPrice').text(null);
+$('#ing_click_code').text(null);
+$('#ing_click_name').text(null);
+$('#ing_unit_price').text(null);
+}*/
 
 
 // 모달창
@@ -59,10 +96,12 @@ function trClick() {
 		var ing_code = td.eq(0).text();
 		var ing_name = td.eq(1).text();
 		var ing_up = td.eq(2).text();
+		var ing_amount = td.eq(3).text();
+		var int_cal = ing_up / ing_amount;
 
 		$('#ing_click_code').text(ing_code);
 		$('#ing_click_name').text(ing_name);
-		$('#ing_unit_price').text(ing_up);
+		$('#ing_unit_price').text(int_cal);
 
 	});
 }
@@ -91,13 +130,7 @@ function calMenuUP() {
 	}
 }
 
-function reset() {
-	$('#calMenuClick').text(null);
-	$('#menuUnitPrice').text(null);
-	$('#ing_click_code').text(null);
-	$('#ing_click_name').text(null);
-	$('#ing_unit_price').text(null);
-}
+
 
 // 메뉴명 중복확인
 function checkMenuName() {
