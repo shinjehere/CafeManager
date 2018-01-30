@@ -77,7 +77,7 @@
 			<div style="margin-bottom: 10px;"></div>
 		</div>
 		<div class="container">
-			<form class="form-inline" id="searchForm" >
+			<form class="form-inline" id="searchForm" name="searchForm">
 				<input type="hidden" id="currentPage" name="currentPage" value="1"
 				 <%--ajax로 변경되어 삭제 되는 부분들 "${map.paging.currentPage }" --%>/>
 				<!-- ajax로 변경되어 삭제 되는 부분들
@@ -182,7 +182,7 @@
 		<div class="text-right">
 			<div class="btn-group">
 					<button type="button" class="btn btn-primary" id="delete_Sell">삭제</button>
-					<button type="button" class="btn btn-danger">엑셀 다운로드</button>
+					<button type="button" class="btn btn-danger" onclick="javascript:excel_down()">엑셀 다운로드</button>
 					<button id="new_sell" type="button" class="btn btn-info"
 					onclick="javascript:new_sell()">신규등록</button>
 			</div>
