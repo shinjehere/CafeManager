@@ -2,10 +2,11 @@ $(function(){
 	closeModal();
 	getTimeStamp();
 	searchIngredient();
-	addIngredient(); //체크박스 다중선택 방지
 	totalPrice();//
+	stock_excelDown();
 	searchStock();
 	searchSort();
+	
 });
 
 /*디폴트값으로 현재 날짜 설정*/
@@ -200,7 +201,15 @@ function saveIngredient(){
 };
 
 
-
+//엑셀 다운
+function stock_excelDown(){
+	$('#stock_excelDown').click(function(){
+		alert("다운로드")
+		var excelFrm = document.stock_excel_frm;
+		excelFrm.action = "stock/stock_excelDown";
+		excelFrm.submit();
+	})
+}
 
 
 

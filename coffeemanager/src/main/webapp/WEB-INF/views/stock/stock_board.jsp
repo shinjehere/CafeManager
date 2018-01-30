@@ -14,6 +14,13 @@
 </head>
 
 <body>
+	<form name="stock_excel_frm" action="stock_excelDown" method="post">
+		<input type="hidden" id="e_stock_cd" name="stock_cd">
+		<input type="hidden" id="e_ing_cd" name="ing_cd">
+		<input type="hidden" id="e_ing_nm" name="ing_nm">
+		<input type="hidden" id="e_stock_cnt" name="stock_cnt">
+		<input type="hidden" id="e_stock_price" name="stock_price">
+	</form>
 
 	<div class="container container_wrap">
 		<div class="container">
@@ -93,7 +100,7 @@
 			</div>
 			
 			<div class="text-right">
-				<button type="button" class="btn btn-danger">엑셀 다운로드</button>			
+				<button id="stock_excelDown" type="button" class="btn btn-danger">엑셀 다운로드</button>			
 				<button type="button" class="btn btn-info btn" data-toggle="modal" data-target="#myModal">신규등록</button>
 		
 			</div>
