@@ -72,7 +72,7 @@ public interface CommonMapper {
 
 	// stock mapper *********************************************************************************
 	public List<StockList> selectStockList() throws Exception;
-	
+	//원재료 검색
 	public List<IngredientList> searchIngredient(String searchIngredient) throws Exception;
 	//가장 최근 코드 검색
 	public String searchNewCode(String codeNP) throws Exception;
@@ -80,9 +80,12 @@ public interface CommonMapper {
 	public void ingredientInsert(NewProductList newProduct) throws Exception;
 	//검색
 	public List<StockList> listSearchCriteria(searchCriteria cri) throws Exception;
-		
+	//재고 검색	
 	public Integer searchBoardTotalCount(searchCriteria cri) throws Exception;
-	
+	//엑셀 서치
+	/*public List<StockList> stock_searchExcel(DTO dto) throws Exception;*/
+	//엑셀 다운
+	public String stock_excelDown(List<StockList> list) throws Exception;
 	//*************************************************************************************************
 	
 	

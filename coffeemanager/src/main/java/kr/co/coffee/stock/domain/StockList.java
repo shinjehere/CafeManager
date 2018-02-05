@@ -2,6 +2,8 @@ package kr.co.coffee.stock.domain;
 
 import java.text.NumberFormat;
 
+import kr.co.coffee.common.DTO;
+
 /*
  * 
  * SELECT ST.STOCK_CD, ST.ING_CD, ST.STOCK_CNT, ING.ING_NM, ING.ING_PRICE*STOCK_CNT
@@ -9,12 +11,13 @@ FROM STOCK AS ST
 JOIN INGREDIENT AS ING
 ON ING.ING_CD = ST.ING_CD;
  * */
-public class StockList {
+public class StockList extends DTO{
 	private String stock_CD;
 	private String ing_CD;
 	private float stock_CNT;
 	private String ing_NM;
 	private String st_total_Price;
+
 	public String getStock_CD() {
 		return stock_CD;
 	}
