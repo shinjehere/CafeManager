@@ -1,3 +1,20 @@
+/*$(function(){
+	searchSort();
+});
+
+
+
+// 메뉴 리스트 정렬
+function searchSort(){
+	var searchSort = $("#search_sort option:selected").val();
+	alert(menuSort)
+	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
+}*/
+
+
+
+
+
 // 원재료 추가하기
 function add_ingredient(){
 	 // add_ingdnt 에 있는 내용을 읽어와서 처리

@@ -40,7 +40,10 @@
 			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
-			<![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]>
+			<!-- <![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]> -->
+			<!-- order by 정렬 -->
+		<!-- <include refid="sortSearchCondition"/>
+		<![CDATA[LIMIT #{startCount} , 10]]> -->
 	</select>
 
 <!-- 메뉴 페이징을 위한 전체 개수 카운트 -->
@@ -158,6 +161,23 @@
 			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
+		<!-- order by 정렬 -->
+		<!-- <include refid="sortSearchCondition"/> -->
 	</select>
 	
+	
+	<!-- 메뉴 리스트 정렬 -->
+	<!-- <sql id="sortSearchCondition">
+     		<if test = "searchSort != null">
+     			<if test = "searchSort == 'd'.toString()">
+				ORDER by MN_REG_DT
+				</if> 
+				<if test = "searchSort == 'n'.toString()">
+				ORDER by MENU_NAME
+				</if>     	
+				<if test = "searchSort == 'p'.toString()">
+				ORDER by MENU_SP
+				</if>  	
+     		</if>
+     	</sql> -->
 </mapper>

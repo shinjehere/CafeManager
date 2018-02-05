@@ -106,6 +106,15 @@ old_jquery(function() {
 								 엔터키 시  btnEnter로 넘긴다. return false없으면 엔터시 주소값을 넘김 -->
 							<button id="searchBtn" class="btn btn-success" type="button">Search</button>
 						</div>
+						
+						<%-- <div class="btn-group col-sm-2" >
+						<select type="submit" class="btn btn-default"  id="search_sort" data-toggle="dropdown" name="searchSort" onchange="this.form.submit();">
+							<option value="d" <c:out value="${pageMaker.cri.searchSort == null?'selected' : '' }"/>>등록일순</option>
+							<option value="n" <c:out value="${pageMaker.cri.searchSort == 'n'?'selected' : '' }"/>>메뉴명순</option>
+							<option value="p" <c:out value="${pageMaker.cri.searchSort == 'p'?'selected' : '' }"/>>판매가순</option>
+						</select>
+					 </div> --%>
+						
 					</div>
 				    <div class='col-md-6'>
 					    <div class="row">
