@@ -90,7 +90,10 @@ public interface CommonMapper {
 	
 	
 	// ingredient mapper***************************************************************************
-	
+	// list 
+	public List<IngredientVO> ingredient_list(Search search) throws Exception;
+	//totalcount
+	public int ingredient_totalcount(Search search) throws Exception; 
 	//**********************************************************************************************
 	
 	public List<StockList> listCriteria(Criteria cri) throws Exception;
