@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,7 @@ import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.menu.service.MenuSvc;
+import kr.co.coffee.sell.domain.SellListVO;
 
 /**
  * 2017-12-26 메뉴 컨트롤러
@@ -60,7 +62,7 @@ public class MenuController {
 
 	// 엑셀 다운
 	@RequestMapping(value="/do_excelDown", method=RequestMethod.POST)
-	public ModelAndView do_excelDown(HttpServletRequest req) throws Exception{
+	public ModelAndView do_searchExcel(HttpServletRequest req) throws Exception{
 		
 		Hashtable<String, String> searchParam = new Hashtable<String, String>(); 
 		ModelAndView mav = new ModelAndView();
@@ -72,24 +74,17 @@ public class MenuController {
 		String menu_sp = StringUtil.nvl(req.getParameter("menu_sp"), "");
 		String mn_reg_dt = StringUtil.nvl(req.getParameter("mn_reg_dt"), "");
 		String mn_mod_dt = StringUtil.nvl(req.getParameter("mn_mod_dt"), "");
-		String searchDiv = StringUtil.nvl(req.getParameter("searchDiv"), "");
 		
-		searchParam.put("menu_cd", menu_cd);
-		searchParam.put("menu_name", menu_name);
-		searchParam.put("menu_up", menu_up);
-		searchParam.put("menu_sp", menu_sp);
-		searchParam.put("mn_reg_dt", mn_reg_dt);
-		searchParam.put("mn_mod_dt", mn_mod_dt);
-		searchParam.put("searchDiv", searchDiv);
-		
-		System.out.println("searchParam= "+searchParam);
+		searchParam.put("menu_cd".toString(), menu_cd);
+		searchParam.put("menu_name".toString(), menu_name);
+		searchParam.put("menu_up".toString(), menu_up);
+		searchParam.put("menu_sp".toString(), menu_sp);
+		searchParam.put("mn_reg_dt".toString(), mn_reg_dt);
+		searchParam.put("mn_mod_dt".toString(), mn_mod_dt);
 		
 		menuVO.setParam(searchParam);
 		
 		List<MenuVO> list = menuSvc.do_searchExcel(menuVO);
-		
-		System.out.println("excel_list = "+list);
-		
 		String fileFullPath = this.menuSvc.do_excelDown(list);
 		
 		mav.setView(this.downloadView);

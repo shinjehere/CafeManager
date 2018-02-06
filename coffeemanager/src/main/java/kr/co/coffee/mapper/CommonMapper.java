@@ -47,7 +47,6 @@ public interface CommonMapper {
 
 	// 페이징을 위한 메뉴 리스트 count
 	public int menuTotalCount(Search search) throws Exception; 
-	// public List<MenuVO> do_searchAll() throws Exception;
 
 	// 토글 이벤트(메뉴코드 클릭시 메뉴 디테일 불러옴)
 	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception; 
