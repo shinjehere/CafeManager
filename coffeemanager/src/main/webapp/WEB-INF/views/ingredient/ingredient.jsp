@@ -101,11 +101,55 @@
 					<button type="button" class="btn btn-primary" id="delete_Sell">삭제</button>
 					<button type="button" class="btn btn-danger" onclick="javascript:excel_down()">엑셀 다운로드</button>
 					<button id="new_sell" type="button" class="btn btn-info"
-					onclick="javascript:new_sell()">신규등록</button>
+					onclick="javascript:ins_modal()">신규등록</button>
 			</div>
 		</div>	 
 </div>	
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">신규등록</h4>
+		      </div>
+		      <div class="modal-body">
+		      <div class='container-fluid'>
+				<form class='form-horizontal' id="insert_form" name="insert_form">
+					<div class='form-group'>
+						<div class='row'>
+							<label class='col-md-2 control-label' for='ing_nm'><strong>원재료명 :</strong></label>
+							<div class='col-md-4'>
+									<input type='text' class='form-control' name='ing_nm' id='ing_nm'>
+							</div>
+							<label class='col-md-2 control-label' for='ing_price'><strong>원재료단가 :</strong></label>
+							<div class='col-md-4'>	
+								<div class='input-group'>
+									<input type='text' class='form-control' name='ing_price' id='ing_price'>
+									<div class='input-group-addon'>원</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='form-group'>
+						<div class='row'>
+							<label class='col-md-2 control-label' for='unit_amount'><strong>1단위당 용량 :</strong></label>
+							<div class='col-md-4'><input type='text' class='form-control' name='unit_amount' id='unit_amount'></div>
+							<label class='col-md-2 control-label' for='ing_unit'><strong>용량단위 :</strong></label>
+							<div class='col-md-4'><input type='text' class='form-control' name='ing_unit' id='ing_unit'></div>
+						</div>
+					</div>
+				 </form>
+				</div>
+			</div>
+		       <div class="modal-footer">
+		       		        <button type="button" class="btn btn-primary" onclick="javascript:modal_insert()">저장</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		      </div>
+		      	 
+		</div>
+	</div>
+</div>		      
 	<div style="margin-bottom: 30px;"></div>	
 </body>
 </html>

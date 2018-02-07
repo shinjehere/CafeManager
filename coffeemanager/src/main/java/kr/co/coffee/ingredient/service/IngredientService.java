@@ -10,4 +10,10 @@ public interface IngredientService {
 		public List<IngredientVO> ingredient_list(Search search) throws Exception;
 		//토탈카운트
 		public int ingredient_totalcount(Search search) throws Exception; 
+		//update
+		public void ing_update(IngredientVO IngredientVO) throws Exception;
+		//search code
+		public String insert_search(String madeCode) throws Exception;
+		//insert
+		public void ing_insert(IngredientVO IngredientVO) throws Exception;
 }

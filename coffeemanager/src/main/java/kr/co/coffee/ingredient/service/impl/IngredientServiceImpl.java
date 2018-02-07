@@ -27,4 +27,22 @@ public class IngredientServiceImpl implements IngredientService{
 		return commonMapper.ingredient_totalcount(search);
 	}
 
+	@Override
+	public void ing_update(IngredientVO IngredientVO) throws Exception {
+			
+		commonMapper.ing_update(IngredientVO);
+	}
+
+	@Override
+	public String insert_search(String madeCode) throws Exception {
+		
+		return commonMapper.insert_search(madeCode);
+	}
+
+	@Override
+	public void ing_insert(IngredientVO IngredientVO) throws Exception {
+		
+		commonMapper.ing_insert(IngredientVO);
+	}
+
 }

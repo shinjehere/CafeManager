@@ -28,4 +28,23 @@
 		</if>
 	 </where>
 	</select>
+	<update id="ing_update" parameterType="IngredientVO">
+		<![CDATA[ UPDATE INGREDIENT ]]>
+			<set>
+			<![CDATA[
+				ING_NM=#{ing_nm}, ING_PRICE=#{ing_price}, UNIT_AMOUNT=#{unit_amount}, ING_UNIT=#{ing_unit}, IN_MOD_DT=now()
+			]]>
+			</set>
+			WHERE ING_CD=#{ing_cd}
+	</update>
+	
+	<select id="insert_search" parameterType="String" resultType="String">
+	 SELECT ing_cd FROM INGREDIENT WHERE ing_cd LIKE CONCAT('%',#{madeCode},'%') ORDER BY ing_cd DESC LIMIT 1
+	</select>
+	
+	<insert id="ing_insert" parameterType="IngredientVO">
+	INSERT INTO INGREDIENT
+	 VALUES(#{ing_cd},#{ing_nm},#{ing_price},#{unit_amount},#{ing_unit},now(),now())
+	
+	</insert>
 </mapper>

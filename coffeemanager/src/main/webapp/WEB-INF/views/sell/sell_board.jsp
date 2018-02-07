@@ -161,7 +161,7 @@
 			</table>
 
 		</div>
-		<div class="pagination text-center">
+		<div class="text-center">
 			<ul class="pagination" id="pagination">
 				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 			<%-- 	<c:if test="${map.paging.currentPage > 1 }">

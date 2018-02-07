@@ -94,6 +94,12 @@ public interface CommonMapper {
 	public List<IngredientVO> ingredient_list(Search search) throws Exception;
 	//totalcount
 	public int ingredient_totalcount(Search search) throws Exception; 
+	//update
+	public void ing_update(IngredientVO IngredientVO) throws Exception;
+	//search code
+	public String insert_search(String madeCode) throws Exception;
+	//insert
+	public void ing_insert(IngredientVO IngredientVO) throws Exception;
 	//**********************************************************************************************
 	
 	public List<StockList> listCriteria(Criteria cri) throws Exception;

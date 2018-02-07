@@ -1,5 +1,7 @@
 package kr.co.coffee.ingredient.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,5 +46,38 @@ public class ingredientController {
 		map.put("list", list);
 		map.put("paging", paging);		
 		return map;
+	}
+	@RequestMapping(path="/ingredient/update")
+	public String ingredient_update(IngredientVO vo) throws Exception{
+		System.out.println(vo.getIng_cd());
+		ingredientService.ing_update(vo);
+		return "redirect:/ingredient";
+	}
+	
+	@RequestMapping(path="/ingredient/insert")
+	public String ingredient_insert(IngredientVO vo) throws Exception{
+		System.out.println(vo.getIng_price()+":"+vo.getIng_nm()+":"+vo.getIng_unit()+":"+vo.getUnit_amount());
+		Date today=new Date();
+		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMdd");
+		String todayString=dateFormat.format(today);
+		String madeCode="IN"+todayString;
+		String getCode=ingredientService.insert_search(madeCode);
+		if(getCode==null||getCode=="") {
+			madeCode+="001";
+			System.out.println("if null:"+madeCode);
+			vo.setIng_cd(madeCode);
+			ingredientService.ing_insert(vo);
+		}else {
+			String backIntString=getCode.substring(getCode.length()-3, getCode.length());
+			int intString=Integer.parseInt(backIntString);
+			intString+=1;
+			String backCode=String.format("%03d%n", intString);
+			System.out.println("backCode:"+backCode);
+			madeCode+=backCode;
+			System.out.println("if else:"+madeCode);
+			vo.setIng_cd(madeCode.trim());
+			ingredientService.ing_insert(vo);
+		}
+		return "redirect:/ingredient";
 	}
 }
