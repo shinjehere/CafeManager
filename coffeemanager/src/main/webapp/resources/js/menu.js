@@ -25,7 +25,6 @@ function add_ingredient(){
     count++;
     document.newMenuForm.count.value = count;
     added_field.reset();
-
 }
 
 function remove_ingredient(){
@@ -36,7 +35,6 @@ function remove_ingredient(){
                // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
                added_field.removeChild(addedDiv); // 폼 삭제 
     }else{ // 마지막 폼만 남아있다면
-             //  document.newMenuForm.reset(); // 폼 내용 삭제
     	$('#ing_click_code').text(null);
     	$('#ing_click_name').text(null);
     	$('#ing_unit_price').text(null);
@@ -48,15 +46,6 @@ function remove_ingredient(){
 // obj.parentNode 를 이용하여 삭제
 document.getElementById("added_field").removeChild(obj.parentNode);
 }*/
-
-/*function reset() {
-$('#calMenuClick').text(null);
-$('#menuUnitPrice').text(null);
-$('#ing_click_code').text(null);
-$('#ing_click_name').text(null);
-$('#ing_unit_price').text(null);
-}*/
-
 
 // 모달창
 function new_menu() {
@@ -101,8 +90,11 @@ function searchIngredient() {
 	});
 }
 
+
+
 // 테이블 row 클릭시 값 가져오기
 function trClick() {
+	
 	$("#menu_table tr").click(function() {
 		var tdArr = new Array();
 		var tr = $(this);
@@ -120,14 +112,49 @@ function trClick() {
 		var ing_amount = td.eq(3).text();
 		var int_cal = ing_up / ing_amount;
 
-		//   var addedDiv = document.getElementById("added_"+(--count));
+		for(var i=0; i<=count;i++){
+			
+			console.log("added_? 아이디값:" + $("#added_"+i).val());
+			
+			$("#added_"+i).children("#ing_click_code").text(ing_code);
+			$("#added_"+i).children("#ing_click_name").text(ing_name);
+			$("#added_"+i).children("#ing_unit_price").text(int_cal);
+			
+			/*if(($("#added_"+i).children("#ing_click_code")) == "" || null){
+				console.log("added_? 아이디값222:" + $("#added_"+i));
+				$("#added_"+i).children("#ing_click_code").text(ing_code);
+				$("#added_"+i).children("#ing_click_name").text(ing_name);
+				$("#added_"+i).children("#ing_unit_price").text(int_cal);
+			}else{
+				$("#added_"+(i+1)).children("#ing_click_code").text(ing_code);
+				$("#added_"+(i+1)).children("#ing_click_name").text(ing_name);
+				$("#added_"+(i+1)).children("#ing_unit_price").text(int_cal);
+			}*/
+			
+			/*if((getDivId.eq(0)) == "" ||  null){
+				console.log("added_? 아이디값222:" + getDivId);
+				getDivId.children().eq(0).text(ing_code);
+				getDivId.children().eq(1).text(ing_name);
+				getDivId.children().eq(2).text(int_cal);
+			}else{
+				$("added_"+(i+1)).children().eq(0).text(ing_code);
+				$("added_"+(i+1)).children().eq(1).text(ing_name);
+				$("added_"+(i+1)).children().eq(2).text(int_cal);
+			}*/
+		}
 		
+		/*$('#ing_click_code').text(ing_code);
+		$('#ing_click_name').text(ing_name);
+		$('#ing_unit_price').text(int_cal);*/
+		
+		
+		
+		//   var addedDiv = document.getElementById("added_"+(--count));
 		//===========================================================
 		// 인서트부분(차례대로 하나씩 넣기) 
 		//===========================================================
-		
-		for(var i=0; i<=count;i++){
-			console.log("added_? 아이디값:" + document.getElementById("added_"+i).eq(0).text());
+		/*for(var i=0; i<=count;i++){
+			console.log("added_? 아이디값:" + document.getElementById("added_"+i).innerHTML);
 			
 			if((document.getElementById("added_"+i).eq(0)) == "" ||  null){
 				console.log("added_? 아이디값222:" + document.getElementById("added_"+i));
@@ -139,11 +166,12 @@ function trClick() {
 				$("added_"+(i+1)).children().eq(1).text(ing_name);
 				$("added_"+(i+1)).children().eq(2).text(int_cal);
 			}
-		}
+		}*/
 		
-		/*$('#ing_click_code').text(ing_code);
-		$('#ing_click_name').text(ing_name);
-		$('#ing_unit_price').text(int_cal);*/
+		
+		
+		
+		
 
 	});
 }

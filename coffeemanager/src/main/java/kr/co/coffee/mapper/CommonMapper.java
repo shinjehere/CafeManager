@@ -9,9 +9,9 @@ import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellInsVO;
 import kr.co.coffee.sell.domain.SellListVO;
-import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.domain.searchCriteria;
+import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.NewProductList;
 /**
