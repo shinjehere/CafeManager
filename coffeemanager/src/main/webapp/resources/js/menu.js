@@ -116,7 +116,7 @@ function trClick() {
 		var ing_amount = td.eq(3).text();
 		var int_cal = ing_up / ing_amount;
 
-		for(var i=0 ; i<=(count-1); i++){
+		for(var i=0 ; i<count; i++){
 			if($("#added_"+i).find('[title="ing_click_code"]').text().length > 0){
 				$("#added_"+(count)).find('[title="ing_click_code"]').html(ing_code);
 				$("#added_"+(count)).find('[title="ing_click_name"]').html(ing_name);
@@ -133,25 +133,27 @@ function trClick() {
 
 // 메뉴 단가 계산
 function calMenuUP() {
-	var ing_code = $('#ing_click_code').text();
-	if (ing_code == "") {
-		alert("원재료를 검색 후 클릭해 주세요!");
-	} else {
-		var click_up = $('#ing_unit_price').text();
-		console.log(click_up);
-		var menuUnitAmount = $('#menuUnitAmount').val();
-		if (menuUnitAmount == "") {
+	
+	var totalPrice = 0;
+
+	for(var i=0 ; i<count; i++){
+		
+		if( ($("#added_"+i).find('input[name="menuUnitAmount"]').val()) == "" ){
 			alert("사용할 용량을 입력해주세요");
-		} else if (menuUnitAmount == "0") {
-			alert("0은 입력 불가합니다");
+			$("#added_"+i).find('input[name="menuUnitAmount"]').focus();
 			$('#calMenuClick').text(null);
-			$('#ing_unit_price').text(null);
-		} else {
-			var calMenuUP = click_up * menuUnitAmount;
-			console.log(calMenuUP);
-			$('#calMenuClick').text(calMenuUP);
-			$('#menuUnitPrice').text(calMenuUP);
-		}
+			return;
+		}else if( ($("#added_"+i).find('input[name="menuUnitAmount"]').val()) == "0" ){
+			alert("0은 입력 할 수 없는 값입니다.");
+			$("#added_"+i).find('input[name="menuUnitAmount"]').focus();
+			$('#calMenuClick').text(null);
+			return;
+		}else{
+			totalPrice += 
+				((Number(($("#added_"+i).find('[title="ing_unit_price"]').html())))
+				*(Number(($("#added_"+i).find('input[name="menuUnitAmount"]').val()))));	
+			$('#calMenuClick').text(totalPrice.toFixed(2)+" 원");
+		}	
 	}
 }
 
