@@ -105,12 +105,10 @@ function trClick() {
 		var tdArr = new Array();
 		var tr = $(this);
 		var td = tr.children();
-		// console.log("클릭한 Row의 모든 데이터 : " + tr.text());
 
 		td.each(function(i) {
 			tdArr.push(td.eq(i).text());
 		});
-		// console.log("배열에 담긴 값 : " + tdArr);
 
 		var ing_code = td.eq(0).text();
 		var ing_name = td.eq(1).text();
@@ -118,41 +116,16 @@ function trClick() {
 		var ing_amount = td.eq(3).text();
 		var int_cal = ing_up / ing_amount;
 
-		for(var i=0; i<=count; i++){
-			
-			// console.log("added_? ing_click_code:" + $("#added_"+i).find("#ing_click_code").prop("outerHTML"));			
-			// console.log("added_? ing_click_code:" + $("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
-			
-			/*if(($("#added_"+i).find("#ing_click_code").wrap('<span></span>').html()) == "" || null){
-				console.log("코드값"+i+":  "+$("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
-				
-				$("#added_"+i).find("#ing_click_code").text(ing_code);
-				$("#added_"+i).find("#ing_click_name").text(ing_name);
-				$("#added_"+i).find("#ing_unit_price").text(int_cal);
-			}else{
-				
-				$("#added_"+(i+1)).find("#ing_click_code").text(ing_code);
-				$("#added_"+(i+1)).find("#ing_click_name").text(ing_name);
-				$("#added_"+(i+1)).find("#ing_unit_price").text(int_cal);
-				console.log("코드값"+(i+1)+":  "+$("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
-			}*/
-			
-			if(($("#added_"+i).find("#ing_click_code").wrap('<span></span>').html()) == "" || null){
-				console.log("코드값"+i+":  "+$("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
-				
-				$("#added_"+i).find("#ing_click_code").text(ing_code);
-				$("#added_"+i).find("#ing_click_name").text(ing_name);
-				$("#added_"+i).find("#ing_unit_price").text(int_cal);
-			}else{
-				
-				$("#added_"+(i+1)).find("#ing_click_code").text(ing_code);
-				$("#added_"+(i+1)).find("#ing_click_name").text(ing_name);
-				$("#added_"+(i+1)).find("#ing_unit_price").text(int_cal);
-				console.log("코드값"+(i+1)+":  "+$("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
+		for(var i=0 ; i<=(count-1); i++){
+			if($("#added_"+i).find('[title="ing_click_code"]').text().length > 0){
+				$("#added_"+(count)).find('[title="ing_click_code"]').html(ing_code);
+				$("#added_"+(count)).find('[title="ing_click_name"]').html(ing_name);
+				$("#added_"+(count)).find('[title="ing_unit_price"]').html(int_cal);
+			}else{	
+				$("#added_"+i).find('[title="ing_click_code"]').html(ing_code);
+				$("#added_"+i).find('[title="ing_click_name"]').html(ing_name);
+				$("#added_"+i).find('[title="ing_unit_price"]').html(int_cal);
 			}
-			
-			
-			
 		}
 
 	});
