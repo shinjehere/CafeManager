@@ -9,35 +9,21 @@ function searchSort(){
 	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
 }*/
 
-// 모달창 리셋
-/*function resetModal(){
-	$("#newMenuForm")[0].reset();
-}*/
 
-/*function resetForm(){
-	$("#btnClose").click(function(){
-		$("form").each(function(){
-			if(this.className == "newMenuForm") this.reset();
-		});
-		$("#form-newMenuForm")[0].reset();
-	});
-	$("#btnCancel").click(function(){
-		$("#form-newMenuForm")[0].reset();
-	});
-}*/
+function resetForm(){
+	$("#menuName").text(null);
+	$("#sellPrice").text(null);
+	$("#searchIngdnt").val(null);
+	$("#menu_table tbody").html(null);
+	$("#ing_click_code").text(null);
+	$("#ing_click_name").text(null);
+	$("#ing_unit_price").text(null);
+	$("#menuUnitAmount").text(null);
+}
 	
-/*function resetForm(){
-	// $("#form-newMenuForm")[0].reset();
-	document.getElementById("newMenuForm").reset();
-}*/
-
-
 // 모달창
 function new_menu() {
 	$('#myModal').modal();
-	/*$('.modal').on('hidden.bs.modal', function (e) { 
-	    $(this).removeData();
-	});*/
 }
 
 // 메뉴등록>원재료 검색

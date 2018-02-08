@@ -162,7 +162,7 @@ old_jquery(function() {
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close" id="btnClose" >
+								aria-label="Close" id="btnClose" onclick="javascript:resetForm()">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							<h4 class="modal-title" id="myModalLabel" >신규메뉴등록</h4>
@@ -187,7 +187,7 @@ old_jquery(function() {
 										<div class="row input-group">
 											<!-- <span class="input-group-addon"> 메뉴 단가 : </span> <span
 												id="menuUnitPrice" class="form-control " disabled="disabled" ></span> -->
-											<span class="input-group-addon"> 메뉴 판매가 : </span> <input
+											<span class="input-group-addon"> 메뉴 판매가 : </span> <input id="sellPrice"
 												type="number" placeholder="계산된 메뉴 단가를 참고하여 판매할 가격을 입력하세요" class="form-control onlyNumber" maxlength="11">
 										</div>
 									</div>
@@ -268,7 +268,7 @@ old_jquery(function() {
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal" id="btnCancel" >취소</button>
+								data-dismiss="modal" id="btnCancel" onclick="javascript:resetForm()">취소</button>
 							<button type="button" class="btn btn-primary"
 								onclick="javascript:save_sell()">저장</button>
 						</div>
