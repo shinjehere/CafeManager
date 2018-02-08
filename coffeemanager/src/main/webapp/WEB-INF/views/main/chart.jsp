@@ -10,8 +10,19 @@
   <script src="${pageContext.request.contextPath}/resources/js/main/main.js"></script> 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
+ 
+  <style>
+	  body {
+	      position: relative; 
+	  }
+	  #section1 {padding-top:50px;height:500px; }
+	  #section2 {padding-top:50px;height:500px; }
+	  #section3 {padding-top:50px;height:500px; }
+	  #section41 {padding-top:50px;height:500px; }
+	  #section42 {padding-top:50px;height:500px; }
+  </style>
 </head>
-<body>
+ <body>
  	<div class="container-fluid text-center">    
 	  <div class="row content">
 	
@@ -21,15 +32,38 @@
 			  <h3>매출 정보</h3>
 			  <ul class="nav nav-tabs">
 			    <li class="active"><a href="#">일일 매출 현황</a></li>
-			    <li><a href="#">월 매출 현황</a></li>
-			    <li><a href="#">메뉴별 매출 현황</a></li>
+			    <li><a href="#section1">월 매출 현황</a></li>
+			    <li><a href="#section2">메뉴별 매출 현황</a></li>
+			    <li><a href="#section3">원재료 재고 현황</a></li>
 			  </ul>
 			  <br>
-			 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> 	
+			 <!-- 일일 매출 현황 -->
+			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>  
+			 <br>
+			<!-- 월 매출 현황 -->
+			<div id="section1" class="container-fluid">
+			 <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			</div>
-	    </div>    
+			<br>
+			<!-- 메뉴별 매출 현황 -->
+			<div id="section2" class="container-fluid">
+				<div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+			</div>
+			<br>
+			<!-- 기타 차트 -->
+			<div id="section3" class="container-fluid">
+			 <div id="container4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+			</div>
+				
+			</div>
+			
+	    </div> 
+	       
 	  </div>
-	</div> 
+	</div>  
+
+		
 	
+			
 </body>
 </html>

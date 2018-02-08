@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stock/stock_board.css"> 
 <script src="${pageContext.request.contextPath}/resources/js/stock/stock_board.js"></script> 
+
  <%@include file="./stock_modal.jsp" %> 
 
 </head>
