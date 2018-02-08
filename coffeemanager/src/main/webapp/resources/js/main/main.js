@@ -1,6 +1,6 @@
-/*Main Chart*/
+/*Main Chart
 $(function () {	
-	/*x축 데이터*/
+	x축 데이터
 	var categoriesData = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00','21:00'];
 	
 	Highcharts.chart('container', {
@@ -69,8 +69,8 @@ $(function () {
 	        stack: 'female'
 	    }]
 	});
-}); 
-
+}); */
+/*
 $(function () {		
 	Highcharts.chart('container2', {
 	    chart: {
@@ -83,7 +83,7 @@ $(function () {
 	        text: ''
 	    },
 	    xAxis: {
-	        categories: ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00','21:00']
+	        categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
 	    },
 	    yAxis: {
 	        title: {
@@ -107,8 +107,8 @@ $(function () {
 	    }]
 	});
 }); 
-
-$(function () {		
+*/
+/*$(function () {		
 	Highcharts.chart('container3', {
 	    chart: {
 	        plotBackgroundColor: null,
@@ -161,10 +161,10 @@ $(function () {
 	        }]
 	    }]
 	});
-}); 
+}); */
 
 /*원재료 재고*/
-$(function () {	
+/*$(function () {	
 	
 	var categoriesData = [
         ['Shanghai', 23.7],
@@ -187,6 +187,8 @@ $(function () {
         ['Dhaka', 8.9],
         ['Mexico City', 8.9],
         ['Lima', 8.9]
+	
+		
     ];
 	Highcharts.chart('container4', {
 	    chart: {
@@ -237,4 +239,4 @@ $(function () {
 	        }
 	    }]
 	});
-}); 
+}); */

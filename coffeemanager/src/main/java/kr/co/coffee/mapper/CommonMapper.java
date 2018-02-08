@@ -6,6 +6,7 @@ import java.util.List;
 import kr.co.coffee.common.DTO;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
+import kr.co.coffee.main.domain.MainVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellInsVO;
 import kr.co.coffee.sell.domain.SellListVO;
@@ -106,6 +107,13 @@ public interface CommonMapper {
 	public List<StockList> listCriteria(Criteria cri) throws Exception;
 	public Integer TotalCount() throws Exception;
 	
-	// test mapper
-
+	// main mapper
+	//재고 그래프
+	public List<StockList> selectStockGraph() throws Exception;
+	//메뉴별 판매량
+	public List<SellListVO> selectMenuGraph() throws Exception;
+	//월별 판매량
+	public List<MainVO> selectSellGraph() throws Exception;
+	//일별 판매량
+	public List<MainVO> selectDayGraph() throws Exception;
 }
