@@ -116,7 +116,7 @@
 						}else{
 							var dataTable = $("#boardTable tbody");
 							$("#boardTable tbody tr").remove();
-							strs += "<tr><td colspan=7>데이터가 없습니다.</td></tr>";
+							strs += "<tr><td colspan='7'>데이터가 없습니다.</td></tr>";
 							$(dataTable).append(strs);
 						}
 						makePaging(data.paging);
@@ -180,7 +180,7 @@
 				str += '<td>'+data.sell_CNT+'</td>';
 				str += '<td>'+data.total_SP+'</td>';
 				str += '</tr>';
-				str += '<tr><td colspan="6" id="toggle_div'+data.sell_CD+'" style="display: none;"><div></div></td></tr>';
+				str += '<tr><td colspan="7" id="toggle_div'+data.sell_CD+'" style="display: none;"><div></div></td></tr>';
 			return str;	
 		}
 	function makePaging(paging){

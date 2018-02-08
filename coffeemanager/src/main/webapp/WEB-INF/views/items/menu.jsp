@@ -76,7 +76,6 @@ old_jquery(function() {
 		<input type="hidden" id="e_menu_sp" name="menu_sp">
 		<input type="hidden" id="e_mn_reg_dt" name=mn_reg_dt>
 		<input type="hidden" id="e_mn_mod_dt" name="mn_mod_dt">
-		<input type="hidden" id="e_searchDiv" name="searchDiv">
 	</form>
 	<div class="container">
 		<div class="container">
@@ -98,7 +97,7 @@ old_jquery(function() {
 						</select>
 					</div>
 					<input type="text"
-								class="form-control" id="searchValue" name="searchValue"
+								class="form-control" name="searchValue"
 								onkeypress="if(event.keyCode==13) {btnEnter(); return false;}"
 								placeholder="Search">
 								<!--
@@ -106,6 +105,15 @@ old_jquery(function() {
 								 엔터키 시  btnEnter로 넘긴다. return false없으면 엔터시 주소값을 넘김 -->
 							<button id="searchBtn" class="btn btn-success" type="button">Search</button>
 						</div>
+						
+						<div class="btn-group col-sm-2" >
+						<select type="submit" class="btn btn-default"  id="search_sort" data-toggle="dropdown" name="searchSort" onchange="this.form.submit();">
+							<option value="d" <c:out value="${pageMaker.cri.searchSort == null?'selected' : '' }"/>>등록일순</option>
+							<option value="n" <c:out value="${pageMaker.cri.searchSort == 'n'?'selected' : '' }"/>>메뉴명순</option>
+							<option value="p" <c:out value="${pageMaker.cri.searchSort == 'p'?'selected' : '' }"/>>판매가순</option>
+						</select>
+					 </div>
+						
 					</div>
 				    <div class='col-md-6'>
 					    <div class="row">
@@ -145,7 +153,7 @@ old_jquery(function() {
 			<button type="button" class="btn btn-danger" id="deleteBtn">선택삭제</button>
 		</div>
 		<div class="text-right">
-			<button id="do_excelDown" type="button" class="btn btn-danger">엑셀 다운로드</button>
+			<button id="do_excelDown" type="button" class="btn btn-danger" >엑셀 다운로드</button>
 			<button id="new_sell" type="button" class="btn btn-info"
 				onclick="javascript:new_menu()">신규등록</button>
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -157,9 +165,10 @@ old_jquery(function() {
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">신규메뉴등록</h4>
+							<h4 class="modal-title" id="myModalLabel" >신규메뉴등록</h4>
 						</div>
-						<form>
+						<p align="left">가격 단위: 원</p>
+						<form name="newMenuForm">
 							<div class="controller">
 								<div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
 									<div class="form-group" style="margin: 10px;">
@@ -176,10 +185,10 @@ old_jquery(function() {
 									</div>
 									<div class="form-group" style="margin: 10px;">
 										<div class="row input-group">
-											<span class="input-group-addon"> 메뉴 단가 : </span> <span
-												id="menuUnitPrice" class="form-control " disabled="disabled" ></span>
+											<!-- <span class="input-group-addon"> 메뉴 단가 : </span> <span
+												id="menuUnitPrice" class="form-control " disabled="disabled" ></span> -->
 											<span class="input-group-addon"> 메뉴 판매가 : </span> <input
-												type="number" placeholder="판매할 가격을 입력하세요" class="form-control onlyNumber" maxlength="11">
+												type="number" placeholder="계산된 메뉴 단가를 참고하여 판매할 가격을 입력하세요" class="form-control onlyNumber" maxlength="11">
 										</div>
 									</div>
 									<div class="form-group" style="margin: 10px;">
@@ -212,7 +221,7 @@ old_jquery(function() {
 									<div class="form-group">
 										<div class="row">
 											<div class="col-md-12">
-												<div class="input-group">
+												<div class="input-group" >
 													<!-- <span class="input-group-addon"> 원재료코드 : </span> <span
 														class="form-control" id="ing_click_code"></span> <span
 														class="input-group-addon"> 원재료명 : </span> <span
@@ -225,18 +234,21 @@ old_jquery(function() {
 														
 														<span class="input-group-addon"> 원재료코드 : </span> 
 														<span class="input-group-addon"> 원재료명 : </span> 
-														<span class="input-group-addon"> 단가 : </span> 
+														<span class="input-group-addon"> 1단위 가격 : </span> 
 														<span class="input-group-addon"> 사용할 용량 : </span>
 														</div>
-														<div class="form-group">
-														<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code"></span> 
-														<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name"></span>
-														<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price"></span> 
-														<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" type="number" min="0"> 
-														<span style="display:inline-block; width:3%;" class="form-control-btn">
-														<button type="reset" id="reset_x" onclick="javascript:reset();" class="btn btn-default">X</button>
-														</span>
-												</div>
+														<div id="added_0" class="form-group">
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code"></span> 
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name"></span>
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price"></span> 
+															<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" type="number" min="0"> 
+															<!-- <span style="display:inline-block; width:3%;" class="form-control-btn">
+															<button type="reset" id="reset_x" onclick="javascript:reset();" class="btn btn-default">X</button>
+															</span> -->			
+															 <input type="button" value="삭제" onclick="remove_ingredient()">
+													</div>
+													<div id="added_field"></div>	
+												<input type="button" value=" 추가 " onclick="add_ingredient()"><br>
 											</div>
 										</div>
 									</div>

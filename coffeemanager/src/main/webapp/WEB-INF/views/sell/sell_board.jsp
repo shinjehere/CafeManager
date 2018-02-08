@@ -161,7 +161,7 @@
 			</table>
 
 		</div>
-		<div class="pagination text-center">
+		<div class="text-center">
 			<ul class="pagination" id="pagination">
 				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 			<%-- 	<c:if test="${map.paging.currentPage > 1 }">
@@ -196,9 +196,10 @@
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">신규등록</h4>
 		      </div>
-		    <form>
-		    <div class="controller"> 
-		      <div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
+		  <div class="modal-body"> 
+	
+		    <div class="controller-fluid"> 
+		    	    <form>
 					   <div class="form-group"  style="margin: 10px;">
 						<div class="row input-group">
 							<span class="input-group-addon">
@@ -261,7 +262,8 @@
 								</div>
 						</div>
 					 </div>	
-					 
+					 <div class="form-group" style="margin: 10px;">
+					 <div class="row">
 					 <div class="col-md-8"></div>
 					 <div class="col-md-4 text-right">
 						 <div class="row input-group">
@@ -270,10 +272,12 @@
 									 <button class="btn" type="button" onclick="javascript:SP_multiply();">총판매 계산</button>
 								</span>
 						 </div> 
-					</div>		   
-					 </div>
+					</div>
+					</div>
+					</div>	
+			      	</form>	   
 			      </div>
-		      	</form>
+		       </div>	
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		        <button type="button" class="btn btn-primary" onclick="javascript:save_sell()">저장</button>

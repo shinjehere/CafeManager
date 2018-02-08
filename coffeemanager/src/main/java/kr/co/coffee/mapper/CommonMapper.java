@@ -9,9 +9,9 @@ import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellInsVO;
 import kr.co.coffee.sell.domain.SellListVO;
-import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
 import kr.co.coffee.stock.domain.searchCriteria;
+import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.NewProductList;
 /**
@@ -47,7 +47,6 @@ public interface CommonMapper {
 
 	// 페이징을 위한 메뉴 리스트 count
 	public int menuTotalCount(Search search) throws Exception; 
-	// public List<MenuVO> do_searchAll() throws Exception;
 
 	// 토글 이벤트(메뉴코드 클릭시 메뉴 디테일 불러옴)
 	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception; 
@@ -90,7 +89,18 @@ public interface CommonMapper {
 	
 	
 	// ingredient mapper***************************************************************************
-	
+	// list 
+	public List<IngredientVO> ingredient_list(Search search) throws Exception;
+	//totalcount
+	public int ingredient_totalcount(Search search) throws Exception; 
+	//update
+	public void ing_update(IngredientVO IngredientVO) throws Exception;
+	//search code
+	public String insert_search(String madeCode) throws Exception;
+	//insert
+	public void ing_insert(IngredientVO IngredientVO) throws Exception;
+	//delete
+	public void ing_delete(String ing_cd) throws Exception;
 	//**********************************************************************************************
 	
 	public List<StockList> listCriteria(Criteria cri) throws Exception;
