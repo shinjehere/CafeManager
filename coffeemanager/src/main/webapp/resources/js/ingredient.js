@@ -121,23 +121,9 @@ function btnEnter() {
 		});
 		$('#toggle_div'+ing_cd).toggle('show')
 	}
-	var ing="";
+
 	function ing_update(ing_cd,ing_nm,ing_price,unit_amount,ing_unit,in_reg_dt,in_mod_dt) {
-		ing=unit_amount;
-		console.log(ing_cd+ing_nm+ing_price+unit_amount+ing_unit+in_reg_dt+in_mod_dt);
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
-		var yyyy = today.getFullYear();
-
-		if(dd<10) {
-		    dd='0'+dd
-		} 
-
-		if(mm<10) {
-		    mm='0'+mm
-		} 
-		
+	
 		$('#toggle_div'+ing_cd).html(function() {
 			var str="";
 			str+="<div class='container'>" +
@@ -153,15 +139,21 @@ function btnEnter() {
 				"<div class='form-group'>" +
 					"<div class='row'>" +
 						"<label class='col-md-2 control-label' for='ing_price'><strong>원재료단가 :</strong></label>" +
-						"<div class='col-md-4'><input type='text' class='form-control' name='ing_price' id='ing_price' value="+ing_price+"" +
-								" onkeyPress='if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;'><div class='input-group-addon'>원</div>" +
+						"<div class='col-md-4'>" +
+							"<div class='input-group'>"+
+								"<input type='text' class='form-control' name='ing_price' id='ing_price'" +
+								'onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"' +
+								" value="+ing_price+"><div class='input-group-addon'>원</div>" +
+							"</div>" +
+						"</div>"+
 					"</div>" +
 				"</div>" +
 				"<div class='form-group'>" +
 					"<div class='row'>" +
 					"<label class='col-md-2 control-label' for='unit_amount'><strong>1단위당 용량 :</strong></label>" +
-					"<div class='col-md-4'><input type='text' class='form-control' name='unit_amount' id='unit_amount' value="+unit_amount+"" +
-							" onkeyPress='if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;'></div>" +
+					"<div class='col-md-4'><input type='text' class='form-control' name='unit_amount' id='unit_amount'" +
+					'onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"' +
+					" value="+unit_amount+"></div>" +
 					"<label class='col-md-2 control-label' for='ing_unit'><strong>용량단위 :</strong></label>" +
 					"<div class='col-md-4'><input type='text' class='form-control' name='ing_unit' id='ing_unit' value="+ing_unit+"></div>" +
 					"</div>" +
@@ -188,7 +180,6 @@ function btnEnter() {
 		});
 	}
 function toggle_close(data) {
-	console.log(data+":"+ing);
 
 	$('#toggle_div'+data).toggle('hide');	
 }
@@ -219,4 +210,13 @@ function modal_insert() {
 		alert("공백을 입력해주세요!");
 	}
 
+}
+
+function InpuOnlyNumber(obj) 
+{
+    if (event.keyCode >= 48 && event.keyCode <= 57) { //숫자키만 입력
+        return true;
+    } else {
+        event.returnValue = false;
+    }
 }
