@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
+import kr.co.coffee.sell.domain.SellListVO;
 
 public interface IngredientService {
 		/*리스트조회*/
@@ -18,4 +19,6 @@ public interface IngredientService {
 		public void ing_insert(IngredientVO IngredientVO) throws Exception;
 		//delete
 		public void ing_delete(List<String> ing_cd) throws Exception;
+
+		public String ing_excelDown(List<IngredientVO> list) throws Exception;
 }
