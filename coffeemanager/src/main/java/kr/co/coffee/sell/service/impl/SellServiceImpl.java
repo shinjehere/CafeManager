@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import kr.co.coffee.common.MenuExcelDown;
+import kr.co.coffee.common.SellExcelDown;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.mapper.CommonMapper;
 import kr.co.coffee.menu.domain.MenuVO;
@@ -29,6 +31,7 @@ public class SellServiceImpl implements SellService{
 	
 	@Autowired
 	private CommonMapper CommonMapper;
+	
 
 	@Override
 	public List<SellListVO> getSellList(Search search) throws Exception {
@@ -57,6 +60,7 @@ public class SellServiceImpl implements SellService{
 		return CommonMapper.search_insert_code(codeSL);
 	}
 
+
 	@Override
 	public void sell_insert(SellInsVO sellInsVO) throws Exception {
 		 CommonMapper.sell_insert(sellInsVO);
@@ -67,6 +71,15 @@ public class SellServiceImpl implements SellService{
 		for(int i=0;i<deleteArray.size();i++) {
 			CommonMapper.SLDeleteChecked(deleteArray.get(i));
 		}
+	}
+
+	@Override
+	public String se_excelDown(List<SellListVO> list) throws Exception {
+		String path = "C:\\file\\excel\\";
+		SellExcelDown sellExcelDown=new SellExcelDown();
+		String fileName=sellExcelDown.sell_writeExcel(path, "sellList.xls", list);
+				/*SellExcelDown.sell_writeExcel(path, "sellList.xls", list);*/
+		return path+fileName;
 	}
 
 	

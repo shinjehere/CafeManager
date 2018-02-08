@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.coffee.mapper.CommonMapper">
+	<select id="ingredient_list" parameterType="search" resultType="kr.co.coffee.ingredient.domain.IngredientVO">
+		SELECT ING_CD, ING_NM, ING_PRICE, UNIT_AMOUNT, ING_UNIT, DATE_FORMAT(IN_REG_DT, '%Y-%m-%d %T') AS IN_REG_DT,
+		DATE_FORMAT(IN_MOD_DT, '%Y-%m-%d %T') AS IN_MOD_DT
+		FROM INGREDIENT
+		<where>
+		<if test="searchDiv == 1">
+		<![CDATA[	AND ING_NM LIKE CONCAT('%',#{searchValue},'%')]]>			
+		</if>
+		<if test="searchDiv == 2">
+		<![CDATA[	AND ING_CD LIKE CONCAT('%',#{searchValue},'%')]]>			
+		</if>
+		</where>
+ 	   <![CDATA[   ORDER BY ING_CD DESC
+ 	      LIMIT #{startCount} , 10 ]]>		
+	</select>
+	
+	<select id="ingredient_totalcount" parameterType="search" resultType="int">
+	SELECT COUNT(*) FROM INGREDIENT
+	 <where>
+	 <if test="searchDiv == 1">
+		<![CDATA[	AND ING_NM LIKE CONCAT('%',#{searchValue},'%')]]>			
+		</if>
+		<if test="searchDiv == 2">
+		<![CDATA[	AND ING_CD LIKE CONCAT('%',#{searchValue},'%')]]>			
+		</if>
+	 </where>
+	</select>
+	<update id="ing_update" parameterType="IngredientVO">
+		<![CDATA[ UPDATE INGREDIENT ]]>
+			<set>
+			<![CDATA[
+				ING_NM=#{ing_nm}, ING_PRICE=#{ing_price}, UNIT_AMOUNT=#{unit_amount}, ING_UNIT=#{ing_unit}, IN_MOD_DT=now()
+			]]>
+			</set>
+			WHERE ING_CD=#{ing_cd}
+	</update>
+	
+	<select id="insert_search" parameterType="String" resultType="String">
+	 SELECT ing_cd FROM INGREDIENT WHERE ing_cd LIKE CONCAT('%',#{madeCode},'%') ORDER BY ing_cd DESC LIMIT 1
+	</select>
+	
+	<insert id="ing_insert" parameterType="IngredientVO">
+	INSERT INTO INGREDIENT
+	 VALUES(#{ing_cd},#{ing_nm},#{ing_price},#{unit_amount},#{ing_unit},now(),now())
+	</insert>
+	
+	<delete id="ing_delete" parameterType="String">
+				<![CDATA[
+			DELETE 
+				FROM INGREDIENT
+			    WHERE ing_cd = #{ing_cd};
+		]]>
+	</delete>
+</mapper>

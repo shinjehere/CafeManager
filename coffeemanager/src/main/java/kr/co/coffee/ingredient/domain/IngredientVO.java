@@ -11,6 +11,7 @@ public class IngredientVO extends DTO {
 	private String in_reg_dt;
 	private String in_mod_dt;
 
+	
 	public IngredientVO() {
 
 	}

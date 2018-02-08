@@ -1,12 +1,18 @@
 package kr.co.coffee.menu.controller;
 
+import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,25 +24,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
+import kr.co.coffee.common.StringUtil;
 import kr.co.coffee.common.pagingUtil;
 import kr.co.coffee.common.domain.Paging;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.menu.service.MenuSvc;
+import kr.co.coffee.sell.domain.SellListVO;
 
 /**
  * 2017-12-26 메뉴 컨트롤러
  * 
  * @author SHINJE KIM
  */
+
 @Controller
 @RequestMapping(path = "/menu")
 public class MenuController {
 
 	@Autowired
 	private MenuSvc menuSvc;
+	
+	@Resource(name="downloadView")
+	private View  downloadView;
 
 	@RequestMapping
 	public @ResponseBody ModelAndView menuBoard() throws Exception {
@@ -47,6 +60,40 @@ public class MenuController {
 		return mav;
 	}
 
+	// 엑셀 다운
+	@RequestMapping(value="/do_excelDown", method=RequestMethod.POST)
+	public ModelAndView do_searchExcel(HttpServletRequest req) throws Exception{
+		
+		Hashtable<String, String> searchParam = new Hashtable<String, String>(); 
+		ModelAndView mav = new ModelAndView();
+		MenuVO menuVO = new MenuVO();
+		
+		String menu_cd = StringUtil.nvl(req.getParameter("menu_cd"), "");
+		String menu_name = StringUtil.nvl(req.getParameter("menu_name"), "");
+		String menu_up = StringUtil.nvl(req.getParameter("menu_up"), "");
+		String menu_sp = StringUtil.nvl(req.getParameter("menu_sp"), "");
+		String mn_reg_dt = StringUtil.nvl(req.getParameter("mn_reg_dt"), "");
+		String mn_mod_dt = StringUtil.nvl(req.getParameter("mn_mod_dt"), "");
+		
+		searchParam.put("menu_cd".toString(), menu_cd);
+		searchParam.put("menu_name".toString(), menu_name);
+		searchParam.put("menu_up".toString(), menu_up);
+		searchParam.put("menu_sp".toString(), menu_sp);
+		searchParam.put("mn_reg_dt".toString(), mn_reg_dt);
+		searchParam.put("mn_mod_dt".toString(), mn_mod_dt);
+		
+		menuVO.setParam(searchParam);
+		
+		List<MenuVO> list = menuSvc.do_searchExcel(menuVO);
+		String fileFullPath = this.menuSvc.do_excelDown(list);
+		
+		mav.setView(this.downloadView);
+		File downloadFile = new File(fileFullPath);
+		mav.addObject("downloadFile", downloadFile);
+		
+		return mav;
+	}
+	
 	// 메뉴 리스트 조회
 	@RequestMapping(path = "/menu", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> menuList(Search search) throws Exception {
@@ -94,8 +141,6 @@ public class MenuController {
 		}
 		
 		menuSvc.deleteChecked(deleteArray);
-
-		System.out.println("deleteArray = "+deleteArray);
 		
 		return "redirect:/menu";
 	}
@@ -107,9 +152,10 @@ public class MenuController {
 		int flag = 0;
 		flag = menuSvc.do_checkMenuName(menuName);
 		
-		System.out.println("flag = "+flag);
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("flag", flag);
 		return map;
 	}
+	
+	
 }
