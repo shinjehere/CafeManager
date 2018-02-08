@@ -1,6 +1,7 @@
 package kr.co.coffee.ingredient.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,5 +81,18 @@ public class ingredientController {
 			ingredientService.ing_insert(vo);
 		}
 		return "redirect:/ingredient";
+	}
+	@RequestMapping(path="ingredient/delete",method=RequestMethod.DELETE, consumes="application/json")
+	@ResponseBody
+	public Map<String, Object> deleteForm(@RequestBody String[] ingArray) throws Exception{
+		ArrayList<String> deleteArray = new ArrayList<String>();
+		for(String data : ingArray) {
+			deleteArray.add(data);
+			System.out.println("deleteList:"+data);
+		}
+			ingredientService.ing_delete(deleteArray);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("url", "ingredient");
+		return map;
 	}
 }

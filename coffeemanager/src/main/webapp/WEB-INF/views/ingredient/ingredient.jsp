@@ -98,7 +98,7 @@
 		</div>
 		<div class="text-right">
 			<div class="btn-group">
-					<button type="button" class="btn btn-primary" id="delete_Sell">삭제</button>
+					<button type="button" class="btn btn-primary" id="delete_ing">삭제</button>
 					<button type="button" class="btn btn-danger" onclick="javascript:excel_down()">엑셀 다운로드</button>
 					<button id="new_sell" type="button" class="btn btn-info"
 					onclick="javascript:ins_modal()">신규등록</button>

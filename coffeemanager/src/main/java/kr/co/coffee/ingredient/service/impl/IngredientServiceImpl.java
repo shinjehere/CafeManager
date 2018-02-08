@@ -45,4 +45,12 @@ public class IngredientServiceImpl implements IngredientService{
 		commonMapper.ing_insert(IngredientVO);
 	}
 
+	@Override
+	public void ing_delete(List<String> ing_cd) throws Exception {
+		for(int i=0;i<ing_cd.size();i++) {
+			commonMapper.ing_delete(ing_cd.get(i));
+		}
+		
+	}
+
 }

@@ -99,6 +99,8 @@ public interface CommonMapper {
 	public String insert_search(String madeCode) throws Exception;
 	//insert
 	public void ing_insert(IngredientVO IngredientVO) throws Exception;
+	//delete
+	public void ing_delete(String ing_cd) throws Exception;
 	//**********************************************************************************************
 	
 	public List<StockList> listCriteria(Criteria cri) throws Exception;

@@ -16,4 +16,6 @@ public interface IngredientService {
 		public String insert_search(String madeCode) throws Exception;
 		//insert
 		public void ing_insert(IngredientVO IngredientVO) throws Exception;
+		//delete
+		public void ing_delete(List<String> ing_cd) throws Exception;
 }
