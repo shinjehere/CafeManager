@@ -1,4 +1,51 @@
+/*$(function(){
+	searchSort();
+});
 
+// 메뉴 리스트 정렬
+function searchSort(){
+	var searchSort = $("#search_sort option:selected").val();
+	alert(menuSort)
+	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
+}*/
+
+
+// 원재료 추가를 위한 전역변수
+var count = 1;
+
+// 원재료 추가하기
+function add_ingredient(){
+    var addedDiv  = document.createElement("div");
+    addedDiv.id = "added_"+count; // 폼 Div에 ID 부여 (삭제를 위해)
+    addedDiv.innerHTML = document.getElementById("added_0").innerHTML; // added_0 에 있는 내용을 읽어와서 처리
+    
+    // document.getElementById('added_field').appendChild(div);
+    var added_field = document.getElementById("added_field");
+    added_field.appendChild(addedDiv);
+    count++;
+    document.newMenuForm.count.value = count;
+    added_field.reset();
+}
+
+function remove_ingredient(){
+    var added_field = document.getElementById("added_field");
+    var added_0 = document.getElementById("added_0");
+    if(count >1){ // 현재 폼이 두개 이상이면
+               var addedDiv = document.getElementById("added_"+(--count));
+               // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
+               added_field.removeChild(addedDiv); // 폼 삭제 
+    }else{ // 마지막 폼만 남아있다면
+    	$('#ing_click_code').text(null);
+    	$('#ing_click_name').text(null);
+    	$('#ing_unit_price').text(null);
+    	$('#menuUnitAmount').text(null);
+    }
+}
+
+/*function remove_ingredient(obj){
+// obj.parentNode 를 이용하여 삭제
+document.getElementById("added_field").removeChild(obj.parentNode);
+}*/
 
 // 모달창
 function new_menu() {
@@ -43,8 +90,11 @@ function searchIngredient() {
 	});
 }
 
+
+
 // 테이블 row 클릭시 값 가져오기
 function trClick() {
+	
 	$("#menu_table tr").click(function() {
 		var tdArr = new Array();
 		var tr = $(this);
@@ -59,10 +109,69 @@ function trClick() {
 		var ing_code = td.eq(0).text();
 		var ing_name = td.eq(1).text();
 		var ing_up = td.eq(2).text();
+		var ing_amount = td.eq(3).text();
+		var int_cal = ing_up / ing_amount;
 
-		$('#ing_click_code').text(ing_code);
+		for(var i=0; i<=count;i++){
+			
+			console.log("added_? 아이디값:" + $("#added_"+i).val());
+			
+			$("#added_"+i).children("#ing_click_code").text(ing_code);
+			$("#added_"+i).children("#ing_click_name").text(ing_name);
+			$("#added_"+i).children("#ing_unit_price").text(int_cal);
+			
+			/*if(($("#added_"+i).children("#ing_click_code")) == "" || null){
+				console.log("added_? 아이디값222:" + $("#added_"+i));
+				$("#added_"+i).children("#ing_click_code").text(ing_code);
+				$("#added_"+i).children("#ing_click_name").text(ing_name);
+				$("#added_"+i).children("#ing_unit_price").text(int_cal);
+			}else{
+				$("#added_"+(i+1)).children("#ing_click_code").text(ing_code);
+				$("#added_"+(i+1)).children("#ing_click_name").text(ing_name);
+				$("#added_"+(i+1)).children("#ing_unit_price").text(int_cal);
+			}*/
+			
+			/*if((getDivId.eq(0)) == "" ||  null){
+				console.log("added_? 아이디값222:" + getDivId);
+				getDivId.children().eq(0).text(ing_code);
+				getDivId.children().eq(1).text(ing_name);
+				getDivId.children().eq(2).text(int_cal);
+			}else{
+				$("added_"+(i+1)).children().eq(0).text(ing_code);
+				$("added_"+(i+1)).children().eq(1).text(ing_name);
+				$("added_"+(i+1)).children().eq(2).text(int_cal);
+			}*/
+		}
+		
+		/*$('#ing_click_code').text(ing_code);
 		$('#ing_click_name').text(ing_name);
-		$('#ing_unit_price').text(ing_up);
+		$('#ing_unit_price').text(int_cal);*/
+		
+		
+		
+		//   var addedDiv = document.getElementById("added_"+(--count));
+		//===========================================================
+		// 인서트부분(차례대로 하나씩 넣기) 
+		//===========================================================
+		/*for(var i=0; i<=count;i++){
+			console.log("added_? 아이디값:" + document.getElementById("added_"+i).innerHTML);
+			
+			if((document.getElementById("added_"+i).eq(0)) == "" ||  null){
+				console.log("added_? 아이디값222:" + document.getElementById("added_"+i));
+				document.getElementById("added_"+i).children().eq(0).text(ing_code);
+				document.getElementById("added_"+i).children().eq(1).text(ing_name);
+				document.getElementById("added_"+i).children().eq(2).text(int_cal);
+			}else{
+				$("added_"+(i+1)).children().eq(0).text(ing_code);
+				$("added_"+(i+1)).children().eq(1).text(ing_name);
+				$("added_"+(i+1)).children().eq(2).text(int_cal);
+			}
+		}*/
+		
+		
+		
+		
+		
 
 	});
 }
@@ -91,13 +200,7 @@ function calMenuUP() {
 	}
 }
 
-function reset() {
-	$('#calMenuClick').text(null);
-	$('#menuUnitPrice').text(null);
-	$('#ing_click_code').text(null);
-	$('#ing_click_name').text(null);
-	$('#ing_unit_price').text(null);
-}
+
 
 // 메뉴명 중복확인
 function checkMenuName() {
@@ -187,6 +290,13 @@ function do_excelDown() {
 	excelFrm.submit();
 }
 
+/*function excel_down() {
+	var dataform=$('#searchForm').serialize();
+	document.searchForm.action="menu/menu_excel_down";
+	document.searchForm.method="POST";
+	document.searchForm.submit(dataform);
+}*/
+
 // 검색 버튼 및 엔터시 실행된다.
 function btnEnter() {
 	$('#currentPage').val('1');
@@ -259,29 +369,6 @@ function clickPaging(currentPage) {
 // =========================================================
 // For Paging closed
 // =========================================================
-
-/*
- * // do_search 검색조회 function menuBoard() { var dataform =
- * $("#searchForm").serialize();
- *  // 검색결과(일단 날짜 빼고) $.ajax({ type : "GET", url : "menu/menu", dataType :
- * "JSON", contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
- * data : dataform, success : function(data) {
- * 
- * var datahtml = "";
- * 
- * if (data.list.length > 0) {
- * 
- * $("#menu_list_table tbody tr").remove(); console.log("data size= " +
- * data.list.length); for (var i = 0; i < data.list.length; i++) { datahtml +=
- * makeData(data.list[i]); } $('#menu_list_table tbody').append(datahtml); }
- * else { $('#menu_list_table tbody tr').remove(); datahtml += "<tr><td colspan=7>데이터가
- * 없습니다.</td></tr>" $('#menu_list_table tbody').append(datahtml); }
- *  // 엑셀 다운 $('#do_excelDown').click(function(){ do_excelDown(); });
- *  // 페이징 makePaging(data.paging); }, error : function(xhr, status, error) {
- *  } }) // ajax closed
- * 
- * };// do_search closed
- */
 
 // do_search 검색조회
 function menuBoard() {
@@ -370,7 +457,7 @@ function menuBoard() {
 					$('#menu_list_table tbody').append(datahtml);
 				}
 
-				// 엑셀 다운
+			  // 엑셀 다운
 				$('#do_excelDown').click(function() {
 					do_excelDown();
 				});
