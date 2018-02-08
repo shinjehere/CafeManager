@@ -162,13 +162,13 @@ old_jquery(function() {
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+								aria-label="Close" id="btnClose" >
 								<span aria-hidden="true">&times;</span>
 							</button>
 							<h4 class="modal-title" id="myModalLabel" >신규메뉴등록</h4>
 						</div>
 						<p align="left">가격 단위: 원</p>
-						<form name="newMenuForm">
+						<form id="newMenuForm" name="newMenuForm" class="newMenuForm">
 							<div class="controller">
 								<div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
 									<div class="form-group" style="margin: 10px;">
@@ -268,7 +268,7 @@ old_jquery(function() {
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal">취소</button>
+								data-dismiss="modal" id="btnCancel" >취소</button>
 							<button type="button" class="btn btn-primary"
 								onclick="javascript:save_sell()">저장</button>
 						</div>

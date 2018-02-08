@@ -9,9 +9,35 @@ function searchSort(){
 	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
 }*/
 
+// 모달창 리셋
+/*function resetModal(){
+	$("#newMenuForm")[0].reset();
+}*/
+
+/*function resetForm(){
+	$("#btnClose").click(function(){
+		$("form").each(function(){
+			if(this.className == "newMenuForm") this.reset();
+		});
+		$("#form-newMenuForm")[0].reset();
+	});
+	$("#btnCancel").click(function(){
+		$("#form-newMenuForm")[0].reset();
+	});
+}*/
+	
+/*function resetForm(){
+	// $("#form-newMenuForm")[0].reset();
+	document.getElementById("newMenuForm").reset();
+}*/
+
+
 // 모달창
 function new_menu() {
 	$('#myModal').modal();
+	/*$('.modal').on('hidden.bs.modal', function (e) { 
+	    $(this).removeData();
+	});*/
 }
 
 // 메뉴등록>원재료 검색
@@ -67,13 +93,13 @@ function add_ingredient(){
     $("#added_"+count).find("#ing_click_name").empty();
     $("#added_"+count).find("#ing_unit_price").empty();
     count++;
-    document.newMenuForm.count.value = count;
-    added_field.reset();
+    /*document.newMenuForm.count.value = count;
+    added_field.reset();*/
 }
 
 function remove_ingredient(){
     var added_field = document.getElementById("added_field");
-    var added_0 = document.getElementById("added_0");
+    // var added_0 = document.getElementById("added_0");
     if(count >1){ // 현재 폼이 두개 이상이면
                var addedDiv = document.getElementById("added_"+(--count));
                // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
@@ -106,7 +132,7 @@ function trClick() {
 		var ing_amount = td.eq(3).text();
 		var int_cal = ing_up / ing_amount;
 
-		for(var i=0; i<=count; ++i){
+		for(var i=0; i<=count; i++){
 			
 			// console.log("added_? ing_click_code:" + $("#added_"+i).find("#ing_click_code").prop("outerHTML"));			
 			// console.log("added_? ing_click_code:" + $("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
@@ -118,10 +144,11 @@ function trClick() {
 				$("#added_"+i).find("#ing_click_name").text(ing_name);
 				$("#added_"+i).find("#ing_unit_price").text(int_cal);
 			}else{
-				console.log("코드값"+(i+1)+":  "+$("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
+				
 				$("#added_"+(i+1)).find("#ing_click_code").text(ing_code);
 				$("#added_"+(i+1)).find("#ing_click_name").text(ing_name);
 				$("#added_"+(i+1)).find("#ing_unit_price").text(int_cal);
+				console.log("코드값"+(i+1)+":  "+$("#added_"+i).find("#ing_click_code").wrap('<span></span>').html());
 			}
 		}
 
