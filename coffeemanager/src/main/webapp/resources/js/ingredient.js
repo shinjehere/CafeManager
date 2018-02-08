@@ -153,13 +153,15 @@ function btnEnter() {
 				"<div class='form-group'>" +
 					"<div class='row'>" +
 						"<label class='col-md-2 control-label' for='ing_price'><strong>원재료단가 :</strong></label>" +
-						"<div class='col-md-4'><input type='text' class='form-control' name='ing_price' id='ing_price' value="+ing_price+"><div class='input-group-addon'>원</div>" +
+						"<div class='col-md-4'><input type='text' class='form-control' name='ing_price' id='ing_price' value="+ing_price+"" +
+								" onkeyPress='if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;'><div class='input-group-addon'>원</div>" +
 					"</div>" +
 				"</div>" +
 				"<div class='form-group'>" +
 					"<div class='row'>" +
 					"<label class='col-md-2 control-label' for='unit_amount'><strong>1단위당 용량 :</strong></label>" +
-					"<div class='col-md-4'><input type='text' class='form-control' name='unit_amount' id='unit_amount' value="+unit_amount+"></div>" +
+					"<div class='col-md-4'><input type='text' class='form-control' name='unit_amount' id='unit_amount' value="+unit_amount+"" +
+							" onkeyPress='if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;'></div>" +
 					"<label class='col-md-2 control-label' for='ing_unit'><strong>용량단위 :</strong></label>" +
 					"<div class='col-md-4'><input type='text' class='form-control' name='ing_unit' id='ing_unit' value="+ing_unit+"></div>" +
 					"</div>" +
