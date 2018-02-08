@@ -238,10 +238,10 @@ old_jquery(function() {
 														<span class="input-group-addon"> 사용할 용량 : </span>
 														</div>
 														<div id="added_0" class="form-group">
-															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code"></span> 
-															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name"></span>
-															<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price"></span> 
-															<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" type="number" min="0"> 
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code" name="ing_click_code"></span> 
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name" name="ing_click_name"></span>
+															<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price" name="ing_unit_price"></span> 
+															<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" name="menuUnitAmount" type="number" min="0"> 
 															<!-- <span style="display:inline-block; width:3%;" class="form-control-btn">
 															<button type="reset" id="reset_x" onclick="javascript:reset();" class="btn btn-default">X</button>
 															</span> -->			
