@@ -220,3 +220,46 @@ function InpuOnlyNumber(obj)
         event.returnValue = false;
     }
 }
+
+$(function() {
+	$("#delete_ing").click(function() {
+		var ingArray=new Array();
+		$("input[name=checkOne]:checked").each(function() {
+			ingArray.push($(this).attr("value"));
+			console.log("포문내부확인:"+ingArray); 
+		});
+			console.log("배열확인="+ingArray);
+			if(ingArray.length == 0){
+				alert("삭제할 메뉴를 선택해주세요.");
+			}else{
+				if(confirm("정말 메뉴를 삭제하시겠습니까?") == true){
+
+					$.ajax({
+						url:"ingredient/delete",
+						data: JSON.stringify(ingArray),
+						type:'DELETE',
+						dataType:'JSON',
+						contentType : "application/json; charset=UTF-8",
+						success: function(data){
+							location.href=data.url; 
+						},
+						error: function(request, status, error){
+							alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+						}
+					});
+				}else{
+					location.reload(true);
+				}
+			}
+			return false;
+		
+	}); 
+});
+
+function excel_down() {
+	var dataform=$('#searchForm').serialize();
+	document.searchForm.action="ingredient/sell_excel_down";
+	document.searchForm.method="POST";
+	document.searchForm.submit(dataform);
+
+}

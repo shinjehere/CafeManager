@@ -45,6 +45,13 @@
 	<insert id="ing_insert" parameterType="IngredientVO">
 	INSERT INTO INGREDIENT
 	 VALUES(#{ing_cd},#{ing_nm},#{ing_price},#{unit_amount},#{ing_unit},now(),now())
-	
 	</insert>
+	
+	<delete id="ing_delete" parameterType="String">
+				<![CDATA[
+			DELETE 
+				FROM INGREDIENT
+			    WHERE ing_cd = #{ing_cd};
+		]]>
+	</delete>
 </mapper>
