@@ -37,12 +37,12 @@
      </select>
      
       <select id="selectDayGraph"  resultType="kr.co.coffee.main.domain.MainVO">        
-     	SELECT HOUR(SELL_DATE) AS hour, SUM(s.SELL_CNT*m.MENU_SP) AS total_SP, m.MENU_NAME, s.SELL_CNT as SELL_CNT
+     	SELECT HOUR(SELL_DATE) AS hour, SUM(s.SELL_CNT*m.MENU_SP) AS total_SP, m.MENU_NAME, s.SELL_CNT as sell_CNT
 		FROM 
 			SELL s LEFT JOIN MENU m
 		ON 
 			s.MENU_CD=m.MENU_CD
-		WHERE SELL_date > (NOW() - INTERVAL 30 DAY)
+		WHERE SELL_date > (NOW() - INTERVAL 2 DAY)
 		GROUP BY hour(SELL_DATE)
 		ORDER BY SELL_DATE DESC;
      </select>
