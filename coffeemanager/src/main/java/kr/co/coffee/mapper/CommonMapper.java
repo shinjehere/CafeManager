@@ -6,11 +6,13 @@ import java.util.List;
 import kr.co.coffee.common.DTO;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
+import kr.co.coffee.main.domain.MainVO;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellInsVO;
 import kr.co.coffee.sell.domain.SellListVO;
-import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.StockList;
+import kr.co.coffee.stock.domain.searchCriteria;
+import kr.co.coffee.stock.domain.Criteria;
 import kr.co.coffee.stock.domain.IngredientList;
 import kr.co.coffee.stock.domain.NewProductList;
 /**
@@ -46,7 +48,6 @@ public interface CommonMapper {
 
 	// 페이징을 위한 메뉴 리스트 count
 	public int menuTotalCount(Search search) throws Exception; 
-	// public List<MenuVO> do_searchAll() throws Exception;
 
 	// 토글 이벤트(메뉴코드 클릭시 메뉴 디테일 불러옴)
 	public List<MenuVO> menuDetail(String menuCodeOnClick) throws Exception; 
@@ -65,28 +66,63 @@ public interface CommonMapper {
 	
 	// 엑셀 다운
 	public String do_excelDown(List<MenuVO> list) throws Exception;
+	
+	// 메뉴 코드 조회
+	public String searchMenuCode(String menu_cd) throws Exception;
+		
+	// 메뉴 인서트
+	public void insertMenu(MenuVO menuVO) throws Exception;
+	
+	// 레시피 인서트
+	public void insertRecipie(MenuVO menuVO) throws Exception;
 	//*******************************************************************************************
 	
 	
 
 	// stock mapper *********************************************************************************
 	public List<StockList> selectStockList() throws Exception;
-	
+	//원재료 검색
 	public List<IngredientList> searchIngredient(String searchIngredient) throws Exception;
 	//가장 최근 코드 검색
 	public String searchNewCode(String codeNP) throws Exception;
 	//입고
 	public void ingredientInsert(NewProductList newProduct) throws Exception;
+	//검색
+	public List<StockList> listSearchCriteria(searchCriteria cri) throws Exception;
+	//재고 검색	
+	public Integer searchBoardTotalCount(searchCriteria cri) throws Exception;
+	//엑셀 서치
+	/*public List<StockList> stock_searchExcel(DTO dto) throws Exception;*/
+	//엑셀 다운
+	public String stock_excelDown(List<StockList> list) throws Exception;
 	//*************************************************************************************************
 	
 	
 	// ingredient mapper***************************************************************************
-	
+	// list 
+	public List<IngredientVO> ingredient_list(Search search) throws Exception;
+	//totalcount
+	public int ingredient_totalcount(Search search) throws Exception; 
+	//update
+	public void ing_update(IngredientVO IngredientVO) throws Exception;
+	//search code
+	public String insert_search(String madeCode) throws Exception;
+	//insert
+	public void ing_insert(IngredientVO IngredientVO) throws Exception;
+	//delete
+	public void ing_delete(String ing_cd) throws Exception;
 	//**********************************************************************************************
 	
-	public List<StockList> listCriteria(Criteria cri) throws Exception; 
+	public List<StockList> listCriteria(Criteria cri) throws Exception;
 	public Integer TotalCount() throws Exception;
 	
-	// test mapper
-
+	// main mapper
+	//재고 그래프
+	public List<StockList> selectStockGraph() throws Exception;
+	//메뉴별 판매량
+	public List<SellListVO> selectMenuGraph() throws Exception;
+	//월별 판매량
+	public List<MainVO> selectSellGraph() throws Exception;
+	//일별 판매량
+	public List<MainVO> selectDayGraph() throws Exception;
 }

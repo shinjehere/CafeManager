@@ -77,7 +77,7 @@
 			<div style="margin-bottom: 10px;"></div>
 		</div>
 		<div class="container">
-			<form class="form-inline" id="searchForm" >
+			<form class="form-inline" id="searchForm" name="searchForm">
 				<input type="hidden" id="currentPage" name="currentPage" value="1"
 				 <%--ajax로 변경되어 삭제 되는 부분들 "${map.paging.currentPage }" --%>/>
 				<!-- ajax로 변경되어 삭제 되는 부분들
@@ -129,60 +129,41 @@
 					<tr>
 						<th><input type="checkbox" id="allCheck" /></th>
 						<!-- 체크박스 -->
-						<th>판매코드</th>
-						<th>판매일자</th>
-						<th>메뉴코드</th>
-						<th>메뉴명</th>
-						<th>판매수량</th>
-						<th>판매가격</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="1" value="1"  style="cursor:pointer"></span>
+						판매코드</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="2" value="1"  style="cursor:pointer"></span>
+						판매일자</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="3" value="1"  style="cursor:pointer"></span>
+						메뉴코드</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="4" value="1"  style="cursor:pointer"></span>
+						메뉴명</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="5" value="1"  style="cursor:pointer"></span>
+						판매수량</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="6" value="1"  style="cursor:pointer"></span>
+						판매가격</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
-				<%-- 	<c:forEach var="sl" items="${map.list }">
-						<tr>
-							<td><input type="checkbox" id="" /></td>
-							<td><a class="sell_CD" href="#"
-								onclick="javascript:toggle('${sl.sell_CD}')">${sl.sell_CD }</a></td>
-							<td><fmt:formatDate value="${sl.sell_Date }"
-									pattern="yyyy-MM-dd" /></td>
-							<td>${sl.menu_CD }</td>
-							<td>${sl.menu_Name }</td>
-							<td>${sl.sell_CNT }</td>
-							<td>${sl.total_SP }</td>
-						</tr>
-						<tr>
-							<td colspan="6" id="toggle_div${sl.sell_CD }"
-								style="display: none;"><div></div></td> 
-						</tr>
-					</c:forEach>--%>
 					<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 				</tbody>
 			</table>
 
 		</div>
-		<div class="pagination text-center">
+		<div class="text-center">
 			<ul class="pagination" id="pagination">
-				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
-			<%-- 	<c:if test="${map.paging.currentPage > 1 }">
-					<li><a href="javascript:paging('${map.paging.currentPage-1 }")">Prev</a></li>
-				</c:if>
-				<c:forEach begin="${map.paging.startPage }"
-					end="${map.paging.endPage }" varStatus="status">
-					<li><a href="javascript:paging('${status.count}')">${status.count}</a></li>
-				</c:forEach>
-				<c:if test="${map.paging.currentPage < map.paging.endPage}">
-					<li><a
-						href="javascript:paging('${map.paging.currentPage+1 }')">Next</a></li>
-				</c:if> --%>
-				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 			</ul>
 
 		</div>
 		<div class="text-right">
 			<div class="btn-group">
 					<button type="button" class="btn btn-primary" id="delete_Sell">삭제</button>
-					<button type="button" class="btn btn-danger">엑셀 다운로드</button>
+					<button type="button" class="btn btn-danger" onclick="javascript:excel_down()">엑셀 다운로드</button>
 					<button id="new_sell" type="button" class="btn btn-info"
 					onclick="javascript:new_sell()">신규등록</button>
 			</div>
@@ -196,9 +177,10 @@
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">신규등록</h4>
 		      </div>
-		    <form>
-		    <div class="controller"> 
-		      <div class="modal-body col-md-12 col-xs-12 col-lg-12 col-sm-12">
+		  <div class="modal-body"> 
+	
+		    <div class="controller-fluid"> 
+		    	    <form>
 					   <div class="form-group"  style="margin: 10px;">
 						<div class="row input-group">
 							<span class="input-group-addon">
@@ -241,19 +223,19 @@
 											<span class="input-group-addon">
 											메뉴 명 : 
 											</span>
-											<span class="form-control" id="menu_click_name">메뉴이름</span>
+											<span class="form-control" id="menu_click_name" style="font-size: 1vw;">메뉴이름</span>
 											<span class="input-group-addon">
 											메뉴 코드 : 
 											</span>
-											<span class="form-control" id="menu_click_code">메뉴코드</span>
+											<span class="form-control" id="menu_click_code"  style="font-size: 1vw;">메뉴코드</span>
 											<span class="input-group-addon">
 											판매 가격 :
 											</span>
-											<span class="form-control" id="menu_click_SP"></span>
+											<span class="form-control" id="menu_click_SP"  style="font-size: 1vw;"></span>
 											<span class="input-group-addon">
 											수 량 : 
 											</span>
-											<input class="form-control" id="menuCount" type="number" min="0">
+											<input class="form-control" id="menuCount" type="number" min="0"  style="font-size: 1vw;">
 											<span class="input-group-btn">
 												<button type="reset" id="rest_x" onclick="javascript:reset();" class="btn btn-default">X</button>
 											</span>
@@ -261,7 +243,8 @@
 								</div>
 						</div>
 					 </div>	
-					 
+					 <div class="form-group" style="margin: 10px;">
+					 <div class="row">
 					 <div class="col-md-8"></div>
 					 <div class="col-md-4 text-right">
 						 <div class="row input-group">
@@ -270,10 +253,12 @@
 									 <button class="btn" type="button" onclick="javascript:SP_multiply();">총판매 계산</button>
 								</span>
 						 </div> 
-					</div>		   
-					 </div>
+					</div>
+					</div>
+					</div>	
+			      	</form>	   
 			      </div>
-		      	</form>
+		       </div>	
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		        <button type="button" class="btn btn-primary" onclick="javascript:save_sell()">저장</button>

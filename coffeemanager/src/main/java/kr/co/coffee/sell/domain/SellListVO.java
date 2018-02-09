@@ -70,6 +70,8 @@ public class SellListVO {
 	public void setMenu_Amount(int menu_Amount) {
 		this.menu_Amount = menu_Amount;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "SellList [sell_CD="+sell_CD+", sell_Date="+sell_Date+",menu_CD="+menu_CD+",menu_Name="+menu_Name+",sell_CNT="

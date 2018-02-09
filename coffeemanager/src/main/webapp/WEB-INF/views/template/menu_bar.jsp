@@ -37,7 +37,6 @@
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-credit-card"></span> 거래관리</a>
      	 <!--     Sub Menu -->
      	   <ul class="dropdown-menu">
-            <li><a href="../coffee/stock">입고 관리</a></li>
             <li><a href="../coffee/sell">판매 관리</a></li>
             <li><a href="../coffee/stock">재고 관리</a></li> 
           </ul>

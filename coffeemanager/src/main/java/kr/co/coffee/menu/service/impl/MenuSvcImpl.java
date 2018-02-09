@@ -69,12 +69,25 @@ public class MenuSvcImpl implements MenuSvc {
 	public String do_excelDown(List<MenuVO> list) throws Exception {
 		
 		String path = "C:\\file\\excel\\";
-		
-		String fileName = null;
 		MenuExcelDown menuExcelDown = new MenuExcelDown();
-		fileName = menuExcelDown.writeExcel(path, "MenuList.xls", list);
+		String fileName = menuExcelDown.writeExcel(path, "MenuList.xls", list);
 
 		return path+fileName;
+	}
+
+	@Override
+	public String searchMenuCode(String menu_cd) throws Exception {
+		return commonMapper.searchMenuCode(menu_cd);
+	}
+
+	@Override
+	public void insertMenu(MenuVO menuVO) throws Exception {
+		commonMapper.insertMenu(menuVO);
+	}
+
+	@Override
+	public void insertRecipie(MenuVO menuVO) throws Exception {
+		commonMapper.insertRecipie(menuVO);
 	}
 
 }

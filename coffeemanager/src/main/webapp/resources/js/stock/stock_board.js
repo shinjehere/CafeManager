@@ -2,8 +2,10 @@ $(function(){
 	closeModal();
 	getTimeStamp();
 	searchIngredient();
-	addIngredient(); //체크박스 다중선택 방지
 	totalPrice();//
+	stock_excelDown();
+	searchStock();
+	searchSort();
 	
 });
 
@@ -57,29 +59,25 @@ $(document).ready(function(){
 	});
 });
 
-//재고 리스트 검색
-/*function searchStock(){
-	var searchCondition = $('#search_condition option:selected').val();
-	var searchContent = $('#sell_search').val();
-	
-	$('#search_stock').click(function(){
-		if(searchContent==null){
-			alert("검색어를 입력하세요.")
-		}else{
-			alert(searchContent)
-			$.ajax({
-				url : "stock/stockSearch",
-				data : {"searchCondition" : searchCondition},
-				type : "GET",
-				success : function(data){
-					
-				}
-			})//ajax
-		}//if
-	})//click
-}*/
+//재고 리스트 검색function searchStock(){
+	$('#searchBtn').on("click",function(event){
+		var searchType = $("select[name=searchType]").val();
+		var searchKeyword = $("input[name=searchKeyword]").val();
+		self.location="../coffee/stock${pageMaker.makeQuery(1)}&searchType="+searchType+"&searchKeyword="+searchKeyword;
+		
+	});
 
-
+//재고 리스트 정렬
+function searchSort(){
+	/*$("#search_sort").change(function(){*/
+	/*	var searchType = $("select[name=searchType]").val();
+		var searchKeyword = $("input[name=searchKeyword]").val();*/
+		var searchSort = $("#search_sort option:selected").val();
+		alert(stockSort)
+		self.location = "../coffee/stock${pageMaker.makeQuery(1)}&searchSort="+searchSort;
+		
+	/*});*/
+}
 //원재료 검색
 function searchIngredient(){
 	$(".search_btn").click(function(){
@@ -203,7 +201,15 @@ function saveIngredient(){
 };
 
 
-
+//엑셀 다운
+function stock_excelDown(){
+	$('#stock_excelDown').click(function(){
+		alert("다운로드")
+		var excelFrm = document.stock_excel_frm;
+		excelFrm.action = "stock/stock_excelDown";
+		excelFrm.submit();
+	})
+}
 
 
 

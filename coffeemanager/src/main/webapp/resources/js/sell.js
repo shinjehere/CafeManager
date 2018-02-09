@@ -116,7 +116,7 @@
 						}else{
 							var dataTable = $("#boardTable tbody");
 							$("#boardTable tbody tr").remove();
-							strs += "<tr><td colspan=7>데이터가 없습니다.</td></tr>";
+							strs += "<tr><td colspan='7'>데이터가 없습니다.</td></tr>";
 							$(dataTable).append(strs);
 						}
 						makePaging(data.paging);
@@ -180,7 +180,7 @@
 				str += '<td>'+data.sell_CNT+'</td>';
 				str += '<td>'+data.total_SP+'</td>';
 				str += '</tr>';
-				str += '<tr><td colspan="6" id="toggle_div'+data.sell_CD+'" style="display: none;"><div></div></td></tr>';
+				str += '<tr><td colspan="7" id="toggle_div'+data.sell_CD+'" style="display: none;"><div></div></td></tr>';
 			return str;	
 		}
 	function makePaging(paging){
@@ -382,4 +382,54 @@ $(function() {
 			return false;
 		
 	}); 
+});
+
+function excel_down() {
+		var dataform=$('#searchForm').serialize();
+		document.searchForm.action="sell/sell_excel_down";
+		document.searchForm.method="POST";
+		document.searchForm.submit(dataform);
+	
+}
+//오름차순 내림차순 수정
+$(function() {
+	$('#boardTable thead tr th span').click(function() {
+		attr_value=$(this).attr('value');
+		if(attr_value=='1'){
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			$('#SortValue').remove();
+			var dataPlus=Number(data)+Number(6);
+			$(this).attr('value',2); 
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet');
+			$(this).attr('data-value',dataPlus);
+		}else{
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			$('#SortValue').remove();
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('value',1);
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet-alt');
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('data-value',dataIns);
+		}
+	});
 });

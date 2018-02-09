@@ -2,6 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.coffee.mapper.CommonMapper">
 	
+	<!-- 인서트전 최근 코드를 검색 -->
+ <select id="searchMenuCode" parameterType="String" resultType="String">
+ 	<![CDATA[
+ 		SELECT MENU_CD 
+ 			FROM ERP_Schema.MENU 
+ 		WHERE MENU_CD LIKE CONCAT('%',#{menu_cd},'%') 
+ 		ORDER BY MENU_CD DESC LIMIT 1
+ 	]]>
+ </select>
+	
+	
+	<!-- 메뉴 인서트 -->
+	<insert id="insertMenu" parameterType="MenuVO">
+	<![CDATA[
+		INSERT INTO MENU
+							(MENU_CD,
+							MENU_NAME,
+							MENU_UP,
+							MENU_SP,
+							MN_REG_DT,
+							MN_MOD_DT)
+						VALUES
+							(
+			                #{menu_cd},
+			                #{menu_name},
+			                #{menu_up},
+			                #{menu_sp},
+			                current_timestamp(),
+			                null
+			                )
+	]]>
+	</insert>
+	
+	
+	<!-- 레시피 인서트 -->
+	<insert id="insertRecipie" parameterType="MenuVO">
+		<![CDATA[
+			INSERT INTO RECIPIE (
+									MENU_CD,
+					                ING_CD,
+					                MENU_AMOUNT
+									)
+							VALUES (
+									#{menu_cd},
+					                #{ing_cd},
+					                #{menu_amount}
+					                )
+		]]>
+	</insert>
+	
+	
+	
 	<!-- 메뉴 리스트 전체조회 -->
 	<select id="do_searchAll" parameterType="search"
 		resultType="kr.co.coffee.menu.domain.MenuVO">
@@ -12,8 +64,7 @@
 					M.MENU_SP,
 					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
 					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
-			FROM SELL S LEFT JOIN MENU M
- 	      	ON S.MENU_CD=M.MENU_CD
+			FROM MENU M
 			]]>
 		<where>
 			<if test="searchDiv == 1">
@@ -23,7 +74,7 @@
 				<if test='searchValue != null and searchValue != "" 
 							and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
 					AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')
-					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+					AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test="searchDiv == 2">
@@ -33,21 +84,23 @@
 				<if test='searchValue != null and searchValue != "" 
 	 	 					and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
 					AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')
-					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+					AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test='startDate != null and startDate !="" and endDate !=null and endDate !="" '>
-			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
+			 	<![CDATA[	AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
-			<![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]>
+			<![CDATA[ORDER BY M.MN_REG_DT DESC LIMIT #{startCount} , 10 ]]> 
+			<!-- order by 정렬 -->
+		<!-- <include refid="sortSearchCondition"/>
+		<![CDATA[LIMIT #{startCount} , 10]]>  -->
 	</select>
 
 <!-- 메뉴 페이징을 위한 전체 개수 카운트 -->
 	<select id="menuTotalCount" parameterType="search" resultType="int">
 	<![CDATA[ SELECT COUNT(*) 
-			FROM SELL S LEFT JOIN MENU M
- 	      	ON S.MENU_CD=M.MENU_CD]]>
+			FROM MENU M]]>
 		<where>
 			<if test="searchDiv == 1">
 				<if test='searchValue != null and searchValue != "" '>
@@ -56,7 +109,7 @@
 				<if test='searchValue != null and searchValue != "" 
 							and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
 					AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')
-					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+					AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test="searchDiv == 2">
@@ -66,11 +119,11 @@
 				<if test='searchValue != null and searchValue != "" 
 	 	 					and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
 					AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')
-					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+					AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test='startDate != null and startDate !="" and endDate !=null and endDate !="" '>
-			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
+			 	<![CDATA[	AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
 	</select>
@@ -130,8 +183,7 @@
 					M.MENU_SP,
 					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
 					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
-			FROM SELL S LEFT JOIN MENU M
- 	      	ON S.MENU_CD=M.MENU_CD
+			FROM MENU M
 			]]>
 		<where>
 			<if test="searchDiv == 1">
@@ -141,7 +193,7 @@
 				<if test='searchValue != null and searchValue != "" 
 							and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
 					AND M.MENU_NAME LIKE CONCAT('%',#{searchValue},'%')
-					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+					AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test="searchDiv == 2">
@@ -151,13 +203,30 @@
 				<if test='searchValue != null and searchValue != "" 
 	 	 					and startDate != null and startDate !="" and endDate !=null and endDate !="" '>
 					AND M.MENU_CD LIKE CONCAT('%',#{searchValue},'%')
-					AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}
+					ANDM.MN_REG_DT BETWEEN #{startDate} AND #{endDate}
 				</if>
 			</if>
 			<if test='startDate != null and startDate !="" and endDate !=null and endDate !="" '>
-			 	<![CDATA[	AND S.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
+			 	<![CDATA[	AND M.MN_REG_DT BETWEEN #{startDate} AND #{endDate}]]>
 			</if>
 		</where>
+		<!-- order by 정렬 -->
+		<!-- <include refid="sortSearchCondition"/> -->
 	</select>
 	
+	
+	<!-- 메뉴 리스트 정렬 -->
+	<!-- <sql id="sortSearchCondition">
+     		<if test = "searchSort != null">
+     			<if test = "searchSort == 'd'.toString()">
+				ORDER by MN_REG_DT
+				</if> 
+				<if test = "searchSort == 'n'.toString()">
+				ORDER by MENU_NAME
+				</if>     	
+				<if test = "searchSort == 'p'.toString()">
+				ORDER by MENU_SP
+				</if>  	
+     		</if>
+     	</sql>  -->
 </mapper>

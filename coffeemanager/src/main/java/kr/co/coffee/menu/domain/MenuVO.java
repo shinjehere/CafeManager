@@ -9,19 +9,22 @@ public class MenuVO extends DTO {
 	private String menu_sp;
 	private String mn_reg_dt;
 	private String mn_mod_dt;
-	private String start_date;
-	private String end_date;
+	private String ing_cd;
 	private String ing_nm;
 	private String menu_amount;
 	private String ing_unit;
 	private String searchDiv;
-
+	private String startDate;
+	private String endDate;
+	private String searchValue;
+	
 	public MenuVO() {
-
+		
 	}
 
 	public MenuVO(String menu_cd, String menu_name, String menu_up, String menu_sp, String mn_reg_dt, String mn_mod_dt,
-			String start_date, String end_date, String ing_nm, String menu_amount, String ing_unit, String searchDiv) {
+			String ing_cd, String ing_nm, String menu_amount, String ing_unit, String searchDiv, String startDate,
+			String endDate, String searchValue) {
 		super();
 		this.menu_cd = menu_cd;
 		this.menu_name = menu_name;
@@ -29,12 +32,14 @@ public class MenuVO extends DTO {
 		this.menu_sp = menu_sp;
 		this.mn_reg_dt = mn_reg_dt;
 		this.mn_mod_dt = mn_mod_dt;
-		this.start_date = start_date;
-		this.end_date = end_date;
+		this.ing_cd = ing_cd;
 		this.ing_nm = ing_nm;
 		this.menu_amount = menu_amount;
 		this.ing_unit = ing_unit;
 		this.searchDiv = searchDiv;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.searchValue = searchValue;
 	}
 
 	public String getMenu_cd() {
@@ -85,20 +90,12 @@ public class MenuVO extends DTO {
 		this.mn_mod_dt = mn_mod_dt;
 	}
 
-	public String getStart_date() {
-		return start_date;
+	public String getIng_cd() {
+		return ing_cd;
 	}
 
-	public void setStart_date(String start_date) {
-		this.start_date = start_date;
-	}
-
-	public String getEnd_date() {
-		return end_date;
-	}
-
-	public void setEnd_date(String end_date) {
-		this.end_date = end_date;
+	public void setIng_cd(String ing_cd) {
+		this.ing_cd = ing_cd;
 	}
 
 	public String getIng_nm() {
@@ -133,12 +130,38 @@ public class MenuVO extends DTO {
 		this.searchDiv = searchDiv;
 	}
 
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getSearchValue() {
+		return searchValue;
+	}
+
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+
 	@Override
 	public String toString() {
 		return "MenuVO [menu_cd=" + menu_cd + ", menu_name=" + menu_name + ", menu_up=" + menu_up + ", menu_sp="
-				+ menu_sp + ", mn_reg_dt=" + mn_reg_dt + ", mn_mod_dt=" + mn_mod_dt + ", start_date=" + start_date
-				+ ", end_date=" + end_date + ", ing_nm=" + ing_nm + ", menu_amount=" + menu_amount + ", ing_unit="
-				+ ing_unit + ", searchDiv=" + searchDiv + "]";
+				+ menu_sp + ", mn_reg_dt=" + mn_reg_dt + ", mn_mod_dt=" + mn_mod_dt + ", ing_cd=" + ing_cd + ", ing_nm="
+				+ ing_nm + ", menu_amount=" + menu_amount + ", ing_unit=" + ing_unit + ", searchDiv=" + searchDiv
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", searchValue=" + searchValue + "]";
 	}
+	
+	
 
 }

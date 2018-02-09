@@ -1,4 +1,4 @@
-package kr.co.coffee.common;
+package kr.co.coffee.stock.domain;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ import org.apache.poi.ss.usermodel.Font;
 
 import kr.co.coffee.menu.domain.MenuVO;
 
-public class MenuExcelDown {
+public class StockExcelDown {
 	
 	private HSSFWorkbook workbook;
 	private String filePath;
@@ -30,78 +30,6 @@ public class MenuExcelDown {
 	private static short firstCol = 1;
 	
 	
-	public HSSFWorkbook getWorkbook() {
-		return workbook;
-	}
-
-
-
-	public void setWorkbook(HSSFWorkbook workbook) {
-		this.workbook = workbook;
-	}
-
-
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
-
-
-	public String getExcelFileName() {
-		return excelFileName;
-	}
-
-
-
-	public void setExcelFileName(String excelFileName) {
-		this.excelFileName = excelFileName;
-	}
-
-
-
-	public String getChangFileName() {
-		return changFileName;
-	}
-
-
-
-	public void setChangFileName(String changFileName) {
-		this.changFileName = changFileName;
-	}
-
-
-
-	public static short getFirstRow() {
-		return firstRow;
-	}
-
-
-
-	public static void setFirstRow(short firstRow) {
-		MenuExcelDown.firstRow = firstRow;
-	}
-
-
-
-	public static short getFirstCol() {
-		return firstCol;
-	}
-
-
-
-	public static void setFirstCol(short firstCol) {
-		MenuExcelDown.firstCol = firstCol;
-	}
-
-
-
 	/**
 	 * 엑셀 파일을 생성하는 메소드
 	 * @param filePath
@@ -111,7 +39,7 @@ public class MenuExcelDown {
 	 * @param data
 	 * @throws IOException
 	 */   
-	public String writeExcel(String filePath,String excelFileName,List<MenuVO> data)throws IOException{
+	public String writeExcel(String filePath,String excelFileName,List<StockList> data)throws IOException{
 		this.filePath = filePath;
 		this.excelFileName =excelFileName;
 		FileOutputStream out = setFile(this.filePath,this.excelFileName);
@@ -128,6 +56,7 @@ public class MenuExcelDown {
 		return changFileName;
 	}
 	
+
 
 	
 	/**
@@ -182,30 +111,26 @@ public class MenuExcelDown {
        cell_0.setCellStyle(titleStyle);
         
        HSSFCell cell_1 = row.createCell((short)1+firstCol);
-       cell_1.setCellValue("메뉴 코드");
+       cell_1.setCellValue("재고 코드");
        cell_1.setCellStyle(titleStyle);
         
        HSSFCell cell_2 = row.createCell((short)2+firstCol);
-       cell_2.setCellValue("메뉴 이름");
+       cell_2.setCellValue("원재료 이름");
        cell_2.setCellStyle(titleStyle);
         
        HSSFCell cell_3 = row.createCell((short)3+firstCol);
-       cell_3.setCellValue("메뉴 단가");
+       cell_3.setCellValue("원재료명");
        cell_3.setCellStyle(titleStyle);
 
        HSSFCell cell_4 = row.createCell((short)4+firstCol);
-       cell_4.setCellValue("메뉴 판매가");
+       cell_4.setCellValue("재고수량");
        cell_4.setCellStyle(titleStyle);
        
        HSSFCell cell_5 = row.createCell((short)5+firstCol);
-       cell_5.setCellValue("등록일");
+       cell_5.setCellValue("총단가");
        cell_5.setCellStyle(titleStyle);
        
-       HSSFCell cell_6 = row.createCell((short)6+firstCol);
-       cell_6.setCellValue("수정일");
-       cell_6.setCellStyle(titleStyle);
-       
-       
+
        // ## Content Style Setting
        HSSFCellStyle contentStyle = workbook.createCellStyle();
        contentStyle.setFont(font);
@@ -267,43 +192,40 @@ public class MenuExcelDown {
     	   
            // 1번째 행은 제목이니 건너 뜀
            row = sheet.createRow((short)this.firstRow+(i+1));
-           MenuVO menuVO = (MenuVO)data.get(i);
+           StockList stockList = (StockList)data.get(i);
            
            // 번호
            cell_0 = row.createCell((short)0+firstCol);
-           cell_0.setCellValue(menuVO.getNo());
+           cell_0.setCellValue(stockList.getNo());
            cell_0.setCellStyle(styleCenter);      
            
-           // 메뉴 코드
+           // 재고 코드
            cell_1 = row.createCell((short)1+firstCol);
-           cell_1.setCellValue(menuVO.getMenu_cd());
+           cell_1.setCellValue(stockList.getStock_CD());
            cell_1.setCellStyle(styleCenter);
            
-           // 메뉴 이름 
+           // 원재료 코드
            cell_2 = row.createCell((short)2+firstCol);
-           cell_2.setCellValue(menuVO.getMenu_name());
+           cell_2.setCellValue(stockList.getIng_CD());
            cell_2.setCellStyle(styleLeft);
            
-           // 메뉴 단가 
+           // 원재료명
            cell_3 = row.createCell((short)3+firstCol);
-           cell_3.setCellValue(menuVO.getMenu_up());
+           cell_3.setCellValue(stockList.getIng_NM());
            cell_3.setCellStyle(styleRight);
            
-           // 메뉴 판매가
+           // 수량
            cell_4 = row.createCell((short)4+firstCol);
-           cell_4.setCellValue(menuVO.getMenu_sp());
+           cell_4.setCellValue(stockList.getStock_CNT());
            cell_4.setCellStyle(conStyle);
            //sheet.setColumnWidth(cell_4.getColumnIndex(), 8400);
            
-           // 등록일
+           // 총단가
            cell_5 = row.createCell((short)5+firstCol);
-           cell_5.setCellValue(menuVO.getMn_reg_dt());
+           cell_5.setCellValue(stockList.getSt_total_Price());
            cell_5.setCellStyle(styleCenter);          
            
-           // 수정일
-           cell_6 = row.createCell((short)6+firstCol);
-           cell_6.setCellValue(menuVO.getMn_mod_dt());
-           cell_6.setCellStyle(styleCenter);     
+           
        }
         
        //컬럼사이즈
@@ -329,7 +251,7 @@ public class MenuExcelDown {
 	 * @return FileOutputStream
 	 * @throws FileNotFoundException
 	 */
-    protected FileOutputStream setFile(String filePath, String excelFileName)throws FileNotFoundException{
+    private FileOutputStream setFile(String filePath, String excelFileName)throws FileNotFoundException{
         File dir = new File(filePath); 
         if(!dir.exists()) dir.mkdirs(); 
         //File존재하면
@@ -356,6 +278,5 @@ public class MenuExcelDown {
      }
 
 	
-
     
 }
