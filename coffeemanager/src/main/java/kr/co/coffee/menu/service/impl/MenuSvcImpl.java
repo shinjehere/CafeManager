@@ -75,4 +75,19 @@ public class MenuSvcImpl implements MenuSvc {
 		return path+fileName;
 	}
 
+	@Override
+	public String searchMenuCode(String menu_cd) throws Exception {
+		return commonMapper.searchMenuCode(menu_cd);
+	}
+
+	@Override
+	public void insertMenu(MenuVO menuVO) throws Exception {
+		commonMapper.insertMenu(menuVO);
+	}
+
+	@Override
+	public void insertRecipie(MenuVO menuVO) throws Exception {
+		commonMapper.insertRecipie(menuVO);
+	}
+
 }

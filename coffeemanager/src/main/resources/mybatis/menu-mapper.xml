@@ -2,6 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.coffee.mapper.CommonMapper">
 	
+	<!-- 인서트전 최근 코드를 검색 -->
+ <select id="searchMenuCode" parameterType="String" resultType="String">
+ 	<![CDATA[
+ 		SELECT MENU_CD 
+ 			FROM ERP_Schema.MENU 
+ 		WHERE MENU_CD LIKE CONCAT('%',#{menu_cd},'%') 
+ 		ORDER BY MENU_CD DESC LIMIT 1
+ 	]]>
+ </select>
+	
+	
+	<!-- 메뉴 인서트 -->
+	<insert id="insertMenu" parameterType="MenuVO">
+	<![CDATA[
+		INSERT INTO MENU
+							(MENU_CD,
+							MENU_NAME,
+							MENU_UP,
+							MENU_SP,
+							MN_REG_DT,
+							MN_MOD_DT)
+						VALUES
+							(
+			                #{menu_cd},
+			                #{menu_name},
+			                #{menu_up},
+			                #{menu_sp},
+			                current_timestamp(),
+			                null
+			                )
+	]]>
+	</insert>
+	
+	
+	<!-- 레시피 인서트 -->
+	<insert id="insertRecipie" parameterType="MenuVO">
+		<![CDATA[
+			INSERT INTO RECIPIE (
+									MENU_CD,
+					                ING_CD,
+					                MENU_AMOUNT
+									)
+							VALUES (
+									#{menu_cd},
+					                #{ing_cd},
+					                #{menu_amount}
+					                )
+		]]>
+	</insert>
+	
+	
+	
 	<!-- 메뉴 리스트 전체조회 -->
 	<select id="do_searchAll" parameterType="search"
 		resultType="kr.co.coffee.menu.domain.MenuVO">

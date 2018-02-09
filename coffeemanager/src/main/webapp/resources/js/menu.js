@@ -9,45 +9,28 @@ function searchSort(){
 	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
 }*/
 
+//==============================================================
+// 메뉴등록 모달창
+//==============================================================
 
-// 원재료 추가를 위한 전역변수
-var count = 1;
+var count = 1; //function add_ingredient(): 원재료 추가를 위한 전역변수
+var checkMenuFlag = 0; // btnCheckMenu 클릭 여부 확인을 위한 flag
+var calMenuFlag = 0; // btnCalMenu 클릭 여부 확인을 위한 flag
 
-// 원재료 추가하기
-function add_ingredient(){
-    var addedDiv  = document.createElement("div");
-    addedDiv.id = "added_"+count; // 폼 Div에 ID 부여 (삭제를 위해)
-    addedDiv.innerHTML = document.getElementById("added_0").innerHTML; // added_0 에 있는 내용을 읽어와서 처리
-    
-    // document.getElementById('added_field').appendChild(div);
-    var added_field = document.getElementById("added_field");
-    added_field.appendChild(addedDiv);
-    count++;
-    document.newMenuForm.count.value = count;
-    added_field.reset();
+
+// 메뉴등록 모달창의 값 리셋
+function resetForm(){
+	$("#menuName").text(null);
+	$("#sellPrice").text(null);
+	$("#searchIngdnt").val(null);
+	$("#menu_table tbody").html(null);
+	$("#ing_click_code").text(null);
+	$("#ing_click_name").text(null);
+	$("#ing_unit_price").text(null);
+	$("#menuUnitAmount").text(null);
 }
-
-function remove_ingredient(){
-    var added_field = document.getElementById("added_field");
-    var added_0 = document.getElementById("added_0");
-    if(count >1){ // 현재 폼이 두개 이상이면
-               var addedDiv = document.getElementById("added_"+(--count));
-               // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
-               added_field.removeChild(addedDiv); // 폼 삭제 
-    }else{ // 마지막 폼만 남아있다면
-    	$('#ing_click_code').text(null);
-    	$('#ing_click_name').text(null);
-    	$('#ing_unit_price').text(null);
-    	$('#menuUnitAmount').text(null);
-    }
-}
-
-/*function remove_ingredient(obj){
-// obj.parentNode 를 이용하여 삭제
-document.getElementById("added_field").removeChild(obj.parentNode);
-}*/
-
-// 모달창
+	
+// 메뉴등록 모달창 실행
 function new_menu() {
 	$('#myModal').modal();
 }
@@ -90,7 +73,36 @@ function searchIngredient() {
 	});
 }
 
+// 원재료 추가하기
+function add_ingredient(){
+    var addedDiv  = document.createElement("div");
+    addedDiv.id = "added_"+count; // 폼 Div에 ID 부여 (삭제를 위해)
+    addedDiv.innerHTML = document.getElementById("added_0").innerHTML; // added_0 에 있는 내용을 읽어와서 처리
+    
+    var added_field = document.getElementById("added_field");
+    added_field.appendChild(addedDiv);
+    $("#added_"+count).find("#ing_click_code").empty();
+    $("#added_"+count).find("#ing_click_name").empty();
+    $("#added_"+count).find("#ing_unit_price").empty();
+    count++;
+    /*document.newMenuForm.count.value = count;
+    added_field.reset();*/
+}
 
+// 원재료 삭제하기
+function remove_ingredient(){
+    var added_field = document.getElementById("added_field");
+    if(count >1){ // 현재 폼이 두개 이상이면
+               var addedDiv = document.getElementById("added_"+(--count));
+               // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
+               added_field.removeChild(addedDiv); // 폼 삭제 
+    }else{ // 마지막 폼만 남아있다면
+    	$('#ing_click_code').text(null);
+    	$('#ing_click_name').text(null);
+    	$('#ing_unit_price').text(null);
+    	$('#menuUnitAmount').text(null);
+    }
+}
 
 // 테이블 row 클릭시 값 가져오기
 function trClick() {
@@ -99,12 +111,10 @@ function trClick() {
 		var tdArr = new Array();
 		var tr = $(this);
 		var td = tr.children();
-		console.log("클릭한 Row의 모든 데이터 : " + tr.text());
 
 		td.each(function(i) {
 			tdArr.push(td.eq(i).text());
 		});
-		console.log("배열에 담긴 값 : " + tdArr);
 
 		var ing_code = td.eq(0).text();
 		var ing_name = td.eq(1).text();
@@ -112,93 +122,146 @@ function trClick() {
 		var ing_amount = td.eq(3).text();
 		var int_cal = ing_up / ing_amount;
 
-		for(var i=0; i<=count;i++){
-			
-			console.log("added_? 아이디값:" + $("#added_"+i).val());
-			
-			$("#added_"+i).children("#ing_click_code").text(ing_code);
-			$("#added_"+i).children("#ing_click_name").text(ing_name);
-			$("#added_"+i).children("#ing_unit_price").text(int_cal);
-			
-			/*if(($("#added_"+i).children("#ing_click_code")) == "" || null){
-				console.log("added_? 아이디값222:" + $("#added_"+i));
-				$("#added_"+i).children("#ing_click_code").text(ing_code);
-				$("#added_"+i).children("#ing_click_name").text(ing_name);
-				$("#added_"+i).children("#ing_unit_price").text(int_cal);
-			}else{
-				$("#added_"+(i+1)).children("#ing_click_code").text(ing_code);
-				$("#added_"+(i+1)).children("#ing_click_name").text(ing_name);
-				$("#added_"+(i+1)).children("#ing_unit_price").text(int_cal);
-			}*/
-			
-			/*if((getDivId.eq(0)) == "" ||  null){
-				console.log("added_? 아이디값222:" + getDivId);
-				getDivId.children().eq(0).text(ing_code);
-				getDivId.children().eq(1).text(ing_name);
-				getDivId.children().eq(2).text(int_cal);
-			}else{
-				$("added_"+(i+1)).children().eq(0).text(ing_code);
-				$("added_"+(i+1)).children().eq(1).text(ing_name);
-				$("added_"+(i+1)).children().eq(2).text(int_cal);
-			}*/
-		}
-		
-		/*$('#ing_click_code').text(ing_code);
-		$('#ing_click_name').text(ing_name);
-		$('#ing_unit_price').text(int_cal);*/
-		
-		
-		
-		//   var addedDiv = document.getElementById("added_"+(--count));
-		//===========================================================
-		// 인서트부분(차례대로 하나씩 넣기) 
-		//===========================================================
-		/*for(var i=0; i<=count;i++){
-			console.log("added_? 아이디값:" + document.getElementById("added_"+i).innerHTML);
-			
-			if((document.getElementById("added_"+i).eq(0)) == "" ||  null){
-				console.log("added_? 아이디값222:" + document.getElementById("added_"+i));
-				document.getElementById("added_"+i).children().eq(0).text(ing_code);
-				document.getElementById("added_"+i).children().eq(1).text(ing_name);
-				document.getElementById("added_"+i).children().eq(2).text(int_cal);
-			}else{
-				$("added_"+(i+1)).children().eq(0).text(ing_code);
-				$("added_"+(i+1)).children().eq(1).text(ing_name);
-				$("added_"+(i+1)).children().eq(2).text(int_cal);
+		for(var i=0 ; i<count; i++){
+			if($("#added_"+i).find('[title="ing_click_code"]').text().length > 0){
+				$("#added_"+(count)).find('[title="ing_click_code"]').html(ing_code);
+				$("#added_"+(count)).find('[title="ing_click_name"]').html(ing_name);
+				$("#added_"+(count)).find('[title="ing_unit_price"]').html(int_cal);
+			}else{	
+				$("#added_"+i).find('[title="ing_click_code"]').html(ing_code);
+				$("#added_"+i).find('[title="ing_click_name"]').html(ing_name);
+				$("#added_"+i).find('[title="ing_unit_price"]').html(int_cal);
 			}
-		}*/
-		
-		
-		
-		
-		
+		}
 
 	});
 }
 
 // 메뉴 단가 계산
 function calMenuUP() {
-	var ing_code = $('#ing_click_code').text();
-	if (ing_code == "") {
-		alert("원재료를 검색 후 클릭해 주세요!");
-	} else {
-		var click_up = $('#ing_unit_price').text();
-		console.log(click_up);
-		var menuUnitAmount = $('#menuUnitAmount').val();
-		if (menuUnitAmount == "") {
+	
+	var totalPrice = 0;
+
+	for(var i=0 ; i<count; i++){
+		
+		if( ($("#added_"+i).find('input[name="menuUnitAmount"]').val()) == "" ){
 			alert("사용할 용량을 입력해주세요");
-		} else if (menuUnitAmount == "0") {
-			alert("0은 입력 불가합니다");
+			$("#added_"+i).find('input[name="menuUnitAmount"]').focus();
 			$('#calMenuClick').text(null);
-			$('#ing_unit_price').text(null);
-		} else {
-			var calMenuUP = click_up * menuUnitAmount;
-			console.log(calMenuUP);
-			$('#calMenuClick').text(calMenuUP);
-			$('#menuUnitPrice').text(calMenuUP);
-		}
+			return;
+		}else if( ($("#added_"+i).find('input[name="menuUnitAmount"]').val()) == "0" ){
+			alert("0은 입력 할 수 없는 값입니다.");
+			$("#added_"+i).find('input[name="menuUnitAmount"]').focus();
+			$('#calMenuClick').text(null);
+			return;
+		}else{
+			totalPrice += 
+				((Number(($("#added_"+i).find('[title="ing_unit_price"]').html())))
+				*(Number(($("#added_"+i).find('input[name="menuUnitAmount"]').val()))));	
+			$('#calMenuClick').text(totalPrice.toFixed(2)+" 원");
+			calMenuFlag = 1;
+		}	
 	}
 }
+
+// 메뉴 & 레시피 인서트
+function saveMenu(){
+	
+	var menuName = $("#menuName").val();
+	var sellPrice = $("#sellPrice").val();
+	var calMenuClick = $("#calMenuClick").text().slice(0, -2);
+	
+	var ingCodeArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		ingCodeArray.push($("#added_"+i).find('[title="ing_click_code"]').text());
+	}
+
+	var menuAmountArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		menuAmountArray.push($("#added_"+i).find('input[name="menuUnitAmount"]').val());
+	}
+
+	if( menuName == "" ){
+		alert("메뉴명을 입력해주세요.");
+		$("#menuName").focus();
+		return;
+	}else if( checkMenuFlag == 0 ){
+		alert("메뉴명 중복확인을 해주세요.");
+		$("#btnCheckMenu").focus();
+		return;
+	}else if( calMenuFlag == 0 ){
+		alert("메뉴 단가를 계산해주세요.");
+		$("#btnCalMenu").focus();
+		return;
+	}else if( sellPrice == "" ){
+		alert("메뉴 판매가를 입력해주세요.");
+		$("#sellPrice").focus();
+		return;
+	}else{
+
+		$.ajax({
+			url: "menu/insertMenu",
+			data: {
+				"menuName": menuName,
+				"sellPrice": sellPrice,
+				"calMenuClick": calMenuClick,
+				"ingCodeArray": JSON.stringify(ingCodeArray),
+				"menuAmountArray": JSON.stringify(menuAmountArray)
+			},
+			type: 'POST',
+			dataType: 'JSON',
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success: function(data){
+				location.href=data.url;
+				menuBoard();
+				console.log("data.url = "+data.url);
+			}
+		});
+		console.log("menuName= "+menuName);
+		console.log("sellPrice= "+sellPrice);
+		console.log("calMenuClick= "+calMenuClick);
+		console.log("ingCodeArray= "+ingCodeArray);
+		console.log("menuAmountArray= "+menuAmountArray);
+	}
+}
+
+
+/*// 레시피 테이블 인서트
+function saveRecipie(){
+
+	var ingCodeArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		ingCodeArray.push($("#added_"+i).find('[title="ing_click_code"]').text());
+	}
+
+	var menuAmountArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		menuAmountArray.push($("#added_"+i).find('input[name="menuUnitAmount"]').val());
+	}
+
+		$.ajax({
+			url: 'menu/insertMenu',
+			data: {
+				"ingCodeArray": ingCodeArray,
+				"menuAmountArray": menuAmountArray
+			},
+			type: 'POST',
+			dataType: 'JSON',
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success: function(data){
+				location.href=data.url;
+				menuBoard();
+				console.log("data.url = "+data.url);
+			}
+		});
+}*/
+
+
+
+
+
+
+
 
 
 
@@ -228,6 +291,7 @@ function checkMenuName() {
 			} else {
 				alert("사용할 수 있는 메뉴명입니다.");
 				menuFlag = 1;
+				checkMenuFlag = 1;
 			}
 		},
 		complete : function(data) {
@@ -237,6 +301,14 @@ function checkMenuName() {
 	}); // ajax closed
 
 } // checkMenuName closed
+
+
+
+
+//==============================================================
+// 메뉴 리스트 조회
+//==============================================================
+
 
 // 삭제 버튼
 $(function() {
