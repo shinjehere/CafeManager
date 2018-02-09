@@ -9,7 +9,16 @@ function searchSort(){
 	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
 }*/
 
+//==============================================================
+// 메뉴등록 모달창
+//==============================================================
 
+var count = 1; //function add_ingredient(): 원재료 추가를 위한 전역변수
+var checkMenuFlag = 0; // btnCheckMenu 클릭 여부 확인을 위한 flag
+var calMenuFlag = 0; // btnCalMenu 클릭 여부 확인을 위한 flag
+
+
+// 메뉴등록 모달창의 값 리셋
 function resetForm(){
 	$("#menuName").text(null);
 	$("#sellPrice").text(null);
@@ -21,7 +30,7 @@ function resetForm(){
 	$("#menuUnitAmount").text(null);
 }
 	
-// 모달창
+// 메뉴등록 모달창 실행
 function new_menu() {
 	$('#myModal').modal();
 }
@@ -64,9 +73,6 @@ function searchIngredient() {
 	});
 }
 
-//원재료 추가를 위한 전역변수
-var count = 1;
-
 // 원재료 추가하기
 function add_ingredient(){
     var addedDiv  = document.createElement("div");
@@ -83,9 +89,9 @@ function add_ingredient(){
     added_field.reset();*/
 }
 
+// 원재료 삭제하기
 function remove_ingredient(){
     var added_field = document.getElementById("added_field");
-    // var added_0 = document.getElementById("added_0");
     if(count >1){ // 현재 폼이 두개 이상이면
                var addedDiv = document.getElementById("added_"+(--count));
                // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
@@ -153,9 +159,109 @@ function calMenuUP() {
 				((Number(($("#added_"+i).find('[title="ing_unit_price"]').html())))
 				*(Number(($("#added_"+i).find('input[name="menuUnitAmount"]').val()))));	
 			$('#calMenuClick').text(totalPrice.toFixed(2)+" 원");
+			calMenuFlag = 1;
 		}	
 	}
 }
+
+// 메뉴 & 레시피 인서트
+function saveMenu(){
+	
+	var menuName = $("#menuName").val();
+	var sellPrice = $("#sellPrice").val();
+	var calMenuClick = $("#calMenuClick").text().slice(0, -2);
+	
+	var ingCodeArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		ingCodeArray.push($("#added_"+i).find('[title="ing_click_code"]').text());
+	}
+
+	var menuAmountArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		menuAmountArray.push($("#added_"+i).find('input[name="menuUnitAmount"]').val());
+	}
+
+	if( menuName == "" ){
+		alert("메뉴명을 입력해주세요.");
+		$("#menuName").focus();
+		return;
+	}else if( checkMenuFlag == 0 ){
+		alert("메뉴명 중복확인을 해주세요.");
+		$("#btnCheckMenu").focus();
+		return;
+	}else if( calMenuFlag == 0 ){
+		alert("메뉴 단가를 계산해주세요.");
+		$("#btnCalMenu").focus();
+		return;
+	}else if( sellPrice == "" ){
+		alert("메뉴 판매가를 입력해주세요.");
+		$("#sellPrice").focus();
+		return;
+	}else{
+
+		$.ajax({
+			url: "menu/insertMenu",
+			data: {
+				"menuName": menuName,
+				"sellPrice": sellPrice,
+				"calMenuClick": calMenuClick,
+				"ingCodeArray": JSON.stringify(ingCodeArray),
+				"menuAmountArray": JSON.stringify(menuAmountArray)
+			},
+			type: 'POST',
+			dataType: 'JSON',
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success: function(data){
+				location.href=data.url;
+				menuBoard();
+				console.log("data.url = "+data.url);
+			}
+		});
+		console.log("menuName= "+menuName);
+		console.log("sellPrice= "+sellPrice);
+		console.log("calMenuClick= "+calMenuClick);
+		console.log("ingCodeArray= "+ingCodeArray);
+		console.log("menuAmountArray= "+menuAmountArray);
+	}
+}
+
+
+/*// 레시피 테이블 인서트
+function saveRecipie(){
+
+	var ingCodeArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		ingCodeArray.push($("#added_"+i).find('[title="ing_click_code"]').text());
+	}
+
+	var menuAmountArray = new Array(); 
+	for(var i = 0; i<count; i++){
+		menuAmountArray.push($("#added_"+i).find('input[name="menuUnitAmount"]').val());
+	}
+
+		$.ajax({
+			url: 'menu/insertMenu',
+			data: {
+				"ingCodeArray": ingCodeArray,
+				"menuAmountArray": menuAmountArray
+			},
+			type: 'POST',
+			dataType: 'JSON',
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success: function(data){
+				location.href=data.url;
+				menuBoard();
+				console.log("data.url = "+data.url);
+			}
+		});
+}*/
+
+
+
+
+
+
+
 
 
 
@@ -185,6 +291,7 @@ function checkMenuName() {
 			} else {
 				alert("사용할 수 있는 메뉴명입니다.");
 				menuFlag = 1;
+				checkMenuFlag = 1;
 			}
 		},
 		complete : function(data) {
@@ -194,6 +301,14 @@ function checkMenuName() {
 	}); // ajax closed
 
 } // checkMenuName closed
+
+
+
+
+//==============================================================
+// 메뉴 리스트 조회
+//==============================================================
+
 
 // 삭제 버튼
 $(function() {

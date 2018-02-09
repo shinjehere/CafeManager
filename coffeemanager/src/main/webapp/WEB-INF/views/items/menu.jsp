@@ -14,8 +14,8 @@
 <script type="text/javascript" src="/coffee/resources/js/menu.js"></script>
 
 <!-- Bootstrap -->
-<link href="resources/dist/css/bootstrap.css" rel="stylesheet"/>
-<link href="resources/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- <link href="resources/dist/css/bootstrap.css" rel="stylesheet"/>
+<link href="resources/dist/css/bootstrap.min.css" rel="stylesheet"/> -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="resources/dist/js/jquery-3.2.1.js"></script>
 <script src="resources/dist/js/jquery-3.2.1.min.js"></script>
@@ -244,7 +244,7 @@ old_jquery(function() {
 										<div class="row input-group">
 											<span class="form-control" id="calMenuClick" disabled="disabled"></span> <span
 												class="input-group-btn">
-												<button class="btn" type="button"
+												<button id="" class="btn" type="button"
 													onclick="javascript:calMenuUP();">메뉴 단가 계산</button>
 											</span>
 										</div>
@@ -256,7 +256,7 @@ old_jquery(function() {
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal" id="btnCancel" onclick="javascript:resetForm()">취소</button>
 							<button type="button" class="btn btn-primary"
-								onclick="javascript:save_sell()">저장</button>
+								onclick="javascript:saveMenu()">저장</button>
 						</div>
 					</div>
 				</div>
