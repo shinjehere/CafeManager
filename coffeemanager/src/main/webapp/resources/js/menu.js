@@ -9,6 +9,29 @@ function searchSort(){
 	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
 }*/
 
+/*// 가격 numberFormat
+function setComma (number) {
+    // 정규표현식 : (+- 존재하거나 존재 안함, 숫자가 1개 이상), (숫자가 3개씩 반복)
+    var reg = /(^[+-]?\d+)(\d{3})/;
+
+    // 스트링변환
+    number += '';
+    while (reg.test(number)) {
+        // replace 정규표현식으로 3자리씩 콤마 처리
+        number = number.replace(reg,'$1'+','+'$2');
+    }
+
+    return number;
+}*/
+$(function(){
+	function setComma(){
+		$(".digits").toLocaleString('en');
+	}
+});
+
+
+
+
 //==============================================================
 // 메뉴등록 모달창
 //==============================================================
@@ -442,6 +465,15 @@ function clickPaging(currentPage) {
 // For Paging closed
 // =========================================================
 
+
+/*// 수정일 null 일 때 문자 치환
+function changeNull(){
+	if( $('td[name=mn_mod_dt]') == null || "" || "null" ){
+		$('td[name=mn_mod_dt]').text("-");
+	}
+}*/
+
+
 // do_search 검색조회
 function menuBoard() {
 
@@ -497,6 +529,7 @@ function menuBoard() {
 
 				// 페이징
 				makePaging(data.paging);
+				//changeNull();
 			},
 			error : function(xhr, status, error) {
 
@@ -536,6 +569,7 @@ function menuBoard() {
 
 				// 페이징
 				makePaging(data.paging);
+				//changeNull();
 			},
 			error : function(xhr, status, error) {
 
@@ -555,7 +589,7 @@ function makeData(data) {
 	datahtml += "<td>" + data.menu_up + "</td>";
 	datahtml += "<td>" + data.menu_sp + "</td>";
 	datahtml += "<td>" + data.mn_reg_dt + "</td>";
-	datahtml += "<td>" + data.mn_mod_dt + "</td>";
+	//datahtml += "<td name='mn_mod_dt'>" + data.mn_mod_dt + "</td>";
 	datahtml += "</tr>";
 	datahtml += "<tr><td colspan='6' id='toggle_div" + data.menu_cd
 			+ "' style='display: none;'><div></div></td></tr>";
@@ -566,8 +600,7 @@ function makeData(data) {
 // 메뉴 토글
 function toggle(menuCodeOnClick) {
 
-	$
-			.ajax({
+	$.ajax({
 				url : "menu/" + menuCodeOnClick,
 				data : JSON.stringify(menuCodeOnClick),
 				type : "GET",

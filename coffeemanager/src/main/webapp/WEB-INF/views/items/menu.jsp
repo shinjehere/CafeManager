@@ -75,7 +75,6 @@ old_jquery(function() {
 		<input type="hidden" id="e_menu_up" name="menu_up">
 		<input type="hidden" id="e_menu_sp" name="menu_sp">
 		<input type="hidden" id="e_mn_reg_dt" name=mn_reg_dt>
-		<input type="hidden" id="e_mn_mod_dt" name="mn_mod_dt">
 	</form>
 	<div class="container">
 		<div class="container">
@@ -138,7 +137,6 @@ old_jquery(function() {
 						<th>단가(원)</th>
 						<th>판매가(원)</th>
 						<th>등록일</th>
-						<th>수정일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -188,7 +186,7 @@ old_jquery(function() {
 											<!-- <span class="input-group-addon"> 메뉴 단가 : </span> <span
 												id="menuUnitPrice" class="form-control " disabled="disabled" ></span> -->
 											<span class="input-group-addon"> 메뉴 판매가 : </span> <input id="sellPrice"
-												type="number" placeholder="계산된 메뉴 단가를 참고하여 판매할 가격을 입력하세요" class="form-control onlyNumber" maxlength="11">
+												placeholder="계산된 메뉴 단가를 참고하여 판매할 가격을 입력하세요" class="form-control onlyNumber digits" maxlength="11">
 										</div>
 									</div>
 									<div class="form-group" style="margin: 10px;">
@@ -224,14 +222,14 @@ old_jquery(function() {
 												<div class="input-group" >
 														<span class="input-group-addon"> 원재료코드 : </span> 
 														<span class="input-group-addon"> 원재료명 : </span> 
-														<span class="input-group-addon"> 1단위 가격 : </span> 
-														<span class="input-group-addon"> 사용할 용량 : </span>
+														<span class="input-group-addon digits"> 1단위 가격 : </span> 
+														<span class="input-group-addon digits"> 사용할 용량 : </span>
 														</div>
 														<div id="added_0" class="form-group">
 															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_code" title="ing_click_code"></span> 
 															<span style="display:inline-block; width:25%;" class="form-control" id="ing_click_name" title="ing_click_name"></span>
-															<span style="display:inline-block; width:25%;" class="form-control" id="ing_unit_price" title="ing_unit_price"></span> 
-															<input style="display:inline-block; width:22%;" class="form-control" id="menuUnitAmount" name="menuUnitAmount" type="number" min="0"> 
+															<span style="display:inline-block; width:25%;" class="form-control digits" id="ing_unit_price" title="ing_unit_price"></span> 
+															<input style="display:inline-block; width:22%;" class="form-control digits" id="menuUnitAmount" name="menuUnitAmount" type="number" min="0"> 
 															 <input type="button" value="삭제" onclick="remove_ingredient()">
 													</div>
 													<div id="added_field"></div>	
@@ -243,7 +241,7 @@ old_jquery(function() {
 									<div class="col-md-4 text-right">
 										<div class="row input-group">
 											<span class="form-control" id="calMenuClick" disabled="disabled"></span> <span
-												class="input-group-btn">
+												class="input-group-btn digits">
 												<button id="" class="btn" type="button"
 													onclick="javascript:calMenuUP();">메뉴 단가 계산</button>
 											</span>

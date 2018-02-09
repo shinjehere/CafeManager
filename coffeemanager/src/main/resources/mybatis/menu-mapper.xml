@@ -21,16 +21,14 @@
 							MENU_NAME,
 							MENU_UP,
 							MENU_SP,
-							MN_REG_DT,
-							MN_MOD_DT)
+							MN_REG_DT)
 						VALUES
 							(
 			                #{menu_cd},
 			                #{menu_name},
 			                #{menu_up},
 			                #{menu_sp},
-			                current_timestamp(),
-			                null
+			                current_timestamp()
 			                )
 	]]>
 	</insert>
@@ -62,8 +60,7 @@
 					M.MENU_NAME,
 					M.MENU_UP,
 					M.MENU_SP,
-					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
-					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT
 			FROM MENU M
 			]]>
 		<where>
@@ -181,8 +178,7 @@
 					M.MENU_NAME,
 					M.MENU_UP,
 					M.MENU_SP,
-					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT,
-					DATE_FORMAT(M.MN_MOD_DT, '%Y-%m-%d') AS MN_MOD_DT
+					DATE_FORMAT(M.MN_REG_DT, '%Y-%m-%d') AS MN_REG_DT
 			FROM MENU M
 			]]>
 		<where>

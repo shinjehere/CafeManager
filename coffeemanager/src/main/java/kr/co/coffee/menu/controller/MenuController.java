@@ -154,14 +154,14 @@ public class MenuController {
 		String menu_up = StringUtil.nvl(req.getParameter("menu_up"), "");
 		String menu_sp = StringUtil.nvl(req.getParameter("menu_sp"), "");
 		String mn_reg_dt = StringUtil.nvl(req.getParameter("mn_reg_dt"), "");
-		String mn_mod_dt = StringUtil.nvl(req.getParameter("mn_mod_dt"), "");
+		//String mn_mod_dt = StringUtil.nvl(req.getParameter("mn_mod_dt"), "");
 
 		searchParam.put("menu_cd".toString(), menu_cd);
 		searchParam.put("menu_name".toString(), menu_name);
 		searchParam.put("menu_up".toString(), menu_up);
 		searchParam.put("menu_sp".toString(), menu_sp);
 		searchParam.put("mn_reg_dt".toString(), mn_reg_dt);
-		searchParam.put("mn_mod_dt".toString(), mn_mod_dt);
+		//searchParam.put("mn_mod_dt".toString(), mn_mod_dt);
 
 		menuVO.setParam(searchParam);
 
@@ -185,9 +185,42 @@ public class MenuController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("paging", paging);
-
+		
 		return map;
 	}
+	
+	
+	/*// 메뉴 리스트 조회
+	@RequestMapping(path = "/menu", method = RequestMethod.GET)
+	public @ResponseBody String menuList(Search search, Model model) throws Exception, NumberFormatException {
+		
+		int totalCount = menuSvc.menuTotalCount(search);
+		Paging paging = pagingUtil.getPaging(search, totalCount);
+		search.setStartCount(paging.getStartCount());
+		
+		List<MenuVO> list = menuSvc.do_searchAll(search);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("paging", paging);
+		
+		//가격 세자리마다 , 처리
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumIntegerDigits(0);
+		//최대 자리수
+		nf.setMaximumIntegerDigits(10);		
+		
+		model.addAttribute("menuList", list);
+		model.addAttribute("paging", paging);
+		model.addAttribute("content", "items/menu.jsp");
+		
+		return "main";
+	}
+	*/
+	
+	
+	
+	
+	
 
 	// 메뉴 정보 불러오기
 	@RequestMapping(path = "/{menuCodeOnClick}", method = RequestMethod.GET)
