@@ -3,6 +3,17 @@
  */
 $(function() {
 	searchBoard();
+	
+	$(function(){
+		  $("#allCheck").click(function() { 
+				 /*      $("#work_div").val("doSearch"); */
+				      if ($("#allCheck").prop("checked")) {// 전체선택 체크박스가 체크되어있으면 
+				         $("input[type=checkbox]").prop("checked", true); // 모든 checkbox 체크 
+				      } else { // 전체선택 체크박스가 체크되어있지 않으면 
+				         $("input[type=checkbox]").prop("checked", false); // 모든 checkbox 체크해제
+				      }
+				   }); // --전체선택Btn closed
+		});
 });
 //엔터검색키
 function btnEnter() {
