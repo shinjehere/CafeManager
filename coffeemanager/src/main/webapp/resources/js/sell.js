@@ -391,3 +391,45 @@ function excel_down() {
 		document.searchForm.submit(dataform);
 	
 }
+//오름차순 내림차순 수정
+$(function() {
+	$('#boardTable thead tr th span').click(function() {
+		attr_value=$(this).attr('value');
+		if(attr_value=='1'){
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			$('#SortValue').remove();
+			var dataPlus=Number(data)+Number(6);
+			$(this).attr('value',2); 
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet');
+			$(this).attr('data-value',dataPlus);
+		}else{
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			$('#SortValue').remove();
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('value',1);
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet-alt');
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('data-value',dataIns);
+		}
+	});
+});

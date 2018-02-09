@@ -43,8 +43,11 @@
 	 	 <![CDATA[	AND s.SELL_DATE BETWEEN #{startDate} AND #{endDate}]]>
 	 	 </if>
 	      </where>
- 	   <![CDATA[   ORDER BY s.SELL_CD DESC
- 	      LIMIT #{startCount} , 10 ]]>
+	      <if test="SortValue == null">
+ 	   <![CDATA[   ORDER BY s.SELL_CD DESC ]]>
+ 	  	 </if>
+ 	  	 <include refid="SellOderBy"/>
+ 	      LIMIT #{startCount} , 10
  </select>
  
  <select id="getTotalCount" parameterType="search" resultType="int">
@@ -110,4 +113,44 @@ m.menu_cd=r.menu_cd left join ERP_Schema.INGREDIENT i on r.ing_cd=i.ing_cd WHERE
 			    WHERE SELL_CD = #{deleteChecked};
 		]]>
 	</delete> 
+	<sql id="SellOderBy">
+		<if test="SortValue != null">
+			<if test="SortValue == 1">
+				ORDER BY s.SELL_CD DESC
+			</if>
+			<if test="SortValue == 2">
+				ORDER BY s.SELL_DATE DESC
+			</if>
+			<if test="SortValue == 3">
+				ORDER BY m.MENU_CD DESC
+			</if>
+			<if test="SortValue == 4">
+				ORDER BY m.MENU_NAME DESC
+			</if>
+			<if test="SortValue == 5">
+				ORDER BY s.SELL_CNT DESC
+			</if>
+			<if test="SortValue == 6">
+				ORDER BY total_SP DESC
+			</if>
+			<if test="SortValue == 7">
+				ORDER BY s.SELL_CD ASC
+			</if>
+			<if test="SortValue == 8">
+				ORDER BY s.SELL_DATE ASC
+			</if>
+			<if test="SortValue == 9">
+				ORDER BY m.MENU_CD ASC
+			</if>
+			<if test="SortValue == 10">
+				ORDER BY m.MENU_NAME ASC
+			</if>
+			<if test="SortValue == 11">
+				ORDER BY s.SELL_CNT ASC
+			</if>
+			<if test="SortValue == 12">
+				ORDER BY total_SP ASC
+			</if>
+		</if>
+	</sql>
 </mapper>
