@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -25,6 +27,7 @@ import kr.co.coffee.common.pagingUtil;
 import kr.co.coffee.common.domain.Paging;
 import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.ingredient.domain.IngredientVO;
+import kr.co.coffee.ingredient.domain.SearchListSortVO;
 import kr.co.coffee.ingredient.service.IngredientService;
 import kr.co.coffee.sell.domain.SellListVO;
 
@@ -44,10 +47,9 @@ public class ingredientController {
 	}
 	@RequestMapping(path="/ingredient/list")
 	@ResponseBody
-	public Map<String, Object> ingredient_list(Search search) throws Exception{
-		System.out.println(search.getSearchDiv());
+	public Map<String, Object> ingredient_list(SearchListSortVO search) throws Exception{
 		int totalcount=ingredientService.ingredient_totalcount(search);
-		System.out.println("totalcount:"+totalcount);
+		System.out.println(search.getSortValue());
 		Paging paging=pagingUtil.getPaging(search, totalcount);
 		search.setStartCount(paging.getStartCount());
 		List<IngredientVO> list=ingredientService.ingredient_list(search);
@@ -58,14 +60,12 @@ public class ingredientController {
 	}
 	@RequestMapping(path="/ingredient/update")
 	public String ingredient_update(IngredientVO vo) throws Exception{
-		System.out.println(vo.getIng_cd());
 		ingredientService.ing_update(vo);
 		return "redirect:/ingredient";
 	}
 	
 	@RequestMapping(path="/ingredient/insert")
 	public String ingredient_insert(IngredientVO vo) throws Exception{
-		System.out.println(vo.getIng_price()+":"+vo.getIng_nm()+":"+vo.getIng_unit()+":"+vo.getUnit_amount());
 		Date today=new Date();
 		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMdd");
 		String todayString=dateFormat.format(today);
@@ -119,4 +119,5 @@ public class ingredientController {
 		mav.addObject("downloadFile", downloadFile);
 		return mav;
 	}
+	
 }
