@@ -13,8 +13,11 @@
 		<![CDATA[	AND ING_CD LIKE CONCAT('%',#{searchValue},'%')]]>			
 		</if>
 		</where>
- 	   <![CDATA[   ORDER BY ING_CD DESC
- 	      LIMIT #{startCount} , 10 ]]>		
+		<if test="SortValue == null">
+ 	   <![CDATA[ORDER BY ING_CD DESC]]>	
+ 	     </if>
+ 	     <include refid="sort_list"/>
+ 	      LIMIT #{startCount} , 10 	
 	</select>
 	
 	<select id="ingredient_totalcount" parameterType="search" resultType="int">
@@ -54,4 +57,44 @@
 			    WHERE ing_cd = #{ing_cd};
 		]]>
 	</delete>
+	<sql id="sort_list">
+		<if test="SortValue != null">
+			<if test="SortValue==1">
+				ORDER BY ING_CD DESC
+			</if>
+			<if test="SortValue==2">
+				ORDER BY ING_NM DESC
+			</if>
+			<if test="SortValue==3">
+				ORDER BY ING_PRICE DESC
+			</if>
+			<if test="SortValue==4">
+				ORDER BY UNIT_AMOUNT DESC
+			</if>
+			<if test="SortValue==5">
+				ORDER BY IN_REG_DT DESC
+			</if>
+			<if test="SortValue==6">
+				ORDER BY IN_MOD_DT DESC
+			</if>
+			<if test="SortValue==7">
+				ORDER BY ING_CD ASC
+			</if>
+			<if test="SortValue==8">
+				ORDER BY ING_NM ASC
+			</if>
+			<if test="SortValue==9">
+				ORDER BY ING_PRICE ASC
+			</if>
+			<if test="SortValue==10">
+				ORDER BY UNIT_AMOUNT ASC
+			</if>
+			<if test="SortValue==11">
+				ORDER BY IN_REG_DT ASC
+			</if>
+			<if test="SortValue==12">
+				ORDER BY IN_MOD_DT ASC
+			</if>
+		</if>
+	</sql>
 </mapper>
