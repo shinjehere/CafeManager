@@ -263,9 +263,7 @@ function excel_down() {
 	document.searchForm.submit(dataform);
 
 }
-var	attr_value;
-var dataPlus;
-var dataIns
+// 오름 내림 차순으로 정렬하는 javascript
 $(function() {
 	$('#boardTable tr th span').click(function() {
 		attr_value=$(this).attr('value');
