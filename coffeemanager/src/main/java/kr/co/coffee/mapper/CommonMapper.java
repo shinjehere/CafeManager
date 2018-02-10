@@ -66,6 +66,15 @@ public interface CommonMapper {
 	
 	// 엑셀 다운
 	public String do_excelDown(List<MenuVO> list) throws Exception;
+	
+	// 메뉴 코드 조회
+	public String searchMenuCode(String menu_cd) throws Exception;
+		
+	// 메뉴 인서트
+	public void insertMenu(MenuVO menuVO) throws Exception;
+	
+	// 레시피 인서트
+	public void insertRecipie(MenuVO menuVO) throws Exception;
 	//*******************************************************************************************
 	
 	
