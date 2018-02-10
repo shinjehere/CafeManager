@@ -278,6 +278,7 @@ function excel_down() {
 $(function() {
 	$('#boardTable tr th span').click(function() {
 		attr_value=$(this).attr('value');
+		$('#SortValue').remove();
 		if(attr_value=='1'){
 			var sort=document.createElement("input");
 			var data=$(this).attr('data-value');
@@ -290,7 +291,7 @@ $(function() {
 			var dataform=$('#searchForm').serialize();
 			console.log(dataform);
 			searchBoard();
-			$('#SortValue').remove();
+			/*$('#SortValue').remove();*/
 			var dataPlus=Number(data)+Number(6);
 			$(this).attr('value',2); 
 			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet');
@@ -307,7 +308,7 @@ $(function() {
 			var dataform=$('#searchForm').serialize();
 			console.log(dataform);
 			searchBoard();
-			$('#SortValue').remove();
+			/*$('#SortValue').remove();*/
 			var dataIns=Number(data)-Number(6);
 			$(this).attr('value',1);
 			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet-alt');

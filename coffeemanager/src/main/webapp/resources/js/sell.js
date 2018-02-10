@@ -394,6 +394,7 @@ function excel_down() {
 //오름차순 내림차순 수정
 $(function() {
 	$('#boardTable thead tr th span').click(function() {
+		$('#SortValue').remove();
 		attr_value=$(this).attr('value');
 		if(attr_value=='1'){
 			var sort=document.createElement("input");
@@ -407,7 +408,7 @@ $(function() {
 			var dataform=$('#searchForm').serialize();
 			console.log(dataform);
 			searchBoard();
-			$('#SortValue').remove();
+			/*$('#SortValue').remove();*/
 			var dataPlus=Number(data)+Number(6);
 			$(this).attr('value',2); 
 			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet');
@@ -424,7 +425,7 @@ $(function() {
 			var dataform=$('#searchForm').serialize();
 			console.log(dataform);
 			searchBoard();
-			$('#SortValue').remove();
+			/*$('#SortValue').remove();*/
 			var dataIns=Number(data)-Number(6);
 			$(this).attr('value',1);
 			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet-alt');
