@@ -129,33 +129,27 @@
 					<tr>
 						<th><input type="checkbox" id="allCheck" /></th>
 						<!-- 체크박스 -->
-						<th>판매코드</th>
-						<th>판매일자</th>
-						<th>메뉴코드</th>
-						<th>메뉴명</th>
-						<th>판매수량</th>
-						<th>판매가격</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="1" value="1"  style="cursor:pointer"></span>
+						판매코드</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="2" value="1"  style="cursor:pointer"></span>
+						판매일자</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="3" value="1"  style="cursor:pointer"></span>
+						메뉴코드</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="4" value="1"  style="cursor:pointer"></span>
+						메뉴명</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="5" value="1"  style="cursor:pointer"></span>
+						판매수량</th>
+						<th>
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="6" value="1"  style="cursor:pointer"></span>
+						판매가격</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
-				<%-- 	<c:forEach var="sl" items="${map.list }">
-						<tr>
-							<td><input type="checkbox" id="" /></td>
-							<td><a class="sell_CD" href="#"
-								onclick="javascript:toggle('${sl.sell_CD}')">${sl.sell_CD }</a></td>
-							<td><fmt:formatDate value="${sl.sell_Date }"
-									pattern="yyyy-MM-dd" /></td>
-							<td>${sl.menu_CD }</td>
-							<td>${sl.menu_Name }</td>
-							<td>${sl.sell_CNT }</td>
-							<td>${sl.total_SP }</td>
-						</tr>
-						<tr>
-							<td colspan="6" id="toggle_div${sl.sell_CD }"
-								style="display: none;"><div></div></td> 
-						</tr>
-					</c:forEach>--%>
 					<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 				</tbody>
 			</table>
@@ -163,19 +157,6 @@
 		</div>
 		<div class="text-center">
 			<ul class="pagination" id="pagination">
-				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
-			<%-- 	<c:if test="${map.paging.currentPage > 1 }">
-					<li><a href="javascript:paging('${map.paging.currentPage-1 }")">Prev</a></li>
-				</c:if>
-				<c:forEach begin="${map.paging.startPage }"
-					end="${map.paging.endPage }" varStatus="status">
-					<li><a href="javascript:paging('${status.count}')">${status.count}</a></li>
-				</c:forEach>
-				<c:if test="${map.paging.currentPage < map.paging.endPage}">
-					<li><a
-						href="javascript:paging('${map.paging.currentPage+1 }')">Next</a></li>
-				</c:if> --%>
-				<!-- 이부분은 ajax로 뿌려주기 때문에 별 의미가 없습니다. -->
 			</ul>
 
 		</div>
@@ -242,19 +223,19 @@
 											<span class="input-group-addon">
 											메뉴 명 : 
 											</span>
-											<span class="form-control" id="menu_click_name">메뉴이름</span>
+											<span class="form-control" id="menu_click_name" style="font-size: 1vw;">메뉴이름</span>
 											<span class="input-group-addon">
 											메뉴 코드 : 
 											</span>
-											<span class="form-control" id="menu_click_code">메뉴코드</span>
+											<span class="form-control" id="menu_click_code"  style="font-size: 1vw;">메뉴코드</span>
 											<span class="input-group-addon">
 											판매 가격 :
 											</span>
-											<span class="form-control" id="menu_click_SP"></span>
+											<span class="form-control" id="menu_click_SP"  style="font-size: 1vw;"></span>
 											<span class="input-group-addon">
 											수 량 : 
 											</span>
-											<input class="form-control" id="menuCount" type="number" min="0">
+											<input class="form-control" id="menuCount" type="number" min="0"  style="font-size: 1vw;">
 											<span class="input-group-btn">
 												<button type="reset" id="rest_x" onclick="javascript:reset();" class="btn btn-default">X</button>
 											</span>

@@ -72,18 +72,31 @@
 			</form>
 		
 	<div class="col-lg-12 col-xs-12 col-md-12">
-		<table class="table table-hover" id="boardTable">
+		<table class="table table-hover text-center" id="boardTable">
 			<thead>
 					<tr>
 						<th><input type="checkbox" id="allCheck" /></th>
 						<!-- 체크박스 -->
-						<th>원재료코드</th>
-						<th>원재료명</th>
-						<th>원재료단가</th>
-						<th>1단위별 용량</th>
-						<th>용량단위</th>
-						<th>원재료등록날짜</th>
-						<th>수정날짜</th>
+						<th  class="text-center">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="1" value="1"  style="cursor:pointer"></span>
+						원재료코드</th>
+						<th  class="text-center">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="2" value="1"  style="cursor:pointer"></span>
+						원재료명</th>
+						<th class="text-center">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="3" value="1"  style="cursor:pointer"></span>
+						원재료단가</th>
+						<th class="text-center">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="4" value="1" style="cursor:pointer"></span>
+						1단위별 용량</th>
+						<th class="text-center">
+						용량단위</th>
+						<th class="text-center">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="5" value="1" style="cursor:pointer"></span>
+						원재료등록날짜</th>
+						<th class="text-center">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt" data-value="6" value="1" style="cursor:pointer"></span>
+						수정날짜</th>
 					</tr>
 			</thead>
 			<tbody>

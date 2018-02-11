@@ -3,6 +3,17 @@
  */
 $(function() {
 	searchBoard();
+	
+	$(function(){
+		  $("#allCheck").click(function() { 
+				 /*      $("#work_div").val("doSearch"); */
+				      if ($("#allCheck").prop("checked")) {// 전체선택 체크박스가 체크되어있으면 
+				         $("input[type=checkbox]").prop("checked", true); // 모든 checkbox 체크 
+				      } else { // 전체선택 체크박스가 체크되어있지 않으면 
+				         $("input[type=checkbox]").prop("checked", false); // 모든 checkbox 체크해제
+				      }
+				   }); // --전체선택Btn closed
+		});
 });
 //엔터검색키
 function btnEnter() {
@@ -263,3 +274,47 @@ function excel_down() {
 	document.searchForm.submit(dataform);
 
 }
+// 오름 내림 차순으로 정렬하는 javascript
+$(function() {
+	$('#boardTable tr th span').click(function() {
+		attr_value=$(this).attr('value');
+		$('#SortValue').remove();
+		if(attr_value=='1'){
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			/*$('#SortValue').remove();*/
+			var dataPlus=Number(data)+Number(6);
+			$(this).attr('value',2); 
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet');
+			$(this).attr('data-value',dataPlus);
+		}else{
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			/*$('#SortValue').remove();*/
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('value',1);
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet-alt');
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('data-value',dataIns);
+		}
+	
+	});
+});

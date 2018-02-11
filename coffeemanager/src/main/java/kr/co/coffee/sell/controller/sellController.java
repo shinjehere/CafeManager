@@ -29,6 +29,7 @@ import kr.co.coffee.common.domain.Search;
 import kr.co.coffee.menu.domain.MenuVO;
 import kr.co.coffee.sell.domain.SellInsVO;
 import kr.co.coffee.sell.domain.SellListVO;
+import kr.co.coffee.sell.domain.SellOrderVO;
 import kr.co.coffee.sell.service.SellService;
 
 /**
@@ -77,9 +78,9 @@ public class sellController {
 	 * 주소창에 sell/sell이 나오지는 않음, 크롬 개발자도구를 통해 받는 것을 확인할 수 있음
 	 */
 	@RequestMapping(path="/sell", method=RequestMethod.GET)
-	public @ResponseBody Map<String, Object> sellList(Search search) throws Exception {
+	public @ResponseBody Map<String, Object> sellList(SellOrderVO search) throws Exception {
 		int totalcount=sellService.getTotalCount(search);
-		System.out.println("startdate:"+search.getStartDate()+"enddate"+search.getEndDate());
+		System.out.println("startdate:"+search.getStartDate()+"enddate"+search.getEndDate()+"serarchsdfkl"+search.getSortValue());
 		Paging paging=pagingUtil.getPaging(search, totalcount);
 		search.setStartCount(paging.getStartCount());
 		List<SellListVO> list=sellService.getSellList(search);

@@ -32,15 +32,9 @@ public class mainController {
 		List<SellListVO> mlist = mainService.selectMenuGraph();
 		List<MainVO> plist = mainService.selectSellGraph();
 		List<MainVO> dlist = mainService.selectDayGraph();
-		System.out.println(list.get(0).getIng_NM());
 		
-		for(int i=0; i<dlist.size(); i++) {
-			/*if(Integer.parseInt(dlist.get(i).getHour())>=12) {
-				dlist.get(i).setHour((Integer.parseInt(dlist.get(i).getHour())+12)+":00");
-			}else {
-				dlist.get(i).setHour(dlist.get(i).getHour()+":00");
-			}*/
-			dlist.get(i).setHour(dlist.get(i).getHour()+":00");
+		for(int i=0; i<dlist.size(); i++) {	
+			dlist.get(i).setHour((Integer.parseInt(dlist.get(i).getHour())+9)+":00");
 		}
 		
 		model.addAttribute("dlist", dlist);

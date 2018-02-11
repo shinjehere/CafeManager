@@ -201,9 +201,9 @@ public class MenuExcelDown {
        cell_5.setCellValue("등록일");
        cell_5.setCellStyle(titleStyle);
        
-       HSSFCell cell_6 = row.createCell((short)6+firstCol);
+      /* HSSFCell cell_6 = row.createCell((short)6+firstCol);
        cell_6.setCellValue("수정일");
-       cell_6.setCellStyle(titleStyle);
+       cell_6.setCellStyle(titleStyle);*/
        
        
        // ## Content Style Setting
@@ -300,14 +300,14 @@ public class MenuExcelDown {
            cell_5.setCellValue(menuVO.getMn_reg_dt());
            cell_5.setCellStyle(styleCenter);          
            
-           // 수정일
+         /*  // 수정일
            cell_6 = row.createCell((short)6+firstCol);
            cell_6.setCellValue(menuVO.getMn_mod_dt());
-           cell_6.setCellStyle(styleCenter);     
+           cell_6.setCellStyle(styleCenter);  */   
        }
         
        //컬럼사이즈
-       for(int i=0; i<8; i++){
+       for(int i=0; i<7; i++){
     	   if(i==0){
     		   sheet.setColumnWidth(0,700);
     	   }else{
