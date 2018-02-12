@@ -24,18 +24,18 @@
 -JDK 1.8, MYsql 6.3, tomcat 8.0, Spring framework 4.2.5
 
 ## 적용 라이브러리
--[fileupload] 1.3.1
--[swagger2] 2.7
--[mysql-connector-java] 6.0.6
--[mybatis-spring] 1.3.1
--[mybatis] 3.4.5
--[poi] 3.11
--[jackson-core], [jackson-annotations], [jackson-databind] 2.9.2
--[slf4j] 1.7.7
--[logback-core] 1.1.2
--[jquery] 3.2.1
--[bootstrap] 3.3.7-1
--[jstl] 1.2
+- [fileupload] 1.3.1
+- [swagger2] 2.7
+- [mysql-connector-java] 6.0.6
+- [mybatis-spring] 1.3.1
+- [mybatis] 3.4.5
+- [poi] 3.11
+- [jackson-core], [jackson-annotations], [jackson-databind] 2.9.2
+- [slf4j] 1.7.7
+- [logback-core] 1.1.2
+- [jquery] 3.2.1
+- [bootstrap] 3.3.7-1
+- [jstl] 1.2
 
 ## 배포 사이트
 <link>http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/<link>
