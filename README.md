@@ -37,8 +37,11 @@
 -[bootstrap] 3.3.7-1
 -[jstl] 1.2
 
+## 배포 사이트
+<link>http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/<link>
+
 ## 추후 추가 기능
 -로그인 기능
 -쿠폰 기능
 
-<link>http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/<link>
+
