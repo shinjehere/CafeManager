@@ -1,6 +1,8 @@
 # cafemanager2
 >cafemanager2는 카페 업무의 효율성을 높이고, 원재료와 판매, 매뉴 등을 쉽게 관리하게 위해 만들어진 웹애플리케이션입니다.
 
+aws 주소: http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/
+
 ## Team
 - 김영섭: Project Manager [판매관리 Front-end and Back-end / AWS RDS, AWS EC2 관리]
 - 김신제: [메뉴관리 Front-end and Back-end]
@@ -9,7 +11,7 @@
 - 편다혜: [메인화면 / 원재료 Front-end and Back-end] / 원거리로 인해 휴식 중
 
 ## 개발기간
-- 17.12.08 ~
+- 17.12.08 ~ 18.01.31
 ### 기간별사항
 - 17.12.08 ~ 17.12.17 요구사항 분석 / 역할 분담
 - 17.12.17 ~ 17.12.19 AWS EC2, AWS RDS 연결
