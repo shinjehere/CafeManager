@@ -18,10 +18,17 @@ AWS 주소: http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/
 - 17.12.19 ~ 역할별 실행
 
 ## 개발툴
--STS, GIT, GITHUB, MySQL WORKBENCH 6.3 EC
+- STS 
+- GIT 
+- GITHUB 
+- MySQL 
+- WORKBENCH 6.3 EC
 
 ## 개발환경
--JDK 1.8, MYsql 6.3, tomcat 8.0, Spring framework 4.2.5
+- JDK 1.8 
+- MySQL 6.3 
+- tomcat 8.0 
+- Spring framework 4.2.5
 
 ## 적용 라이브러리
 - [fileupload] 1.3.1
