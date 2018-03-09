@@ -1,7 +1,7 @@
 # CafeManager
 >CafeManager는 카페 업무의 효율성을 높이고 원재료, 판매, 메뉴 등을 쉽게 관리하게 위해 만들어진 웹애플리케이션입니다.
 
-AWS 주소: http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/
+AWS 주소: http://ec2-52-78-66-208.ap-northeast-2.compute.amazonaws.com:8080/coffee/
 
 ## Team
 - 김영섭: Project Manager [판매관리 Front-end and Back-end / AWS RDS, AWS EC2 관리]
