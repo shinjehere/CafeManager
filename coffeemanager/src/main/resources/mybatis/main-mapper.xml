@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.coffee.mapper.CommonMapper">
+     <select id="selectStockGraph"  resultType="kr.co.coffee.stock.domain.StockList">        
+     		SELECT
+     			ST.STOCK_CNT,
+     			ING.ING_NM
+     		FROM 
+     			STOCK AS ST
+     		JOIN
+     		 	INGREDIENT AS ING
+     		ON
+     			ING.ING_CD = ST.ING_CD
+     		
+     </select>
+     
+     <select id="selectMenuGraph"  resultType="kr.co.coffee.sell.domain.SellListVO">        
+     	SELECT 
+     		s.MENU_CD, SUM(s.SELL_CNT) AS sell_CNT, m.MENU_NAME
+		FROM 
+			SELL s LEFT JOIN MENU m
+		ON 
+			s.MENU_CD=m.MENU_CD
+		GROUP BY
+			 MENU_CD;	
+     </select>
+     
+       <select id="selectSellGraph"  resultType="kr.co.coffee.main.domain.MainVO">        
+     	SELECT 
+     		DATE_FORMAT(SELL_DATE, '%Y-%m') AS sell_Date, SUM(s.SELL_CNT*m.MENU_SP) AS total_SP
+ 	     FROM 
+ 	     	SELL s LEFT JOIN MENU m
+ 	     ON 
+ 	      	s.MENU_CD=m.MENU_CD
+		 GROUP BY 
+		 	DATE_FORMAT(SELL_DATE, '%Y-%m');
+     </select>
+     
+      <select id="selectDayGraph"  resultType="kr.co.coffee.main.domain.MainVO">        
+     	SELECT HOUR(SELL_DATE) AS hour, SUM(s.SELL_CNT*m.MENU_SP) AS total_SP, m.MENU_NAME, s.SELL_CNT as sell_CNT
+		FROM 
+			SELL s LEFT JOIN MENU m
+		ON 
+			s.MENU_CD=m.MENU_CD
+		WHERE SELL_date > (NOW() - INTERVAL 2 DAY)
+		GROUP BY hour(SELL_DATE)
+		ORDER BY SELL_DATE DESC;
+     </select>
+</mapper>

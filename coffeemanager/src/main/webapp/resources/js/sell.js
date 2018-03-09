@@ -74,7 +74,60 @@
 		});
 	}
 	 function searchBoard(){
-		 var dataform=$('#searchForm').serialize();
+	
+		 var startdate=$('#startDate').val();
+		 var enddate=$('#endDate').val();
+		 var stdate=new Date(startdate);
+		 stdate.setDate(stdate.getDate()+1);
+			var year=stdate.getFullYear().toString();
+			var month= stdate.getMonth() + 1;
+			var day= stdate.getDate();
+			if(month<10){
+				month="0"+month;
+			}
+			if(day<10){
+				day="0"+day;
+			}
+			var Str_plus=year+"-"+month+"-"+day;
+		 console.log("startdate:"+startdate+",enddate:"+enddate+",stdate:"+Str_plus);
+		 if(startdate > enddate){
+			 alert("시작일자가 종료일자보다 클 수 없습니다.")
+			 $("#endDate").val(Str_plus);
+			 $("#endDate").text(Str_plus);
+			 var dataform=$('#searchForm').serialize();
+				$.ajax({
+					url : "sell/sell",
+					data:dataform,
+					type: "GET",
+				 	 dataType: "JSON", // 일단 지워봄 
+					//async:false, //일단 넣어봄
+				 	contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					success : function(data) {
+						console.log(JSON.stringify(data.list));
+					 var strs = "";
+						if(data.list.length>0){
+							var dataTable = $("#boardTable tbody");
+							$("#boardTable tbody tr").remove();
+							
+							for(var i=0; i<data.list.length; i++){
+								strs += trMake(data.list[i]);
+							}
+							$(dataTable).append(strs);
+						}else{
+							var dataTable = $("#boardTable tbody");
+							$("#boardTable tbody tr").remove();
+							strs += "<tr><td colspan='7'>데이터가 없습니다.</td></tr>";
+							$(dataTable).append(strs);
+						}
+						makePaging(data.paging);
+					 
+					}, error:function(request,status,error){
+					    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					   }
+			
+			});
+		 }else{
+			 var dataform=$('#searchForm').serialize();
 			$.ajax({
 					url : "sell/sell",
 					data:dataform,
@@ -106,7 +159,7 @@
 					   }
 			
 			});
-			
+		 }
 				
 		
 	}
@@ -127,7 +180,7 @@
 				str += '<td>'+data.sell_CNT+'</td>';
 				str += '<td>'+data.total_SP+'</td>';
 				str += '</tr>';
-				str += '<tr><td colspan="6" id="toggle_div'+data.sell_CD+'" style="display: none;"><div></div></td></tr>';
+				str += '<tr><td colspan="7" id="toggle_div'+data.sell_CD+'" style="display: none;"><div></div></td></tr>';
 			return str;	
 		}
 	function makePaging(paging){
@@ -329,4 +382,55 @@ $(function() {
 			return false;
 		
 	}); 
+});
+
+function excel_down() {
+		var dataform=$('#searchForm').serialize();
+		document.searchForm.action="sell/sell_excel_down";
+		document.searchForm.method="POST";
+		document.searchForm.submit(dataform);
+	
+}
+//오름차순 내림차순 수정
+$(function() {
+	$('#boardTable thead tr th span').click(function() {
+		$('#SortValue').remove();
+		attr_value=$(this).attr('value');
+		if(attr_value=='1'){
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			/*$('#SortValue').remove();*/
+			var dataPlus=Number(data)+Number(6);
+			$(this).attr('value',2); 
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet');
+			$(this).attr('data-value',dataPlus);
+		}else{
+			var sort=document.createElement("input");
+			var data=$(this).attr('data-value');
+			sort.setAttribute("type","hidden");
+			sort.setAttribute("id","SortValue");
+			sort.setAttribute("name","SortValue");
+			sort.setAttribute("value",data);
+			document.searchForm.appendChild(sort);
+			$('#currentPage').val('1');
+			var dataform=$('#searchForm').serialize();
+			console.log(dataform);
+			searchBoard();
+			/*$('#SortValue').remove();*/
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('value',1);
+			$(this).attr('class','glyphicon glyphicon-sort-by-alphabet-alt');
+			var dataIns=Number(data)-Number(6);
+			$(this).attr('data-value',dataIns);
+		}
+	});
 });
