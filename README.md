@@ -1,5 +1,7 @@
-# cafemanager2
->cafemanager2는 카페 업무의 효율성을 높이고, 원재료와 판매, 매뉴 등을 쉽게 관리하게 위해 만들어진 웹애플리케이션입니다.
+# CafeManager
+>CafeManager는 카페 업무의 효율성을 높이고 원재료, 판매, 메뉴 등을 쉽게 관리하게 위해 만들어진 웹애플리케이션입니다.
+
+AWS 주소: http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/
 
 ## Team
 - 김영섭: Project Manager [판매관리 Front-end and Back-end / AWS RDS, AWS EC2 관리]
@@ -9,19 +11,24 @@
 - 편다혜: [메인화면 / 원재료 Front-end and Back-end] / 원거리로 인해 휴식 중
 
 ## 개발기간
-- 17.12.08 ~
+- 17.12.08 ~ 18.01.31
 ### 기간별사항
 - 17.12.08 ~ 17.12.17 요구사항 분석 / 역할 분담
 - 17.12.17 ~ 17.12.19 AWS EC2, AWS RDS 연결
-- 17.12.19 ~ 18.02.09 판매관리 / 원재료관리 / 재고관리 완료 / 메뉴관리 완료
-- 18.02.09 ~ 18 ~ 메뉴 테이블과 레시피 테이블을 연결하여 신규등록 가능 하도록 수정 중
-- 18.02.09 ~ 18.02.10 AWS EC2 웹서버 배포
+- 17.12.19 ~ 역할별 실행
 
 ## 개발툴
--STS, GIT, GITHUB, MySQL WORKBENCH 6.3 EC
+- STS 
+- GIT 
+- GITHUB 
+- MySQL 
+- WORKBENCH 6.3 EC
 
 ## 개발환경
--JDK 1.8, MYsql 6.3, tomcat 8.0, Spring framework 4.2.5
+- JDK 1.8 
+- MySQL 6.3 
+- tomcat 8.0 
+- Spring framework 4.2.5
 
 ## 적용 라이브러리
 - [fileupload] 1.3.1
@@ -37,12 +44,6 @@
 - [bootstrap] 3.3.7-1
 - [jstl] 1.2
 
-## 배포 사이트
-<link>http://ec2-13-124-254-182.ap-northeast-2.compute.amazonaws.com:8080/coffee/<link>
-
 ## 추후 추가 기능
-- 로그인 기능 /  간편로그인 [네이버, 구글]
+- 로그인 기능
 - 쿠폰 기능
-- 호스팅 
-- 자유게시판 만들기
-
