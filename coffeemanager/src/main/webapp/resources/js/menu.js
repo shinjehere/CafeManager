@@ -1,39 +1,5 @@
-/*$(function(){
-	searchSort();
-});
-
-// 메뉴 리스트 정렬
-function searchSort(){
-	var searchSort = $("#search_sort option:selected").val();
-	alert(menuSort)
-	self.location = "../coffee/menu${pageMaker.makeQuery(1)}&searchSort="+searchSort;
-}*/
-
-/*// 가격 numberFormat
-function setComma (number) {
-    // 정규표현식 : (+- 존재하거나 존재 안함, 숫자가 1개 이상), (숫자가 3개씩 반복)
-    var reg = /(^[+-]?\d+)(\d{3})/;
-
-    // 스트링변환
-    number += '';
-    while (reg.test(number)) {
-        // replace 정규표현식으로 3자리씩 콤마 처리
-        number = number.replace(reg,'$1'+','+'$2');
-    }
-
-    return number;
-}*/
-$(function(){
-	function setComma(){
-		$(".digits").toLocaleString('en');
-	}
-});
-
-
-
-
 //==============================================================
-// 메뉴등록 모달창
+// 메뉴등록 모달창 start
 //==============================================================
 
 var count = 1; //function add_ingredient(): 원재료 추가를 위한 전역변수
@@ -61,7 +27,7 @@ function new_menu() {
 // 메뉴등록>원재료 검색
 function searchIngredient() {
 	var searchIngredientName = $('#searchIngdnt').val();
-	console.log(searchIngredientName);
+
 	$.ajax({
 		url : "menu/searchIngdnt",
 		data : {
@@ -71,7 +37,6 @@ function searchIngredient() {
 		dataType : "JSON",
 		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 		success : function(data) {
-			console.log(data);
 
 			$('#menu_table tbody').html(function() {
 				str = "";
@@ -237,56 +202,10 @@ function saveMenu(){
 			success: function(data){
 				location.href=data.url;
 				menuBoard();
-				console.log("data.url = "+data.url);
 			}
 		});
-		console.log("menuName= "+menuName);
-		console.log("sellPrice= "+sellPrice);
-		console.log("calMenuClick= "+calMenuClick);
-		console.log("ingCodeArray= "+ingCodeArray);
-		console.log("menuAmountArray= "+menuAmountArray);
 	}
 }
-
-
-/*// 레시피 테이블 인서트
-function saveRecipie(){
-
-	var ingCodeArray = new Array(); 
-	for(var i = 0; i<count; i++){
-		ingCodeArray.push($("#added_"+i).find('[title="ing_click_code"]').text());
-	}
-
-	var menuAmountArray = new Array(); 
-	for(var i = 0; i<count; i++){
-		menuAmountArray.push($("#added_"+i).find('input[name="menuUnitAmount"]').val());
-	}
-
-		$.ajax({
-			url: 'menu/insertMenu',
-			data: {
-				"ingCodeArray": ingCodeArray,
-				"menuAmountArray": menuAmountArray
-			},
-			type: 'POST',
-			dataType: 'JSON',
-			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-			success: function(data){
-				location.href=data.url;
-				menuBoard();
-				console.log("data.url = "+data.url);
-			}
-		});
-}*/
-
-
-
-
-
-
-
-
-
 
 // 메뉴명 중복확인
 function checkMenuName() {
@@ -325,13 +244,14 @@ function checkMenuName() {
 
 } // checkMenuName closed
 
-
+//==============================================================
+//메뉴등록 모달창 end
+//==============================================================
 
 
 //==============================================================
-// 메뉴 리스트 조회
+// 메뉴 리스트 조회 start
 //==============================================================
-
 
 // 삭제 버튼
 $(function() {
@@ -344,8 +264,6 @@ $(function() {
 					checkArray += separator + $(this).attr("value");
 					separator = ",";
 				});
-
-				console.log("checkArray = " + checkArray);
 
 				if (checkArray.length == 0) {
 					alert("삭제할 메뉴를 선택해주세요.");
@@ -385,27 +303,13 @@ function do_excelDown() {
 	excelFrm.submit();
 }
 
-/*function excel_down() {
-	var dataform=$('#searchForm').serialize();
-	document.searchForm.action="menu/menu_excel_down";
-	document.searchForm.method="POST";
-	document.searchForm.submit(dataform);
-}*/
-
 // 검색 버튼 및 엔터시 실행된다.
 function btnEnter() {
 	$('#currentPage').val('1');
 	menuBoard();
 }
 
-// =========================================================
-// For Paging
-// =========================================================
-/*
- * $(function() { menuBoard(); $("#searchBtn").click(function() {
- * $('#currentPage').val('1'); menuBoard(); }); });
- */
-
+// 메뉴 리스트 불러오기
 $(function() {
 	menuBoard(); // 실행시 ajax list 불러오기 실행
 	$("#searchBtn").click(function() {// 검색 찾기버튼
@@ -428,6 +332,8 @@ $(function() {
 	});// --전체선택 체크박스 closed
 });
 
+
+// Paging
 function makePaging(paging) {
 
 	var currentPage = $("#currentPage").val();
@@ -455,23 +361,12 @@ function makePaging(paging) {
 
 }
 
+// Pagination 클릭시 이동
 function clickPaging(currentPage) {
 	$("#currentPage").val(currentPage);
 	$("#pagination li").removeClass("active");
 	menuBoard();
 }
-
-// =========================================================
-// For Paging closed
-// =========================================================
-
-
-/*// 수정일 null 일 때 문자 치환
-function changeNull(){
-	if( $('td[name=mn_mod_dt]') == null || "" || "null" ){
-		$('td[name=mn_mod_dt]').text("-");
-	}
-}*/
 
 
 // do_search 검색조회
@@ -511,7 +406,6 @@ function menuBoard() {
 				if (data.list.length > 0) {
 
 					$("#menu_list_table tbody tr").remove();
-					console.log("data size= " + data.list.length);
 					for (var i = 0; i < data.list.length; i++) {
 						datahtml += makeData(data.list[i]);
 					}
@@ -529,7 +423,6 @@ function menuBoard() {
 
 				// 페이징
 				makePaging(data.paging);
-				//changeNull();
 			},
 			error : function(xhr, status, error) {
 
@@ -551,7 +444,6 @@ function menuBoard() {
 				if (data.list.length > 0) {
 
 					$("#menu_list_table tbody tr").remove();
-					console.log("data size= " + data.list.length);
 					for (var i = 0; i < data.list.length; i++) {
 						datahtml += makeData(data.list[i]);
 					}
@@ -569,7 +461,6 @@ function menuBoard() {
 
 				// 페이징
 				makePaging(data.paging);
-				//changeNull();
 			},
 			error : function(xhr, status, error) {
 
@@ -589,7 +480,6 @@ function makeData(data) {
 	datahtml += "<td>" + data.menu_up + "</td>";
 	datahtml += "<td>" + data.menu_sp + "</td>";
 	datahtml += "<td>" + data.mn_reg_dt + "</td>";
-	//datahtml += "<td name='mn_mod_dt'>" + data.mn_mod_dt + "</td>";
 	datahtml += "</tr>";
 	datahtml += "<tr><td colspan='6' id='toggle_div" + data.menu_cd
 			+ "' style='display: none;'><div></div></td></tr>";

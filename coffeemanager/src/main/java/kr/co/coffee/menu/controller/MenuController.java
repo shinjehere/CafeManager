@@ -57,7 +57,7 @@ public class MenuController {
 	public @ResponseBody ModelAndView menuBoard() throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
-		mav.addObject("content", "items/menu.jsp");
+		mav.addObject("content", "menu/menu.jsp");
 
 		return mav;
 	}
@@ -75,15 +75,9 @@ public class MenuController {
 		menuVO.setMenu_name(menu_name);
 		menuVO.setMenu_sp(menu_sp);
 		menuVO.setMenu_up(menu_up);
-
-		System.out.println("menu_name값이 넘어갑니까: "+menu_name);
-		System.out.println("ingCodeArray값이 넘어갑니까: "+req.getParameter("ingCodeArray"));
 		
-		String[] ingCodeArray = (req.getParameter("ingCodeArray").replaceAll("\"", "").replace("[", "").replace("]", "")).split(",");
-		System.out.println("ingCodeArray:  "+ingCodeArray[0].toString());
-		
+		String[] ingCodeArray = (req.getParameter("ingCodeArray").replaceAll("\"", "").replace("[", "").replace("]", "")).split(",");	
 		String[] menuAmountArray = (req.getParameter("menuAmountArray").replaceAll("\"", "").replace("[", "").replace("]", "")).split(",");
-		System.out.println("menuAmountArray:  "+menuAmountArray[0].toString());
 		
 		Date today = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -91,8 +85,6 @@ public class MenuController {
 
 		String menu_cd = "MN" + todayString;
 		String getCode = menuSvc.searchMenuCode(menu_cd);
-
-		System.out.println("getCode = "+getCode);
 		
 		if( getCode == null || getCode == "") {
 			menu_cd += "001";
@@ -103,10 +95,7 @@ public class MenuController {
 			for (int i = 0; i < ingCodeArray.length; i++) {
 
 				menuVO.setIng_cd(ingCodeArray[i]);
-				System.out.println("ingCodeArray[i]= "+ingCodeArray[i]);
-
 				menuVO.setMenu_amount(menuAmountArray[i]);
-				System.out.println("menuAmountArray[i]= "+menuAmountArray[i]);
 				menuSvc.insertRecipie(menuVO);
 			}
 		}else {
@@ -119,17 +108,12 @@ public class MenuController {
 			menu_cd += backCode;
 			menuVO.setMenu_cd(menu_cd.trim());
 			menuSvc.insertMenu(menuVO);
-			
-			System.out.println("backCode= "+backCode);
-			
+	
 			// RECIPIE 테이블 인서트
 			for (int i = 0; i < ingCodeArray.length; i++) {
 		
-				menuVO.setIng_cd(ingCodeArray[i]);
-				System.out.println("ingCodeArray[i]= "+ingCodeArray[i]);
-				
+				menuVO.setIng_cd(ingCodeArray[i]);				
 				menuVO.setMenu_amount(menuAmountArray[i]);
-				System.out.println("menuAmountArray[i]= "+menuAmountArray[i]);
 				menuSvc.insertRecipie(menuVO);
 			}
 		}
@@ -154,14 +138,12 @@ public class MenuController {
 		String menu_up = StringUtil.nvl(req.getParameter("menu_up"), "");
 		String menu_sp = StringUtil.nvl(req.getParameter("menu_sp"), "");
 		String mn_reg_dt = StringUtil.nvl(req.getParameter("mn_reg_dt"), "");
-		//String mn_mod_dt = StringUtil.nvl(req.getParameter("mn_mod_dt"), "");
 
 		searchParam.put("menu_cd".toString(), menu_cd);
 		searchParam.put("menu_name".toString(), menu_name);
 		searchParam.put("menu_up".toString(), menu_up);
 		searchParam.put("menu_sp".toString(), menu_sp);
 		searchParam.put("mn_reg_dt".toString(), mn_reg_dt);
-		//searchParam.put("mn_mod_dt".toString(), mn_mod_dt);
 
 		menuVO.setParam(searchParam);
 
@@ -188,38 +170,6 @@ public class MenuController {
 		
 		return map;
 	}
-	
-	
-	/*// 메뉴 리스트 조회
-	@RequestMapping(path = "/menu", method = RequestMethod.GET)
-	public @ResponseBody String menuList(Search search, Model model) throws Exception, NumberFormatException {
-		
-		int totalCount = menuSvc.menuTotalCount(search);
-		Paging paging = pagingUtil.getPaging(search, totalCount);
-		search.setStartCount(paging.getStartCount());
-		
-		List<MenuVO> list = menuSvc.do_searchAll(search);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("paging", paging);
-		
-		//가격 세자리마다 , 처리
-		NumberFormat nf = NumberFormat.getInstance();
-		nf.setMinimumIntegerDigits(0);
-		//최대 자리수
-		nf.setMaximumIntegerDigits(10);		
-		
-		model.addAttribute("menuList", list);
-		model.addAttribute("paging", paging);
-		model.addAttribute("content", "items/menu.jsp");
-		
-		return "main";
-	}
-	*/
-	
-	
-	
-	
 	
 
 	// 메뉴 정보 불러오기

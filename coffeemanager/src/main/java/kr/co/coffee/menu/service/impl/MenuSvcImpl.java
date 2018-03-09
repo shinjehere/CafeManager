@@ -68,7 +68,7 @@ public class MenuSvcImpl implements MenuSvc {
 	@Override
 	public String do_excelDown(List<MenuVO> list) throws Exception {
 		
-		String path = "C:\\file\\excel\\";
+		String path = "C:\\CafeManager\\excel\\";
 		MenuExcelDown menuExcelDown = new MenuExcelDown();
 		String fileName = menuExcelDown.writeExcel(path, "MenuList.xls", list);
 

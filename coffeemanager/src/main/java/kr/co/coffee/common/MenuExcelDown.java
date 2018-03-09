@@ -177,35 +177,30 @@ public class MenuExcelDown {
        // @row.createCell((short)n) : n번째 셀 설정
        // @setCellValue(String) : n 번째 셀의 내용
        // @setCellStyle(style) : n 번째 셀의 스타일
-       HSSFCell cell_0 = row.createCell((short)0+firstCol);
+       /*HSSFCell cell_0 = row.createCell((short)0+firstCol);
        cell_0.setCellValue("No.");
+       cell_0.setCellStyle(titleStyle);*/
+        
+       HSSFCell cell_0 = row.createCell((short)0+firstCol);
+       cell_0.setCellValue("메뉴 코드");
        cell_0.setCellStyle(titleStyle);
         
        HSSFCell cell_1 = row.createCell((short)1+firstCol);
-       cell_1.setCellValue("메뉴 코드");
+       cell_1.setCellValue("메뉴 이름");
        cell_1.setCellStyle(titleStyle);
         
        HSSFCell cell_2 = row.createCell((short)2+firstCol);
-       cell_2.setCellValue("메뉴 이름");
+       cell_2.setCellValue("메뉴 단가");
        cell_2.setCellStyle(titleStyle);
-        
-       HSSFCell cell_3 = row.createCell((short)3+firstCol);
-       cell_3.setCellValue("메뉴 단가");
-       cell_3.setCellStyle(titleStyle);
 
+       HSSFCell cell_3 = row.createCell((short)3+firstCol);
+       cell_3.setCellValue("메뉴 판매가");
+       cell_3.setCellStyle(titleStyle);
+       
        HSSFCell cell_4 = row.createCell((short)4+firstCol);
-       cell_4.setCellValue("메뉴 판매가");
+       cell_4.setCellValue("등록일");
        cell_4.setCellStyle(titleStyle);
-       
-       HSSFCell cell_5 = row.createCell((short)5+firstCol);
-       cell_5.setCellValue("등록일");
-       cell_5.setCellStyle(titleStyle);
-       
-      /* HSSFCell cell_6 = row.createCell((short)6+firstCol);
-       cell_6.setCellValue("수정일");
-       cell_6.setCellStyle(titleStyle);*/
-       
-       
+
        // ## Content Style Setting
        HSSFCellStyle contentStyle = workbook.createCellStyle();
        contentStyle.setFont(font);
@@ -268,55 +263,44 @@ public class MenuExcelDown {
            // 1번째 행은 제목이니 건너 뜀
            row = sheet.createRow((short)this.firstRow+(i+1));
            MenuVO menuVO = (MenuVO)data.get(i);
-           
-           // 번호
-           cell_0 = row.createCell((short)0+firstCol);
-           cell_0.setCellValue(menuVO.getNo());
-           cell_0.setCellStyle(styleCenter);      
-           
+            
            // 메뉴 코드
-           cell_1 = row.createCell((short)1+firstCol);
-           cell_1.setCellValue(menuVO.getMenu_cd());
-           cell_1.setCellStyle(styleCenter);
+           cell_0 = row.createCell((short)0+firstCol);
+           cell_0.setCellValue(menuVO.getMenu_cd());
+           cell_0.setCellStyle(styleCenter);
            
            // 메뉴 이름 
-           cell_2 = row.createCell((short)2+firstCol);
-           cell_2.setCellValue(menuVO.getMenu_name());
-           cell_2.setCellStyle(styleLeft);
+           cell_1 = row.createCell((short)1+firstCol);
+           cell_1.setCellValue(menuVO.getMenu_name());
+           cell_1.setCellStyle(styleLeft);
            
            // 메뉴 단가 
-           cell_3 = row.createCell((short)3+firstCol);
-           cell_3.setCellValue(menuVO.getMenu_up());
-           cell_3.setCellStyle(styleRight);
+           cell_2 = row.createCell((short)2+firstCol);
+           cell_2.setCellValue(menuVO.getMenu_up());
+           cell_2.setCellStyle(styleRight);
            
            // 메뉴 판매가
-           cell_4 = row.createCell((short)4+firstCol);
-           cell_4.setCellValue(menuVO.getMenu_sp());
-           cell_4.setCellStyle(conStyle);
-           //sheet.setColumnWidth(cell_4.getColumnIndex(), 8400);
+           cell_3 = row.createCell((short)3+firstCol);
+           cell_3.setCellValue(menuVO.getMenu_sp());
+           cell_3.setCellStyle(styleRight);
            
            // 등록일
-           cell_5 = row.createCell((short)5+firstCol);
-           cell_5.setCellValue(menuVO.getMn_reg_dt());
-           cell_5.setCellStyle(styleCenter);          
+           cell_4 = row.createCell((short)4+firstCol);
+           cell_4.setCellValue(menuVO.getMn_reg_dt());
+           cell_4.setCellStyle(styleCenter);          
            
-         /*  // 수정일
-           cell_6 = row.createCell((short)6+firstCol);
-           cell_6.setCellValue(menuVO.getMn_mod_dt());
-           cell_6.setCellStyle(styleCenter);  */   
        }
         
        //컬럼사이즈
-       for(int i=0; i<7; i++){
+       for(int i=0; i<5; i++){
     	   if(i==0){
     		   sheet.setColumnWidth(0,700);
     	   }else{
     		   sheet.autoSizeColumn((short)i);
-    		   sheet.setColumnWidth(i, (sheet.getColumnWidth(i))+512 );  // 윗줄만으로는 컬럼의 width 가 부족하여 더 늘려야 함.
+    		   sheet.setColumnWidth(i, (sheet.getColumnWidth(i))+512 ); 
     	   }
        }
        
-       // sheet.setColumnWidth(cell_4.getColumnIndex(), 12000);
        
        
        return workbook;
