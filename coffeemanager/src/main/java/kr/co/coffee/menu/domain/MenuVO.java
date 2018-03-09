@@ -8,7 +8,6 @@ public class MenuVO extends DTO {
 	private String menu_up;
 	private String menu_sp;
 	private String mn_reg_dt;
-	//private String mn_mod_dt;
 	private String ing_cd;
 	private String ing_nm;
 	private String menu_amount;
